@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>InferReach — Data Engineering for Startups</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #0a0a0f;
+    --ink2: #3a3a4a;
+    --ink3: #7a7a8a;
+    --paper: #f7f6f2;
+    --white: #ffffff;
+    --accent: #1a1aff;
+    --accent2: #00d4aa;
+    --line: rgba(10,10,15,0.1);
+    --font-head: 'Syne', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.25rem 4rem;
+    background: rgba(247,246,242,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .logo {
+    font-family: var(--font-head);
+    font-weight: 800;
+    font-size: 1.25rem;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .logo span { color: var(--accent); }
+  nav ul { list-style: none; display: flex; gap: 2.5rem; }
+  nav ul a {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--ink2);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  nav ul a:hover { color: var(--accent); }
+  .nav-cta {
+    background: var(--ink);
+    color: var(--white) !important;
+    padding: 0.5rem 1.25rem;
+    border-radius: 4px;
+    font-weight: 500 !important;
+    transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--accent) !important; color: var(--white) !important; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 8rem 4rem 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(10,10,15,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(10,10,15,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black 30%, transparent 100%);
+  }
+  .hero-accent {
+    position: absolute;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(26,26,255,0.06) 0%, transparent 70%);
+    right: -100px; top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+  .hero-content { max-width: 780px; position: relative; z-index: 1; }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid rgba(26,26,255,0.25);
+    padding: 0.35rem 0.85rem;
+    border-radius: 2px;
+    margin-bottom: 2rem;
+    animation: fadeUp 0.6s ease both;
+  }
+  .hero-tag::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--accent2);
+    border-radius: 50%;
+    animation: pulse 2s ease infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.3)} }
+
+  h1 {
+    font-family: var(--font-head);
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    font-weight: 800;
+    line-height: 1.0;
+    letter-spacing: -0.04em;
+    color: var(--ink);
+    margin-bottom: 1.75rem;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+  h1 em {
+    font-style: normal;
+    color: var(--accent);
+    position: relative;
+  }
+  h1 em::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: 4px; right: 0;
+    height: 3px;
+    background: var(--accent2);
+    border-radius: 2px;
+  }
+
+  .hero-sub {
+    font-size: 1.2rem;
+    font-weight: 300;
+    color: var(--ink2);
+    max-width: 560px;
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+
+  .hero-actions {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+  .btn-primary {
+    background: var(--ink);
+    color: var(--white);
+    padding: 0.875rem 2rem;
+    border-radius: 4px;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--accent); transform: translateY(-1px); }
+  .btn-secondary {
+    border: 1.5px solid var(--ink);
+    color: var(--ink);
+    padding: 0.875rem 2rem;
+    border-radius: 4px;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s, transform 0.15s;
+    display: inline-block;
+  }
+  .btn-secondary:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+
+  .hero-stats {
+    display: flex; gap: 3rem; margin-top: 4rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--line);
+    animation: fadeUp 0.6s 0.4s ease both;
+  }
+  .stat-num {
+    font-family: var(--font-head);
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--ink);
+    letter-spacing: -0.04em;
+  }
+  .stat-num span { color: var(--accent); }
+  .stat-label { font-size: 0.8rem; color: var(--ink3); font-weight: 400; margin-top: 0.1rem; }
+
+  @keyframes fadeUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:none; } }
+
+  /* SECTIONS */
+  section { padding: 6rem 4rem; }
+  .section-tag {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+  h2 {
+    font-family: var(--font-head);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    color: var(--ink);
+    margin-bottom: 1rem;
+  }
+  .section-sub {
+    font-size: 1.05rem;
+    color: var(--ink2);
+    font-weight: 300;
+    max-width: 500px;
+    line-height: 1.7;
+    margin-bottom: 3.5rem;
+  }
+
+  /* PROBLEMS */
+  .problems { background: var(--ink); color: var(--white); }
+  .problems .section-tag { color: var(--accent2); }
+  .problems h2 { color: var(--white); }
+  .problems .section-sub { color: rgba(255,255,255,0.55); }
+  .problems-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .problem-item {
+    padding: 2.5rem 2rem;
+    background: var(--ink);
+    transition: background 0.2s;
+  }
+  .problem-item:hover { background: #14141f; }
+  .problem-num {
+    font-family: var(--font-head);
+    font-size: 3rem;
+    font-weight: 800;
+    color: rgba(255,255,255,0.08);
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+  .problem-title {
+    font-family: var(--font-head);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+  }
+  .problem-desc { font-size: 0.875rem; color: rgba(255,255,255,0.45); line-height: 1.65; }
+
+  /* SERVICES */
+  .services { background: var(--white); }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+  .service-card {
+    border: 1.5px solid var(--line);
+    border-radius: 8px;
+    padding: 2.25rem;
+    background: var(--white);
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    cursor: default;
+  }
+  .service-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(26,26,255,0.08);
+  }
+  .service-card.featured {
+    border-color: var(--accent);
+    background: #f5f5ff;
+  }
+  .service-card.featured::before {
+    content: 'Most Popular';
+    position: absolute; top: 1.25rem; right: 1.25rem;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: rgba(26,26,255,0.1);
+    padding: 0.25rem 0.65rem;
+    border-radius: 2px;
+  }
+  .service-icon {
+    width: 44px; height: 44px;
+    background: var(--ink);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+  }
+  .service-card.featured .service-icon { background: var(--accent); }
+  .service-name {
+    font-family: var(--font-head);
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.4rem;
+    color: var(--ink);
+  }
+  .service-price {
+    font-family: var(--font-head);
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    color: var(--ink);
+    margin: 1rem 0;
+  }
+  .service-price span { font-size: 1rem; font-weight: 400; color: var(--ink3); }
+  .service-desc { font-size: 0.875rem; color: var(--ink2); line-height: 1.65; margin-bottom: 1.5rem; }
+  .service-features { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+  .service-features li {
+    font-size: 0.85rem;
+    color: var(--ink2);
+    display: flex; align-items: flex-start; gap: 0.6rem;
+  }
+  .service-features li::before {
+    content: '→';
+    color: var(--accent2);
+    font-weight: 600;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* HOW IT WORKS */
+  .how { background: var(--paper); }
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 0;
+    position: relative;
+  }
+  .steps::after {
+    content: '';
+    position: absolute;
+    top: 28px; left: 60px; right: 60px;
+    height: 1px;
+    background: repeating-linear-gradient(90deg, var(--ink) 0, var(--ink) 6px, transparent 6px, transparent 14px);
+    opacity: 0.15;
+  }
+  .step { padding: 0 2rem 2rem 0; position: relative; z-index: 1; }
+  .step-num {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: var(--white);
+    border: 1.5px solid var(--line);
+    font-family: var(--font-head);
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--ink);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.5rem;
+  }
+  .step:nth-child(1) .step-num { background: var(--ink); color: var(--white); border-color: var(--ink); }
+  .step-title {
+    font-family: var(--font-head);
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--ink);
+  }
+  .step-desc { font-size: 0.85rem; color: var(--ink2); line-height: 1.65; }
+
+  /* STACK */
+  .stack { background: var(--white); }
+  .tools-grid {
+    display: flex; flex-wrap: wrap; gap: 0.75rem;
+    margin-top: 2rem;
+  }
+  .tool-pill {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--ink2);
+    border: 1px solid var(--line);
+    padding: 0.4rem 1rem;
+    border-radius: 100px;
+    background: var(--paper);
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .tool-pill:hover { border-color: var(--accent); color: var(--accent); }
+  .tool-pill.core { border-color: var(--accent); color: var(--accent); background: rgba(26,26,255,0.04); }
+
+  /* CTA */
+  .cta-section {
+    background: var(--ink);
+    text-align: center;
+    padding: 6rem 4rem;
+  }
+  .cta-section h2 { color: var(--white); margin-bottom: 1rem; }
+  .cta-section p { color: rgba(255,255,255,0.5); margin-bottom: 2.5rem; font-weight: 300; max-width: 480px; margin-left: auto; margin-right: auto; }
+  .cta-section .btn-primary { background: var(--accent2); color: var(--ink); font-weight: 600; }
+  .cta-section .btn-primary:hover { background: var(--white); transform: translateY(-2px); }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink);
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 2rem 4rem;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  footer .logo { color: var(--white); }
+  footer p { font-size: 0.8rem; color: rgba(255,255,255,0.3); }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    nav ul { display: none; }
+    .hero { padding: 7rem 1.5rem 4rem; }
+    section { padding: 4rem 1.5rem; }
+    .hero-stats { gap: 2rem; flex-wrap: wrap; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; padding: 2rem 1.5rem; }
+    .steps::after { display: none; }
+    .cta-section { padding: 4rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">Infer<span>Reach</span></a>
+  <ul>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#how">Process</a></li>
+    <li><a href="#stack">Stack</a></li>
+    <li><a href="mailto:hello@inferreach.com" class="nav-cta">Get a free audit →</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-accent"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Data Engineering · Built for Startups</div>
+    <h1>Your data,<br><em>finally</em> working<br>for you.</h1>
+    <p class="hero-sub">We build the data pipelines, warehouses, and dashboards your startup needs — without the cost of a full-time data team.</p>
+    <div class="hero-actions">
+      <a href="mailto:hello@inferreach.com" class="btn-primary">Get a free 30-min audit →</a>
+      <a href="#services" class="btn-secondary">See our packages</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">48<span>hr</span></div>
+        <div class="stat-label">First delivery</div>
+      </div>
+      <div>
+        <div class="stat-num">$0</div>
+        <div class="stat-label">Upfront cost on starter</div>
+      </div>
+      <div>
+        <div class="stat-num">100<span>%</span></div>
+        <div class="stat-label">Remote, async-first</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEMS -->
+<section class="problems">
+  <div class="section-tag">The problem</div>
+  <h2>Sound familiar?</h2>
+  <p class="section-sub">Most early-stage startups are drowning in the same data problems.</p>
+  <div class="problems-grid">
+    <div class="problem-item">
+      <div class="problem-num">01</div>
+      <div class="problem-title">Data lives everywhere</div>
+      <div class="problem-desc">Postgres, Stripe, Mixpanel, Google Sheets — no single source of truth. Every meeting starts with "which number is right?"</div>
+    </div>
+    <div class="problem-item">
+      <div class="problem-num">02</div>
+      <div class="problem-title">Pipelines break silently</div>
+      <div class="problem-desc">Your ETL job fails overnight and nobody knows until the CEO asks why the dashboard shows zeros.</div>
+    </div>
+    <div class="problem-item">
+      <div class="problem-num">03</div>
+      <div class="problem-title">Reporting takes days</div>
+      <div class="problem-desc">Engineers manually pull data for every report. One analyst spends 40% of their time on spreadsheet wrangling.</div>
+    </div>
+    <div class="problem-item">
+      <div class="problem-num">04</div>
+      <div class="problem-title">Can't afford a data team</div>
+      <div class="problem-desc">A senior data engineer costs $150k+/year. You need the infrastructure without the headcount.</div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="section-tag">Packages</div>
+  <h2>Pick your starting point.</h2>
+  <p class="section-sub">Flat-rate projects. No hourly billing surprises. Everything delivered in days, not months.</p>
+  <div class="services-grid">
+
+    <div class="service-card">
+      <div class="service-icon">🔍</div>
+      <div class="service-name">Data Audit</div>
+      <div class="service-price">$149 <span>one-time</span></div>
+      <div class="service-desc">We map your entire data landscape, find the gaps, and hand you a concrete action plan. Perfect first step.</div>
+      <ul class="service-features">
+        <li>Full data source inventory</li>
+        <li>Pipeline health check</li>
+        <li>Priority fix recommendations</li>
+        <li>30-min walkthrough call</li>
+        <li>Delivered in 48 hours</li>
+      </ul>
+    </div>
+
+    <div class="service-card featured">
+      <div class="service-icon">⚡</div>
+      <div class="service-name">Pipeline Setup</div>
+      <div class="service-price">$499 <span>one-time</span></div>
+      <div class="service-desc">We build your end-to-end data pipeline — ingestion, transformation, warehouse, and a live dashboard. Done.</div>
+      <ul class="service-features">
+        <li>Up to 3 data sources connected</li>
+        <li>Airbyte + dbt transformation layer</li>
+        <li>BigQuery or DuckDB warehouse</li>
+        <li>Metabase dashboard (5 reports)</li>
+        <li>14 days of post-delivery support</li>
+        <li>Full documentation handed over</li>
+      </ul>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">🔄</div>
+      <div class="service-name">Ongoing Partner</div>
+      <div class="service-price">$349 <span>/ month</span></div>
+      <div class="service-desc">Your on-call data engineering team. We maintain, monitor, and improve your data infrastructure every month.</div>
+      <ul class="service-features">
+        <li>Pipeline monitoring & alerts</li>
+        <li>2 new reports or features/month</li>
+        <li>Weekly async status update</li>
+        <li>Priority Slack/email support</li>
+        <li>Monthly data quality review</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="section-tag">Process</div>
+  <h2>Simple from day one.</h2>
+  <p class="section-sub">We keep things lean and async-first. No bloated discovery phases.</p>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-title">Free 30-min audit call</div>
+      <div class="step-desc">You walk us through your current setup. We ask the right questions and identify the highest-leverage fixes.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-title">Proposal in 24 hours</div>
+      <div class="step-desc">We send a clear scope, timeline, and fixed price. No surprises, no hourly billing.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-title">We build, you review</div>
+      <div class="step-desc">Work happens async. You get daily updates and a staging environment to review before anything goes live.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-title">Handover + support</div>
+      <div class="step-desc">Full documentation, video walkthrough, and 14 days of support so your team actually knows how to use it.</div>
+    </div>
+  </div>
+</section>
+
+<!-- STACK -->
+<section class="stack" id="stack">
+  <div class="section-tag">Tech Stack</div>
+  <h2>Best-in-class tools.<br>All open source.</h2>
+  <p class="section-sub">We build on proven, open-source technology so you never get locked in — and never pay unnecessary tool costs.</p>
+  <div class="tools-grid">
+    <span class="tool-pill core">Airbyte</span>
+    <span class="tool-pill core">dbt Core</span>
+    <span class="tool-pill core">DuckDB</span>
+    <span class="tool-pill core">BigQuery</span>
+    <span class="tool-pill core">Metabase</span>
+    <span class="tool-pill">Python</span>
+    <span class="tool-pill">Apache Airflow</span>
+    <span class="tool-pill">PostgreSQL</span>
+    <span class="tool-pill">Pandas</span>
+    <span class="tool-pill">GitHub Actions</span>
+    <span class="tool-pill">Google Sheets API</span>
+    <span class="tool-pill">Stripe API</span>
+    <span class="tool-pill">Mixpanel</span>
+    <span class="tool-pill">Looker Studio</span>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2>Ready to fix your data?</h2>
+  <p>Book a free 30-minute audit. No commitment. We'll tell you exactly what's broken and how to fix it.</p>
+  <a href="mailto:hello@inferreach.com" class="btn-primary">Book your free audit →</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#" class="logo">Infer<span>Reach</span></a>
+  <p>© 2024 InferReach. hello@inferreach.com</p>
+</footer>
+
+</body>
+</html>

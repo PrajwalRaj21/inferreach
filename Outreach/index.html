@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>InferReach — Outreach Engine</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0c0c0c;--bg2:#141414;--bg3:#1c1c1c;--bg4:#222;
+  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.13);
+  --text:#f0ede8;--muted:#666;--muted2:#888;
+  --accent:#00e5a0;--accent2:rgba(0,229,160,0.1);
+  --red:#ff5555;--yellow:#ffc24a;
+  --mono:'DM Mono',monospace;--sans:'DM Sans',sans-serif;--display:'Syne',sans-serif;
+}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:14px;min-height:100vh;display:flex;flex-direction:column}
+.header{padding:16px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:var(--bg2)}
+.logo{font-family:var(--display);font-size:16px;font-weight:800;letter-spacing:-0.5px}
+.logo span{color:var(--accent)}
+.header-tag{font-family:var(--mono);font-size:11px;color:var(--muted2);border:1px solid var(--border2);padding:4px 10px;border-radius:100px}
+.app{display:grid;grid-template-columns:260px 1fr;flex:1;overflow:hidden;height:calc(100vh - 57px)}
+.sidebar{background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow-y:auto}
+.sidebar-section{padding:16px;border-bottom:1px solid var(--border)}
+.sidebar-label{font-family:var(--mono);font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:12px}
+.persona-btn{width:100%;text-align:left;padding:10px 12px;background:transparent;border:1px solid var(--border);border-radius:5px;color:var(--muted2);font-family:var(--sans);font-size:13px;cursor:pointer;margin-bottom:6px;transition:all 0.15s;display:flex;align-items:center;gap:10px}
+.persona-btn:hover{background:var(--bg3);border-color:var(--border2);color:var(--text)}
+.persona-btn.active{background:var(--accent2);border-color:rgba(0,229,160,0.4);color:var(--accent)}
+.persona-icon{font-size:16px;width:20px;text-align:center}
+.channels{display:flex;flex-direction:column;gap:5px}
+.channel-btn{width:100%;text-align:left;padding:9px 12px;background:transparent;border:1px solid var(--border);border-radius:5px;color:var(--muted2);font-family:var(--mono);font-size:11px;cursor:pointer;transition:all 0.15s;display:flex;align-items:center;gap:8px}
+.channel-btn:hover{background:var(--bg3);color:var(--text)}
+.channel-btn.active{background:var(--accent2);border-color:rgba(0,229,160,0.4);color:var(--accent)}
+.ch-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.tracker-list{display:flex;flex-direction:column;gap:6px;max-height:200px;overflow-y:auto}
+.tracker-item{display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--bg3);border-radius:4px;font-size:12px}
+.tracker-name{flex:1;color:var(--text);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.status-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.status-sent{background:#ffc24a}
+.status-replied{background:#00e5a0}
+.status-pending{background:#444}
+.add-contact{width:100%;padding:8px;background:transparent;border:1px dashed var(--border2);border-radius:4px;color:var(--muted);font-family:var(--mono);font-size:11px;cursor:pointer;transition:all 0.15s;margin-top:8px}
+.add-contact:hover{border-color:var(--accent);color:var(--accent)}
+.main{display:flex;flex-direction:column;overflow:hidden}
+.main-top{padding:20px 24px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.context-inputs{display:flex;gap:10px;flex-wrap:wrap;flex:1}
+.input-group{display:flex;flex-direction:column;gap:5px}
+.input-label{font-family:var(--mono);font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
+input[type=text],textarea{background:var(--bg3);border:1px solid var(--border);border-radius:4px;color:var(--text);font-family:var(--mono);font-size:12px;padding:8px 12px;outline:none;transition:border-color 0.15s}
+input[type=text]{width:180px}
+input[type=text]:focus,textarea:focus{border-color:rgba(0,229,160,0.5)}
+input[type=text]::placeholder,textarea::placeholder{color:var(--muted)}
+.gen-btn{padding:10px 20px;background:var(--accent);color:#000;font-family:var(--mono);font-size:12px;font-weight:500;border:none;border-radius:4px;cursor:pointer;white-space:nowrap;transition:background 0.15s,transform 0.1s;align-self:flex-end}
+.gen-btn:hover{background:#00ffb3;transform:translateY(-1px)}
+.gen-btn:disabled{background:#333;color:#666;cursor:not-allowed;transform:none}
+.message-area{flex:1;overflow-y:auto;padding:24px}
+.msg-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.msg-title{font-family:var(--display);font-size:18px;font-weight:700}
+.msg-meta{font-family:var(--mono);font-size:11px;color:var(--muted)}
+.message-card{background:var(--bg2);border:1px solid var(--border);border-radius:6px;overflow:hidden;margin-bottom:16px}
+.msg-card-header{padding:12px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.msg-card-type{font-family:var(--mono);font-size:11px;color:var(--accent);display:flex;align-items:center;gap:6px}
+.msg-card-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.action-btn{padding:5px 12px;background:transparent;border:1px solid var(--border2);border-radius:3px;color:var(--muted2);font-family:var(--mono);font-size:10px;cursor:pointer;transition:all 0.15s}
+.action-btn:hover{border-color:var(--accent);color:var(--accent)}
+.action-btn.copied{border-color:var(--accent);color:var(--accent);background:var(--accent2)}
+.msg-body{padding:16px;font-size:13px;line-height:1.8;color:var(--text);white-space:pre-wrap;font-family:var(--sans)}
+.tips-bar{padding:12px 24px;background:var(--bg2);border-top:1px solid var(--border);display:flex;gap:24px;overflow-x:auto}
+.tip{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted2);white-space:nowrap}
+.tip-icon{color:var(--accent);font-size:13px}
+.empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:12px;color:var(--muted)}
+.empty-icon{font-size:40px;opacity:0.3}
+.empty p{font-size:14px}
+.empty small{font-family:var(--mono);font-size:11px;color:var(--muted)}
+.loading{display:flex;align-items:center;gap:10px;padding:32px;color:var(--muted2);font-family:var(--mono);font-size:12px}
+.dot-pulse{display:flex;gap:4px}
+.dot-pulse span{width:6px;height:6px;background:var(--accent);border-radius:50%;animation:dp 1.2s infinite}
+.dot-pulse span:nth-child(2){animation-delay:0.2s}
+.dot-pulse span:nth-child(3){animation-delay:0.4s}
+@keyframes dp{0%,80%,100%{opacity:0.2;transform:scale(0.8)}40%{opacity:1;transform:scale(1)}}
+.stats-row{display:flex;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:5px;overflow:hidden;margin-bottom:16px}
+.stat-box{flex:1;background:var(--bg2);padding:12px 16px;text-align:center}
+.stat-num{font-family:var(--display);font-size:22px;font-weight:800;color:var(--accent)}
+.stat-label{font-family:var(--mono);font-size:10px;color:var(--muted);margin-top:2px}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:100;display:flex;align-items:center;justify-content:center}
+.modal{background:var(--bg2);border:1px solid var(--border2);border-radius:8px;padding:24px;width:320px;display:flex;flex-direction:column;gap:14px}
+.modal h3{font-family:var(--display);font-size:17px;font-weight:700}
+.modal input{width:100%}
+.modal-actions{display:flex;gap:8px;justify-content:flex-end}
+.modal-btn{padding:8px 16px;border-radius:4px;font-family:var(--mono);font-size:12px;cursor:pointer;border:1px solid var(--border2);background:transparent;color:var(--muted2);transition:all 0.15s}
+.modal-btn.primary{background:var(--accent);color:#000;border-color:var(--accent)}
+.modal-btn:hover{color:var(--text)}
+.modal-btn.primary:hover{background:#00ffb3}
+.api-notice{background:rgba(255,196,74,0.08);border:1px solid rgba(255,196,74,0.25);border-radius:6px;padding:14px 18px;margin:16px 24px 0;font-size:12px;color:#ffc24a;font-family:var(--mono);line-height:1.7}
+.api-notice a{color:#ffc24a}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo">infer<span>reach</span> <span style="color:var(--muted);font-weight:400;font-size:13px;margin-left:8px">/ outreach engine</span></div>
+  <div class="header-tag">AI-powered · inferreach.com</div>
+</div>
+
+<div class="api-notice">
+  ⚠️ <strong>Setup required:</strong> This tool uses Groq (free & fast). Get a free API key at 
+  <a href="https://console.groq.com" target="_blank">console.groq.com</a> → 
+  paste it below before generating messages.
+  &nbsp;&nbsp;
+  API Key: <input type="password" id="apiKeyInput" placeholder="sk-ant-..." style="width:260px;background:#111;border:1px solid rgba(255,196,74,0.3);border-radius:3px;color:#ffc24a;font-family:var(--mono);font-size:12px;padding:4px 10px;outline:none;margin-left:4px">
+  <button onclick="saveKey()" style="margin-left:8px;padding:4px 12px;background:rgba(255,196,74,0.15);border:1px solid rgba(255,196,74,0.4);border-radius:3px;color:#ffc24a;font-family:var(--mono);font-size:11px;cursor:pointer" id="saveKeyBtn">Save</button>
+</div>
+
+<div class="app">
+  <div class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-label">Target Persona</div>
+      <div class="channels" id="personaBtns"></div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Channel</div>
+      <div class="channels" id="channelBtns"></div>
+    </div>
+    <div class="sidebar-section" style="flex:1">
+      <div class="sidebar-label">Outreach Tracker</div>
+      <div class="tracker-list" id="trackerList"></div>
+      <button class="add-contact" onclick="openModal()">+ add contact</button>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="main-top">
+      <div class="context-inputs">
+        <div class="input-group">
+          <span class="input-label">Their Name</span>
+          <input type="text" id="targetName" placeholder="e.g. Alex" />
+        </div>
+        <div class="input-group">
+          <span class="input-label">Their Company / Product</span>
+          <input type="text" id="targetCompany" placeholder="e.g. ShipFast SaaS" />
+        </div>
+        <div class="input-group">
+          <span class="input-label">Their Pain (optional)</span>
+          <input type="text" id="targetPain" placeholder="e.g. no dashboards" />
+        </div>
+      </div>
+      <button class="gen-btn" id="genBtn" onclick="generateMessages()">⚡ Generate Messages</button>
+    </div>
+
+    <div class="message-area" id="messageArea">
+      <div class="empty" id="emptyState">
+        <div class="empty-icon">✉️</div>
+        <p>Select a persona + channel, fill in details, hit Generate</p>
+        <small>Paste your Groq API key in the yellow bar above first</small>
+      </div>
+    </div>
+
+    <div class="tips-bar">
+      <div class="tip"><span class="tip-icon">💡</span> Send max 20 DMs/day to avoid spam flags</div>
+      <div class="tip"><span class="tip-icon">⏰</span> Best time: Tue–Thu, 9–11am target timezone</div>
+      <div class="tip"><span class="tip-icon">🎯</span> Follow up once after 3 days if no reply</div>
+      <div class="tip"><span class="tip-icon">🔥</span> Offer free audit to get foot in the door</div>
+      <div class="tip"><span class="tip-icon">📊</span> Track replies — 5–15% reply rate is good</div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modalOverlay" style="display:none">
+  <div class="modal">
+    <h3>Add Contact</h3>
+    <div class="input-group" style="width:100%">
+      <span class="input-label">Name</span>
+      <input type="text" id="newName" placeholder="Founder name" style="width:100%"/>
+    </div>
+    <div class="input-group" style="width:100%">
+      <span class="input-label">Company</span>
+      <input type="text" id="newCompany" placeholder="Company name" style="width:100%"/>
+    </div>
+    <div class="input-group" style="width:100%">
+      <span class="input-label">Status</span>
+      <select id="newStatus" style="background:var(--bg3);border:1px solid var(--border);border-radius:4px;color:var(--text);font-family:var(--mono);font-size:12px;padding:8px 12px;width:100%;outline:none">
+        <option value="pending">Pending</option>
+        <option value="sent">Sent</option>
+        <option value="replied">Replied</option>
+      </select>
+    </div>
+    <div class="modal-actions">
+      <button class="modal-btn" onclick="closeModal()">Cancel</button>
+      <button class="modal-btn primary" onclick="addContact()">Add</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const personas = [
+  { id: 'saas', label: 'SaaS Founder', icon: '🚀', desc: 'Early-stage SaaS, no data infra' },
+  { id: 'ecom', label: 'Ecom / DTC Brand', icon: '🛒', desc: 'Shopify/WooCommerce, messy data' },
+  { id: 'agency', label: 'Growth Agency', icon: '📈', desc: 'Needs reporting for clients' },
+  { id: 'fintech', label: 'Fintech Startup', icon: '💳', desc: 'Compliance + data quality issues' },
+  { id: 'ops', label: 'Ops / No-Code Builder', icon: '⚙️', desc: 'Airtable/Notion, wants SQL' },
+  { id: 'investor', label: 'Angel / VC', icon: '💼', desc: 'Portfolio data aggregation' },
+];
+const channels = [
+  { id: 'linkedin', label: 'LinkedIn DM', color: '#0077b5' },
+  { id: 'twitter', label: 'Twitter / X DM', color: '#1da1f2' },
+  { id: 'email', label: 'Cold Email', color: '#ea4335' },
+  { id: 'reddit', label: 'Reddit Comment', color: '#ff4500' },
+  { id: 'discord', label: 'Discord DM', color: '#5865f2' },
+];
+let selectedPersona = 'saas';
+let selectedChannel = 'linkedin';
+let contacts = [
+  { name: 'James K.', company: 'Pocketbase', status: 'sent' },
+  { name: 'Sarah M.', company: 'Reflio', status: 'replied' },
+  { name: 'Tom W.', company: 'Lemon Squeezy', status: 'pending' },
+];
+let apiKey = localStorage.getItem('ir_api_key') || '';
+
+function saveKey() {
+  apiKey = document.getElementById('apiKeyInput').value.trim();
+  if (apiKey) {
+    localStorage.setItem('ir_api_key', apiKey);
+    const btn = document.getElementById('saveKeyBtn');
+    btn.textContent = '✓ Saved';
+    btn.style.color = '#00e5a0';
+    setTimeout(() => { btn.textContent = 'Save'; btn.style.color = '#ffc24a'; }, 2000);
+  }
+}
+
+window.onload = () => {
+  if (apiKey) document.getElementById('apiKeyInput').value = apiKey;
+};
+
+function renderPersonas() {
+  document.getElementById('personaBtns').innerHTML = personas.map(p => `
+    <button class="persona-btn ${p.id===selectedPersona?'active':''}" onclick="selectPersona('${p.id}')">
+      <span class="persona-icon">${p.icon}</span><span>${p.label}</span>
+    </button>`).join('');
+}
+function renderChannels() {
+  document.getElementById('channelBtns').innerHTML = channels.map(ch => `
+    <button class="channel-btn ${ch.id===selectedChannel?'active':''}" onclick="selectChannel('${ch.id}')">
+      <span class="ch-dot" style="background:${ch.color}"></span>${ch.label}
+    </button>`).join('');
+}
+function renderTracker() {
+  const c = document.getElementById('trackerList');
+  if (!contacts.length) { c.innerHTML = '<div style="font-size:12px;color:var(--muted);padding:8px">No contacts yet</div>'; return; }
+  c.innerHTML = contacts.map((ct,i) => `
+    <div class="tracker-item">
+      <span class="status-dot status-${ct.status}"></span>
+      <span class="tracker-name">${ct.name} · ${ct.company}</span>
+      <select onchange="updateStatus(${i},this.value)" style="background:transparent;border:none;color:var(--muted);font-size:10px;font-family:var(--mono);cursor:pointer;outline:none">
+        <option value="pending" ${ct.status==='pending'?'selected':''}>pending</option>
+        <option value="sent" ${ct.status==='sent'?'selected':''}>sent</option>
+        <option value="replied" ${ct.status==='replied'?'selected':''}>replied</option>
+      </select>
+    </div>`).join('');
+}
+function selectPersona(id){selectedPersona=id;renderPersonas();}
+function selectChannel(id){selectedChannel=id;renderChannels();}
+function updateStatus(i,val){contacts[i].status=val;renderTracker();}
+function openModal(){document.getElementById('modalOverlay').style.display='flex';}
+function closeModal(){document.getElementById('modalOverlay').style.display='none';}
+function addContact(){
+  const name=document.getElementById('newName').value.trim();
+  const company=document.getElementById('newCompany').value.trim();
+  const status=document.getElementById('newStatus').value;
+  if(!name)return;
+  contacts.push({name,company:company||'—',status});
+  renderTracker();closeModal();
+  document.getElementById('newName').value='';
+  document.getElementById('newCompany').value='';
+}
+function copyText(btn,text){
+  navigator.clipboard.writeText(text).then(()=>{
+    btn.textContent='✓ copied';btn.classList.add('copied');
+    setTimeout(()=>{btn.textContent='copy';btn.classList.remove('copied');},2000);
+  });
+}
+function getStats(){
+  const sent=contacts.filter(c=>c.status==='sent').length;
+  const replied=contacts.filter(c=>c.status==='replied').length;
+  const total=contacts.length;
+  const rate=total?Math.round((replied/total)*100):0;
+  return{sent,replied,total,rate};
+}
+async function generateMessages(){
+  const key = document.getElementById('apiKeyInput').value.trim() || apiKey;
+  if(!key){alert('Please paste your Groq API key in the yellow bar at the top first.\n\nGet one free at console.groq.com');return;}
+  const name=document.getElementById('targetName').value.trim()||'there';
+  const company=document.getElementById('targetCompany').value.trim()||'your startup';
+  const pain=document.getElementById('targetPain').value.trim();
+  const persona=personas.find(p=>p.id===selectedPersona);
+  const channel=channels.find(c=>c.id===selectedChannel);
+  const btn=document.getElementById('genBtn');
+  btn.disabled=true;btn.textContent='⏳ Generating...';
+  const area=document.getElementById('messageArea');
+  area.innerHTML=`<div class="loading"><div class="dot-pulse"><span></span><span></span><span></span></div> Generating personalized messages...</div>`;
+  const promptMap={
+    linkedin:`Write 3 different cold LinkedIn DM variations (each under 300 characters). Casual, direct, not salesy. Mention InferReach.com.`,
+    twitter:`Write 3 different cold Twitter/X DM variations (each under 280 characters). Very casual, one clear hook. Mention InferReach.com.`,
+    email:`Write 3 different cold email variations with subject lines. Each under 120 words. One clear value prop, one CTA (free 30-min data audit). Sign off from InferReach team at hello@inferreach.com.`,
+    reddit:`Write 3 helpful Reddit comment variations that naturally mention InferReach as a resource. Feel organic, not spammy. Under 100 words each.`,
+    discord:`Write 3 casual Discord DM variations. Very conversational, under 200 characters each. Mention InferReach.com.`,
+  };
+  const personaContext={
+    saas:'early-stage SaaS founder who has no proper data infrastructure, manually pulls reports, and has no single source of truth',
+    ecom:'ecommerce/DTC brand owner on Shopify or WooCommerce with sales data scattered across platforms and no unified reporting',
+    agency:'growth marketing agency that needs better client reporting and data pipelines',
+    fintech:'fintech startup founder dealing with data quality issues, compliance, and fragmented financial data',
+    ops:'operations-focused founder using Airtable or Notion who is hitting limits and needs real data infrastructure',
+    investor:'angel investor or VC who needs to aggregate portfolio company data and track metrics',
+  };
+  try{
+    const res=await fetch('https://api.groq.com/openai/v1/chat/completions',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer '+key},
+      body:JSON.stringify({
+        model:'llama-3.3-70b-versatile',
+        max_tokens:1000,
+        messages:[
+          {role:'system',content:'You write cold outreach messages for InferReach (inferreach.com), a data engineering service for startups. Tone: direct, genuine, human, never salesy.'},
+          {role:'user',content:`Target: ${name} at ${company}\nPersona: ${persona.label} — ${personaContext[selectedPersona]}\n${pain?'Known pain: '+pain:''}\nChannel: ${channel.label}\n\n${promptMap[selectedChannel]}\n\nFormat as JSON array: [{"variation":1,"subject":"...","body":"..."},{"variation":2,"subject":"...","body":"..."},{"variation":3,"subject":"...","body":"..."}]\nFor non-email, set subject to null. Return ONLY the JSON array.`}
+        ]
+      })
+    });
+    const data=await res.json();
+    const raw=data.choices[0].message.content.replace(/```json|```/g,'').trim();
+    const messages=JSON.parse(raw);
+    const stats=getStats();
+    const labels={linkedin:'💼 LinkedIn DM',twitter:'🐦 Twitter DM',email:'📧 Cold Email',reddit:'🟠 Reddit Comment',discord:'💬 Discord DM'};
+    area.innerHTML=`
+      <div class="stats-row">
+        <div class="stat-box"><div class="stat-num">${stats.total}</div><div class="stat-label">tracked</div></div>
+        <div class="stat-box"><div class="stat-num">${stats.sent}</div><div class="stat-label">sent</div></div>
+        <div class="stat-box"><div class="stat-num" style="color:var(--accent)">${stats.replied}</div><div class="stat-label">replied</div></div>
+        <div class="stat-box"><div class="stat-num">${stats.rate}%</div><div class="stat-label">reply rate</div></div>
+      </div>
+      <div class="msg-header">
+        <div class="msg-title">Messages for ${name} @ ${company}</div>
+        <div class="msg-meta">${persona.icon} ${persona.label} · ${channel.label}</div>
+      </div>
+      ${messages.map(msg=>`
+        <div class="message-card">
+          <div class="msg-card-header">
+            <div class="msg-card-type">${labels[selectedChannel]} · Variation ${msg.variation}</div>
+            <div class="msg-card-actions">
+              ${msg.subject?`<span style="font-family:var(--mono);font-size:11px;color:var(--muted2);margin-right:8px">Subject: <strong style="color:var(--text)">${msg.subject}</strong></span>`:''}
+              <button class="action-btn" onclick="copyText(this,${JSON.stringify(msg.subject?'Subject: '+msg.subject+'\n\n'+msg.body:msg.body)})">copy</button>
+              <button class="action-btn" onclick="markSent('${name}','${company}')">mark sent</button>
+            </div>
+          </div>
+          <div class="msg-body">${msg.body.replace(/\n/g,'<br>')}</div>
+        </div>`).join('')}`;
+  }catch(err){
+    area.innerHTML=`<div style="padding:32px;color:var(--red);font-family:var(--mono);font-size:13px">❌ Error: ${err.message}<br><br>Check that your API key is correct.</div>`;
+  }
+  btn.disabled=false;btn.textContent='⚡ Generate Messages';
+}
+function markSent(name,company){
+  const existing=contacts.find(c=>c.name===name);
+  if(!existing)contacts.push({name,company,status:'sent'});
+  else existing.status='sent';
+  renderTracker();
+}
+renderPersonas();renderChannels();renderTracker();
+</script>
+</body>
+</html>
