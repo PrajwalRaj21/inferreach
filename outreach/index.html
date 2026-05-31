@@ -92,8 +92,6 @@ input[type=text]::placeholder,textarea::placeholder{color:var(--muted)}
 .modal-btn.primary{background:var(--accent);color:#000;border-color:var(--accent)}
 .modal-btn:hover{color:var(--text)}
 .modal-btn.primary:hover{background:#00ffb3}
-.api-notice{background:rgba(255,196,74,0.08);border:1px solid rgba(255,196,74,0.25);border-radius:6px;padding:14px 18px;margin:16px 24px 0;font-size:12px;color:#ffc24a;font-family:var(--mono);line-height:1.7}
-.api-notice a{color:#ffc24a}
 </style>
 </head>
 <body>
@@ -101,15 +99,6 @@ input[type=text]::placeholder,textarea::placeholder{color:var(--muted)}
 <div class="header">
   <div class="logo">infer<span>reach</span> <span style="color:var(--muted);font-weight:400;font-size:13px;margin-left:8px">/ outreach engine</span></div>
   <div class="header-tag">AI-powered · inferreach.com</div>
-</div>
-
-<div class="api-notice">
-  ⚠️ <strong>Setup required:</strong> This tool uses Groq (free & fast). Get a free API key at 
-  <a href="https://console.groq.com" target="_blank">console.groq.com</a> → 
-  paste it below before generating messages.
-  &nbsp;&nbsp;
-  API Key: <input type="password" id="apiKeyInput" placeholder="sk-ant-..." style="width:260px;background:#111;border:1px solid rgba(255,196,74,0.3);border-radius:3px;color:#ffc24a;font-family:var(--mono);font-size:12px;padding:4px 10px;outline:none;margin-left:4px">
-  <button onclick="saveKey()" style="margin-left:8px;padding:4px 12px;background:rgba(255,196,74,0.15);border:1px solid rgba(255,196,74,0.4);border-radius:3px;color:#ffc24a;font-family:var(--mono);font-size:11px;cursor:pointer" id="saveKeyBtn">Save</button>
 </div>
 
 <div class="app">
@@ -152,7 +141,7 @@ input[type=text]::placeholder,textarea::placeholder{color:var(--muted)}
       <div class="empty" id="emptyState">
         <div class="empty-icon">✉️</div>
         <p>Select a persona + channel, fill in details, hit Generate</p>
-        <small>Paste your Groq API key in the yellow bar above first</small>
+        <small>Free to use · powered by InferReach</small>
       </div>
     </div>
 
@@ -193,13 +182,15 @@ input[type=text]::placeholder,textarea::placeholder{color:var(--muted)}
 </div>
 
 <script>
+const WORKER_URL = 'https://groq-proxy.christprajwal.workers.dev';
+
 const personas = [
-  { id: 'saas', label: 'SaaS Founder', icon: '🚀', desc: 'Early-stage SaaS, no data infra' },
-  { id: 'ecom', label: 'Ecom / DTC Brand', icon: '🛒', desc: 'Shopify/WooCommerce, messy data' },
-  { id: 'agency', label: 'Growth Agency', icon: '📈', desc: 'Needs reporting for clients' },
-  { id: 'fintech', label: 'Fintech Startup', icon: '💳', desc: 'Compliance + data quality issues' },
-  { id: 'ops', label: 'Ops / No-Code Builder', icon: '⚙️', desc: 'Airtable/Notion, wants SQL' },
-  { id: 'investor', label: 'Angel / VC', icon: '💼', desc: 'Portfolio data aggregation' },
+  { id: 'saas', label: 'SaaS Founder', icon: '🚀' },
+  { id: 'ecom', label: 'Ecom / DTC Brand', icon: '🛒' },
+  { id: 'agency', label: 'Growth Agency', icon: '📈' },
+  { id: 'fintech', label: 'Fintech Startup', icon: '💳' },
+  { id: 'ops', label: 'Ops / No-Code Builder', icon: '⚙️' },
+  { id: 'investor', label: 'Angel / VC', icon: '💼' },
 ];
 const channels = [
   { id: 'linkedin', label: 'LinkedIn DM', color: '#0077b5' },
@@ -215,22 +206,6 @@ let contacts = [
   { name: 'Sarah M.', company: 'Reflio', status: 'replied' },
   { name: 'Tom W.', company: 'Lemon Squeezy', status: 'pending' },
 ];
-let apiKey = localStorage.getItem('ir_api_key') || '';
-
-function saveKey() {
-  apiKey = document.getElementById('apiKeyInput').value.trim();
-  if (apiKey) {
-    localStorage.setItem('ir_api_key', apiKey);
-    const btn = document.getElementById('saveKeyBtn');
-    btn.textContent = '✓ Saved';
-    btn.style.color = '#00e5a0';
-    setTimeout(() => { btn.textContent = 'Save'; btn.style.color = '#ffc24a'; }, 2000);
-  }
-}
-
-window.onload = () => {
-  if (apiKey) document.getElementById('apiKeyInput').value = apiKey;
-};
 
 function renderPersonas() {
   document.getElementById('personaBtns').innerHTML = personas.map(p => `
@@ -287,8 +262,6 @@ function getStats(){
   return{sent,replied,total,rate};
 }
 async function generateMessages(){
-  const key = document.getElementById('apiKeyInput').value.trim() || apiKey;
-  if(!key){alert('Please paste your Groq API key in the yellow bar at the top first.\n\nGet one free at console.groq.com');return;}
   const name=document.getElementById('targetName').value.trim()||'there';
   const company=document.getElementById('targetCompany').value.trim()||'your startup';
   const pain=document.getElementById('targetPain').value.trim();
@@ -314,9 +287,9 @@ async function generateMessages(){
     investor:'angel investor or VC who needs to aggregate portfolio company data and track metrics',
   };
   try{
-    const res=await fetch('https://api.groq.com/openai/v1/chat/completions',{
+    const res=await fetch(WORKER_URL,{
       method:'POST',
-      headers:{'Content-Type':'application/json','Authorization':'Bearer '+key},
+      headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
         model:'llama-3.3-70b-versatile',
         max_tokens:1000,
@@ -355,7 +328,7 @@ async function generateMessages(){
           <div class="msg-body">${msg.body.replace(/\n/g,'<br>')}</div>
         </div>`).join('')}`;
   }catch(err){
-    area.innerHTML=`<div style="padding:32px;color:var(--red);font-family:var(--mono);font-size:13px">❌ Error: ${err.message}<br><br>Check that your API key is correct.</div>`;
+    area.innerHTML=`<div style="padding:32px;color:var(--red);font-family:var(--mono);font-size:13px">❌ Error: ${err.message}</div>`;
   }
   btn.disabled=false;btn.textContent='⚡ Generate Messages';
 }
