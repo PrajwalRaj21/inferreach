@@ -2,7 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="format-detection" content="telephone=no"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
   <title>InferReach — Data Engineering, Engineered.</title>
   <meta name="description" content="End-to-end data engineering for modern companies. Kafka, Spark, dbt, Airflow, Snowflake. Based in Lalitpur, Nepal."/>
   <meta name="robots" content="index, follow"/>
@@ -23,14 +27,14 @@
    ================================================ */
 
 :root {
-  --bg: #080b0f;
-  --bg-1: #0d1117;
-  --bg-2: #111820;
+  --bg: #0d1117;
+  --bg-1: #111827;
+  --bg-2: #1a2232;
   --bg-3: #161f2c;
-  --border: rgba(0, 255, 136, 0.12);
-  --border-dim: rgba(255, 255, 255, 0.06);
+  --border: rgba(16,185,129,0.18);
+  --border-dim: rgba(148,180,200,0.12);
 
-  --green: #00d97e;
+  --green: #10b981;
   --green-dim: rgba(0, 255, 136, 0.12);
   --green-glow: rgba(0, 255, 136, 0.25);
   --yellow: #ffd166;
@@ -38,9 +42,9 @@
   --orange: #ff6b35;
   --red: #ff4757;
 
-  --text-primary: #e8f0fe;
-  --text-secondary: #8899aa;
-  --text-dim: #445566;
+  --text-primary: #f0f6ff;
+  --text-secondary: #9db4c8;
+  --text-dim: #5a7a8a;
 
   --font-mono: 'IBM Plex Mono', monospace;
   --font-sans: 'IBM Plex Sans', sans-serif;
@@ -53,6 +57,7 @@
 
 /* ---- RESET & BASE ---- */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+a, button { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
 
 html { scroll-behavior: smooth; }
 
@@ -84,8 +89,11 @@ body {
 .nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 900;
   height: var(--nav-h);
+  padding-left: env(safe-area-inset-left, 0);
+  padding-right: env(safe-area-inset-right, 0);
   background: rgba(8, 11, 15, 0.85);
   backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border-dim);
 }
 
@@ -238,8 +246,8 @@ body {
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(0,255,136,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,255,136,0.03) 1px, transparent 1px);
+    linear-gradient(rgba(99,179,237,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(99,179,237,0.03) 1px, transparent 1px);
   background-size: 48px 48px;
   mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black 40%, transparent 100%);
   pointer-events: none;
@@ -481,7 +489,7 @@ body {
 .service-card:hover { background: var(--bg-2); }
 
 .card-accent {
-  background: rgba(0,255,136,0.03);
+  background: rgba(99,179,237,0.03);
   border-right: none;
 }
 
@@ -625,6 +633,8 @@ body {
   grid-template-columns: 180px 1fr;
   min-height: 480px;
 }
+.dash-sidebar.hidden-mobile { display: none; }
+.dash-body:has(.dash-sidebar[style*="display: none"]) { grid-template-columns: 1fr; }
 
 .dash-sidebar {
   background: var(--bg-1);
@@ -677,6 +687,7 @@ body {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 12px;
+  min-width: 0;
 }
 
 .kpi-card {
@@ -952,100 +963,174 @@ body {
 .footer {
   background: var(--bg-1);
   border-top: 1px solid var(--border-dim);
-  padding: 60px 32px 0;
+  padding: 64px 32px 0;
+  padding-bottom: env(safe-area-inset-bottom, 0);
 }
-
 .footer-inner {
   max-width: var(--max-w);
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr 1fr;
-  gap: 60px;
-  padding-bottom: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 48px;
+  padding-bottom: 48px;
 }
-
-.footer-brand .nav-logo {
-  font-size: 1.1rem;
-  display: inline-flex;
-  margin-bottom: 16px;
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 260px;
 }
-
-.footer-brand p {
+.footer-tagline {
   font-size: 0.875rem;
   color: var(--text-secondary);
-  margin-bottom: 8px;
+  margin-top: 4px;
 }
-
-.footer-copy {
+.footer-location {
   font-family: var(--font-mono);
-  font-size: 0.72rem !important;
-  color: var(--text-dim) !important;
-  margin-top: 16px;
+  font-size: 0.75rem;
+  color: var(--text-dim);
 }
-
+.footer-email {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--green);
+  text-decoration: none;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+.footer-email:hover { opacity: 1; }
+.footer-nav {
+  display: flex;
+  gap: 48px;
+}
 .footer-col {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
-
 .fc-head {
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   color: var(--green);
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
-
 .footer-col a {
   text-decoration: none;
-  font-size: 0.875rem;
+  font-size: 0.82rem;
   color: var(--text-dim);
   transition: color 0.2s;
 }
-
 .footer-col a:hover { color: var(--text-primary); }
-
 .footer-bottom {
   border-top: 1px solid var(--border-dim);
-  padding: 16px 0;
+  padding: 18px 0;
   max-width: var(--max-w);
   margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
 }
-
+.footer-copy {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-dim);
+}
 .terminal-line {
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   color: var(--text-dim);
 }
 
 /* ---- RESPONSIVE ---- */
 @media (max-width: 1100px) {
-  .hero {
-    grid-template-columns: 1fr;
-  }
-  .pipeline-viz {
-    grid-column: 1;
-    display: none;
-  }
-  .services-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  .hero { grid-template-columns: 1fr; padding: 16px 24px; }
+  .pipeline-viz { display: none; }
+  .services-grid { grid-template-columns: repeat(2, 1fr); }
+  .kpi-row { grid-template-columns: repeat(2, 1fr); }
+  .dash-sidebar { display: none; }
+  .stack-layer { flex-direction: column; align-items: flex-start; gap: 12px; }
 }
 
 @media (max-width: 768px) {
+  :root { --nav-h: 56px; }
+
+  /* Nav */
   .nav-links { display: none; }
-  .hero { padding: 12px; }
-  .hero-title { font-size: 2.2rem; }
+  .nav-inner { padding: 0 16px; }
+  .nav-cta .status-indicator { display: none; }
+
+  /* Hero */
+  .hero { padding: 12px 16px; gap: 24px; }
+  .hero-terminal-bar { font-size: 0.7rem; padding: 8px 12px; overflow: hidden; }
+  .hero-title { font-size: 2rem; }
+  .hero-sub { font-size: 0.9rem; }
+  .hero-actions { flex-direction: column; }
+  .hero-actions a { width: 100%; justify-content: center; text-align: center; }
+  .hero-stats { gap: 0; flex-wrap: wrap; }
+  .stat { padding: 12px 16px; }
+  .stat-divider { display: none; }
+
+  /* Services */
+  .services { padding: 64px 16px; }
   .services-grid { grid-template-columns: 1fr; }
-  .process-steps { grid-template-columns: 1fr; gap: 40px; }
-  .step-line { display: none; }
-  .about-inner, .contact-inner { grid-template-columns: 1fr; gap: 40px; }
-  .footer-inner { grid-template-columns: 1fr 1fr; gap: 40px; }
-  .kpi-row { grid-template-columns: repeat(2, 1fr); }
-  .dash-body { grid-template-columns: 1fr; }
+
+  /* Platform dashboard */
+  .platform { padding: 64px 0; }
+  .platform-inner { padding: 0 16px; }
   .dash-sidebar { display: none; }
+  .dash-body { grid-template-columns: 1fr !important; }
+  .kpi-row { grid-template-columns: repeat(2, 1fr); }
+  .pl-item { grid-template-columns: 14px 1fr auto; }
+  .pl-rate, .pl-lag { display: none; }
+
+  /* Dataflow */
+  .dataflow { padding: 64px 16px; }
+  .dataflow-metrics { grid-template-columns: repeat(2, 1fr); }
+  .dfm-item:nth-child(2) { border-right: none; }
+  #dataflowCanvas { height: 200px; max-width: 100%; }
+
+  /* Stack */
+  .stack { padding: 64px 16px; }
+  .stack-layer { padding: 16px; flex-direction: column; align-items: flex-start; gap: 10px; }
+  .layer-label { min-width: unset; }
+
+  /* Process */
+  .process { padding: 64px 16px; }
+  .process-steps { grid-template-columns: 1fr; gap: 32px; }
+  .step-line { display: none; }
+  .step-num { font-size: 2rem; }
+
+  /* Footer */
+  .footer { padding: 48px 16px 0; }
+  .footer-inner { flex-direction: column; gap: 32px; }
+  .footer-brand { max-width: 100%; }
+  .footer-nav { gap: 32px; }
+  .footer-bottom { flex-direction: column; align-items: flex-start; gap: 6px; }
+  .terminal-line { display: none; }
+
+  /* Section headers */
+  .section-header { margin-bottom: 40px; }
+  .section-title { font-size: 1.8rem; }
+
+  /* Buttons */
+  .btn-large { padding: 12px 20px; font-size: 0.85rem; }
+
+  /* Dashboard mockup */
+  .dashboard-mockup { overflow-x: auto; }
+}
+
+@media (max-width: 420px) {
+  .hero-title { font-size: 1.75rem; }
+  .hero-stats { justify-content: flex-start; }
+  .stat { padding: 10px 12px; }
+  .kpi-row { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .dataflow-metrics { grid-template-columns: 1fr 1fr; }
+  .footer-nav { flex-direction: column; gap: 24px; }
 }
 
 
@@ -1054,89 +1139,117 @@ body {
   position: fixed; inset: 0; z-index: 9999;
   background: #080b0f;
   display: flex; align-items: center; justify-content: center;
-  transition: opacity 0.6s ease;
+  transition: opacity 0.5s ease;
+  overflow: hidden;
 }
 #loader.hidden { opacity: 0; pointer-events: none; }
-.loader-inner { display: flex; flex-direction: column; align-items: center; gap: 32px; }
+.loader-inner {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 32px; width: 100%; max-width: 320px; padding: 0 24px;
+}
 .loader-logo {
-  font-family: var(--font-mono); font-size: 1.4rem; font-weight: 700;
+  font-family: var(--font-mono); font-size: 1.3rem; font-weight: 700;
   color: var(--green); letter-spacing: 0.08em;
-  animation: pulse 1.5s ease-in-out infinite;
 }
 .loader-pipeline {
-  display: flex; align-items: center; gap: 0;
+  display: flex; align-items: center; justify-content: center;
+  gap: 0; width: 100%;
 }
 .lp-node {
-  width: 52px; height: 52px; border-radius: 6px;
-  border: 1px solid rgba(0,217,126,0.25);
+  width: 52px; height: 52px; border-radius: 8px; flex-shrink: 0;
+  border: 1px solid rgba(0,217,126,0.15);
   background: #0d1117;
   display: flex; align-items: center; justify-content: center;
-  font-family: var(--font-mono); font-size: 0.65rem; font-weight: 700;
-  color: #445566;
-  transition: border-color 0.3s, color 0.3s, box-shadow 0.3s;
+  font-family: var(--font-mono); font-size: 0.62rem; font-weight: 700;
+  color: #334455;
+  transition: border-color 0.4s, color 0.4s, box-shadow 0.4s;
 }
 .lp-node.active {
-  border-color: var(--green);
-  color: var(--green);
-  box-shadow: 0 0 16px rgba(0,217,126,0.2);
+  border-color: var(--green); color: var(--green);
+  box-shadow: 0 0 12px rgba(0,217,126,0.15);
 }
 .lp-track {
-  width: 80px; height: 2px; background: rgba(255,255,255,0.05);
-  position: relative; overflow: visible;
+  flex: 1; height: 1px; background: rgba(255,255,255,0.05);
+  position: relative; overflow: visible; max-width: 48px;
 }
 .lp-particle {
-  position: absolute; top: -3px; left: -8px;
-  width: 8px; height: 8px; border-radius: 50%;
-  background: var(--green);
-  box-shadow: 0 0 8px rgba(0,217,126,0.6);
+  position: absolute; top: -3px; left: -6px;
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--green); box-shadow: 0 0 6px rgba(0,217,126,0.5);
   opacity: 0;
 }
 .loader-status {
-  font-family: var(--font-mono); font-size: 0.75rem;
-  color: #445566; letter-spacing: 0.06em;
-  min-height: 1.2em;
+  font-family: var(--font-mono); font-size: 0.72rem;
+  color: #445566; letter-spacing: 0.04em;
+  min-height: 1.2em; text-align: center;
 }
 
-/* ---- DATA FLOW ANIMATION SECTION ---- */
-.dataflow {
-  padding: 100px 32px;
-  max-width: var(--max-w);
-  margin: 0 auto;
+
+/* ---- LIGHT MODE ---- */
+body.light {
+  --bg: #f8fafc;
+  --bg-1: #f1f5f9;
+  --bg-2: #e8eef5;
+  --bg-3: #dde5ee;
+  --border: rgba(16,185,129,0.25);
+  --border-dim: rgba(0,0,0,0.09);
+  --green: #059669;
+  --green-dim: rgba(5,150,105,0.1);
+  --green-glow: rgba(5,150,105,0.2);
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-dim: #94a3b8;
+  --yellow: #d97706;
+  --blue: #0284c7;
+  --orange: #ea580c;
+  --red: #dc2626;
 }
-.dataflow-canvas-wrap {
-  position: relative;
-  background: var(--bg-1);
-  border: 1px solid var(--border-dim);
+body.light .nav {
+  background: rgba(248,250,252,0.88);
+  border-bottom-color: rgba(0,0,0,0.08);
+}
+body.light .hero-grid-bg {
+  background-image:
+    linear-gradient(rgba(16,185,129,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16,185,129,0.05) 1px, transparent 1px);
+}
+body.light #pipelineCanvas { background: #f1f5f9; }
+body.light .dashboard-mockup { box-shadow: 0 4px 24px rgba(0,0,0,0.08); }
+body.light .service-card { background: #f8fafc; }
+body.light .service-card:hover { background: #f1f5f9; }
+body.light .kpi-card,
+body.light .chart-area,
+body.light .pipeline-list { background: #f8fafc; }
+body.light .pl-item:hover { background: rgba(0,0,0,0.02); }
+body.light .stack-chip { background: #f1f5f9; }
+body.light .stack-layer { background: #f8fafc; }
+body.light .process { background: #f1f5f9; }
+body.light .about { background: #f1f5f9; }
+body.light .footer { background: #f1f5f9; }
+body.light .team-card { background: #f1f5f9; }
+body.light .contact-form-wrap { background: #f8fafc; }
+body.light .form-group input,
+body.light .form-group select,
+body.light .form-group textarea { background: #ffffff; color: #0f172a; }
+body.light .pricing-card { background: #f8fafc; }
+
+/* ---- THEME TOGGLE ---- */
+.theme-toggle {
+  width: 36px; height: 36px;
   border-radius: 8px;
-  overflow: hidden;
-  margin-top: 48px;
+  border: 1px solid var(--border-dim);
+  background: transparent;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-secondary);
+  transition: all 0.2s;
+  flex-shrink: 0;
 }
-.dataflow-overlay-labels {
-  position: absolute; inset: 0; pointer-events: none;
-  display: flex; justify-content: space-between;
-  align-items: flex-end; padding: 16px 24px;
-}
-.dol-item {
-  font-family: var(--font-mono); font-size: 0.68rem;
-  color: var(--text-dim); letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-#dataflowCanvas { width: 100%; height: 320px; display: block; }
-.dataflow-metrics {
-  display: grid; grid-template-columns: repeat(4, 1fr);
-  border-top: 1px solid var(--border-dim);
-}
-.dfm-item {
-  padding: 20px 24px;
-  border-right: 1px solid var(--border-dim);
-  display: flex; flex-direction: column; gap: 4px;
-}
-.dfm-item:last-child { border-right: none; }
-.dfm-val {
-  font-family: var(--font-mono); font-size: 1.3rem; font-weight: 700;
-  color: var(--green);
-}
-.dfm-label { font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-dim); }
+.theme-toggle:hover { border-color: var(--green); color: var(--green); }
+.theme-toggle .icon-moon { display: block; }
+.theme-toggle .icon-sun { display: none; }
+body.light .theme-toggle .icon-moon { display: none; }
+body.light .theme-toggle .icon-sun { display: block; }
 
 </style>
 </head>
@@ -1172,6 +1285,10 @@ body {
         <li><a href="#stack">Stack</a></li>
       </ul>
       <div class="nav-cta">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="1.5"/><path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
         <span class="status-indicator"></span>
         <a href="mailto:hello@inferreach.com" class="btn-primary">Start Pipeline</a>
       </div>
@@ -1399,39 +1516,6 @@ body {
     </div>
   </section>
 
-  <!-- DATA FLOW ANIMATION -->
-  <section class="dataflow">
-    <div class="section-header">
-      <div class="section-tag">// 02.PIPELINE</div>
-      <h2 class="section-title">Data in Motion</h2>
-      <p class="section-sub">Watch your data travel from raw source to business-ready insight — in real time.</p>
-    </div>
-    <div class="dataflow-canvas-wrap">
-      <canvas id="dataflowCanvas"></canvas>
-      <div class="dataflow-overlay-labels">
-        <span class="dol-item">// live.data.flow</span>
-        <span class="dol-item" id="dfThroughput">── ──── rec/s</span>
-      </div>
-      <div class="dataflow-metrics">
-        <div class="dfm-item">
-          <span class="dfm-val" data-target="2400000" id="dfv1">0</span>
-          <span class="dfm-label">Records processed / min</span>
-        </div>
-        <div class="dfm-item">
-          <span class="dfm-val" data-target="99">0</span><span class="dfm-val" style="font-size:0.85rem;color:var(--text-dim)">%</span>
-          <span class="dfm-label">Pipeline uptime</span>
-        </div>
-        <div class="dfm-item">
-          <span class="dfm-val" data-target="12">0</span>
-          <span class="dfm-label">Avg latency (ms)</span>
-        </div>
-        <div class="dfm-item">
-          <span class="dfm-val" data-target="412">0</span>
-          <span class="dfm-label">Active DAGs</span>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- PLATFORM SECTION -->
   <section class="platform" id="platform">
@@ -1451,7 +1535,7 @@ body {
           <div class="dash-status"><span class="status-dot green"></span> All systems nominal</div>
         </div>
 
-        <div class="dash-body">
+        <div class="dash-body" id="dashBody">
           <!-- Sidebar -->
           <div class="dash-sidebar">
             <div class="sidebar-item active">
@@ -1722,37 +1806,33 @@ body {
   <footer class="footer">
     <div class="footer-inner">
       <div class="footer-brand">
-        <span class="logo-bracket">[</span>
-        <span class="logo-text">inferreach</span>
-        <span class="logo-bracket">]</span>
-        <p>Data pipelines that actually work.</p>
-        <p class="footer-copy">© 2025 InferReach. All rights reserved.</p>
+        <a href="#" class="nav-logo" style="text-decoration:none">
+          <span class="logo-bracket">[</span><span class="logo-text">inferreach</span><span class="logo-bracket">]</span><span class="logo-dot blink">_</span>
+        </a>
+        <p class="footer-tagline">Data pipelines that actually work.</p>
+        <p class="footer-location">📍 Lalitpur, Nepal</p>
+        <a href="mailto:hello@inferreach.com" class="footer-email">hello@inferreach.com</a>
       </div>
-      <div class="footer-links">
+      <div class="footer-nav">
         <div class="footer-col">
           <span class="fc-head">Services</span>
-          <a href="#">Ingestion Pipelines</a>
-          <a href="#">Transformations</a>
-          <a href="#">Warehousing</a>
-          <a href="#">ML Infra</a>
+          <a href="#pipelines">Ingestion</a>
+          <a href="#pipelines">Transformation</a>
+          <a href="#pipelines">Warehousing</a>
+          <a href="#pipelines">ML Infra</a>
+          <a href="#pipelines">Orchestration</a>
         </div>
         <div class="footer-col">
-          <span class="fc-head">Platform</span>
-          <a href="#">Dashboard</a>
-          <a href="#">Monitoring</a>
-          <a href="#">Alerts</a>
-          <a href="#">Docs</a>
-        </div>
-        <div class="footer-col">
-          <span class="fc-head">Company</span>
-          <a href="#">About</a>
-          <a href="#">Blog</a>
-          <a href="#">Careers</a>
-          <a href="#">Contact</a>
+          <span class="fc-head">Navigate</span>
+          <a href="#pipelines">What We Build</a>
+          <a href="#platform">Platform</a>
+          <a href="#stack">Tech Stack</a>
+          <a href="#process">Process</a>
         </div>
       </div>
     </div>
     <div class="footer-bottom">
+      <span class="footer-copy">© 2025 InferReach. All rights reserved.</span>
       <span class="terminal-line">inferreach@prod:~$ status — all systems operational</span>
     </div>
   </footer>
@@ -1813,6 +1893,19 @@ function initCounters() {
   nums.forEach(n => observer.observe(n));
 }
 
+
+// Fix dashboard grid when sidebar hidden on mobile
+function fixDashGrid() {
+  const body = document.getElementById('dashBody');
+  if (!body) return;
+  const sidebar = body.querySelector('.dash-sidebar');
+  if (!sidebar) return;
+  const hidden = window.getComputedStyle(sidebar).display === 'none';
+  body.style.gridTemplateColumns = hidden ? '1fr' : '180px 1fr';
+}
+fixDashGrid();
+window.addEventListener('resize', fixDashGrid);
+
 function initScrollAnimations() {
   const els = document.querySelectorAll('.service-card, .team-card, .process-step, .stack-layer');
   const observer = new IntersectionObserver((entries) => {
@@ -1838,18 +1931,22 @@ function initScrollAnimations() {
   const ctx = canvas.getContext('2d');
 
   function resize() {
-    canvas.width = canvas.offsetWidth * window.devicePixelRatio;
-    canvas.height = canvas.offsetHeight * window.devicePixelRatio;
-    ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+    const rect = canvas.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
+    if (!rect.width) return;
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    ctx.setTransform(1,0,0,1,0,0);
+    ctx.scale(dpr, dpr);
   }
-  resize();
-  window.addEventListener('resize', () => { resize(); });
+  requestAnimationFrame(resize);
+  window.addEventListener('resize', resize);
 
   const W = () => canvas.offsetWidth;
   const H = () => canvas.offsetHeight;
 
   const COLORS = {
-    green: '#00d97e',
+    green: '#10b981',
     yellow: '#ffd166',
     blue: '#00b4d8',
     orange: '#ff6b35',
@@ -2016,11 +2113,15 @@ function initScrollAnimations() {
   const ctx = canvas.getContext('2d');
 
   function resize() {
-    canvas.width = canvas.offsetWidth * window.devicePixelRatio;
-    canvas.height = canvas.offsetHeight * window.devicePixelRatio;
-    ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+    const rect = canvas.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
+    if (!rect.width) return;
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    ctx.setTransform(1,0,0,1,0,0);
+    ctx.scale(dpr, dpr);
   }
-  resize();
+  requestAnimationFrame(() => { resize(); drawChart(); });
 
   // Generate fake 24h data
   const points = 96; // 15-min intervals
@@ -2089,9 +2190,9 @@ function initScrollAnimations() {
       if (i === 0) ctx.moveTo(x, y);
       else ctx.lineTo(x, y);
     });
-    ctx.strokeStyle = '#00d97e';
+    ctx.strokeStyle = '#10b981';
     ctx.lineWidth = 1.5;
-    ctx.shadowColor = '#00d97e';
+    ctx.shadowColor = '#10b981';
     ctx.shadowBlur = 3;
     ctx.stroke();
     ctx.shadowBlur = 0;
@@ -2119,7 +2220,6 @@ function initScrollAnimations() {
     });
   }
 
-  drawChart();
   window.addEventListener('resize', () => { resize(); drawChart(); });
 })();
 
@@ -2128,6 +2228,7 @@ function initScrollAnimations() {
 // ---- LOADER ----
 (function() {
   const loader = document.getElementById('loader');
+  document.body.style.overflow = 'hidden';
   const status = document.getElementById('loaderStatus');
   const nodes = [document.getElementById('ln1'), document.getElementById('ln2'), document.getElementById('ln3')];
   const particles = [document.getElementById('lpar1'), document.getElementById('lpar2')];
@@ -2155,7 +2256,7 @@ function initScrollAnimations() {
 
   function runStep() {
     if (step >= steps.length) {
-      setTimeout(() => { loader.classList.add('hidden'); setTimeout(() => loader.remove(), 700); }, 400);
+      setTimeout(() => { loader.classList.add('hidden'); setTimeout(() => { loader.remove(); document.body.style.overflow = ''; }, 600); }, 400);
       return;
     }
     const s = steps[step];
@@ -2172,121 +2273,19 @@ function initScrollAnimations() {
   setTimeout(runStep, 300);
 })();
 
-// ---- DATAFLOW CANVAS ----
+
+</script>
+<script>
+// ---- THEME TOGGLE ----
 (function() {
-  const canvas = document.getElementById('dataflowCanvas');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  function resize() {
-    canvas.width = canvas.offsetWidth * window.devicePixelRatio;
-    canvas.height = canvas.offsetHeight * window.devicePixelRatio;
-    ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
-  }
-  resize(); window.addEventListener('resize', resize);
-
-  const STAGES = [
-    { label: 'Sources', x: 0.09, color: '#00b4d8', items: ['Postgres','Kafka','S3','REST'] },
-    { label: 'Ingest', x: 0.28, color: '#ff6b35', items: ['Fivetran','Airbyte','CDC'] },
-    { label: 'Transform', x: 0.52, color: '#ffd166', items: ['dbt','Spark','Flink'] },
-    { label: 'Warehouse', x: 0.72, color: '#00d97e', items: ['Snowflake','BigQuery'] },
-    { label: 'Consume', x: 0.91, color: '#a78bfa', items: ['BI','ML','APIs'] },
-  ];
-
-  const CONNECTIONS = [
-    [0,1],[0,1],[1,2],[1,2],[2,3],[2,3],[3,4],[3,4]
-  ];
-
-  const particles = [];
-  let frame = 0;
-
-  function spawn() {
-    const c = CONNECTIONS[Math.floor(Math.random() * CONNECTIONS.length)];
-    particles.push({ from: c[0], to: c[1], t: 0, speed: 0.007 + Math.random() * 0.008,
-      color: STAGES[c[0]].color, size: 2.5 + Math.random() * 1.5 });
-  }
-  for (let i = 0; i < 12; i++) { const p = { from: 0, to: 1, t: Math.random() }; Object.assign(particles[particles.push({from:CONNECTIONS[i%CONNECTIONS.length][0], to:CONNECTIONS[i%CONNECTIONS.length][1], t:Math.random(), speed:0.007+Math.random()*0.008, color:STAGES[CONNECTIONS[i%CONNECTIONS.length][0]].color, size:2.5+Math.random()*1.5})-1]); }
-
-  function draw() {
-    const W = canvas.offsetWidth, H = canvas.offsetHeight;
-    ctx.clearRect(0, 0, W, H);
-
-    // Faint grid
-    ctx.strokeStyle = 'rgba(255,255,255,0.025)'; ctx.lineWidth = 1;
-    for (let x = 0; x < W; x += 40) { ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H); ctx.stroke(); }
-    for (let y = 0; y < H; y += 40) { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke(); }
-
-    // Connection paths
-    CONNECTIONS.forEach(([fi, ti]) => {
-      const a = STAGES[fi], b = STAGES[ti];
-      ctx.beginPath();
-      ctx.moveTo(a.x * W, H / 2);
-      ctx.lineTo(b.x * W, H / 2);
-      ctx.strokeStyle = 'rgba(255,255,255,0.04)'; ctx.lineWidth = 2; ctx.stroke();
-    });
-
-    // Stages
-    STAGES.forEach((s, i) => {
-      const x = s.x * W, y = H / 2;
-      const pulse = 1 + Math.sin(frame * 0.04 + i) * 0.06;
-
-      // Glow ring
-      const grd = ctx.createRadialGradient(x, y, 10, x, y, 40);
-      grd.addColorStop(0, s.color + '22'); grd.addColorStop(1, 'transparent');
-      ctx.beginPath(); ctx.arc(x, y, 40, 0, Math.PI*2);
-      ctx.fillStyle = grd; ctx.fill();
-
-      // Circle
-      ctx.beginPath(); ctx.arc(x, y, 22 * pulse, 0, Math.PI*2);
-      ctx.fillStyle = '#0d1117'; ctx.strokeStyle = s.color; ctx.lineWidth = 1.5;
-      ctx.fill(); ctx.stroke();
-
-      // Label above
-      ctx.font = `600 10px 'IBM Plex Mono', monospace`;
-      ctx.fillStyle = s.color; ctx.textAlign = 'center';
-      ctx.fillText(s.label, x, y - 34);
-
-      // Sub-items below
-      s.items.forEach((item, j) => {
-        ctx.font = `400 8px 'IBM Plex Mono', monospace`;
-        ctx.fillStyle = '#445566';
-        ctx.fillText(item, x, y + 40 + j * 14);
-      });
-    });
-
-    // Particles
-    if (frame % 12 === 0 && particles.length < 30) spawn();
-    for (let i = particles.length - 1; i >= 0; i--) {
-      const p = particles[i]; p.t += p.speed;
-      if (p.t > 1) { particles.splice(i,1); continue; }
-      const a = STAGES[p.from], b = STAGES[p.to];
-      const px = a.x * W + (b.x - a.x) * W * p.t;
-      const py = H / 2 + Math.sin(p.t * Math.PI) * -18;
-      ctx.beginPath(); ctx.arc(px, py, p.size, 0, Math.PI*2);
-      ctx.fillStyle = p.color;
-      ctx.shadowColor = p.color; ctx.shadowBlur = 6;
-      ctx.fill(); ctx.shadowBlur = 0;
-    }
-
-    frame++; requestAnimationFrame(draw);
-  }
-  draw();
-
-  // Animate metrics
-  const metrics = document.querySelectorAll('.dfm-val[data-target]');
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (!e.isIntersecting) return;
-      const el = e.target, target = parseFloat(el.dataset.target), isFloat = target % 1 !== 0;
-      let cur = 0; const step = target / 60;
-      const t = setInterval(() => {
-        cur = Math.min(cur + step, target);
-        el.textContent = isFloat ? cur.toFixed(1) : Math.round(cur);
-        if (cur >= target) clearInterval(t);
-      }, 20);
-      obs.unobserve(el);
-    });
-  }, {threshold: 0.5});
-  metrics.forEach(m => obs.observe(m));
+  const btn = document.getElementById('themeToggle');
+  if (!btn) return;
+  const saved = localStorage.getItem('theme');
+  if (saved === 'light') document.body.classList.add('light');
+  btn.addEventListener('click', () => {
+    document.body.classList.toggle('light');
+    localStorage.setItem('theme', document.body.classList.contains('light') ? 'light' : 'dark');
+  });
 })();
 </script>
 </body>
