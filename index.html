@@ -732,6 +732,8 @@ body {
   border: 1px solid var(--border-dim);
   border-radius: 4px;
   padding: 16px;
+  min-height: 160px;
+  overflow: hidden;
 }
 
 .chart-header {
@@ -1602,7 +1604,7 @@ body.light .theme-toggle .icon-sun { display: block; }
                   <span class="cc">7d</span>
                 </div>
               </div>
-              <canvas id="throughputChart" height="120"></canvas>
+              <canvas id="throughputChart" height="120" style="width:100%;min-height:120px;display:block"></canvas>
             </div>
 
             <!-- Pipeline list -->
@@ -2121,7 +2123,28 @@ function initScrollAnimations() {
     ctx.setTransform(1,0,0,1,0,0);
     ctx.scale(dpr, dpr);
   }
-  requestAnimationFrame(() => { resize(); drawChart(); });
+  // Use ResizeObserver for reliable sizing, with rAF fallback
+  function initChart() {
+    const rect = canvas.getBoundingClientRect();
+    if (rect.width > 0) { resize(); drawChart(); return; }
+    // Not visible yet — poll until it is
+    let tries = 0;
+    const poll = setInterval(() => {
+      const r = canvas.getBoundingClientRect();
+      if (r.width > 0 || ++tries > 20) {
+        clearInterval(poll);
+        resize(); drawChart();
+      }
+    }, 100);
+  }
+
+  if ('ResizeObserver' in window) {
+    const ro = new ResizeObserver(() => { resize(); drawChart(); });
+    ro.observe(canvas);
+  }
+  window.addEventListener('resize', () => { resize(); drawChart(); });
+  // Defer past layout
+  setTimeout(initChart, 50);
 
   // Generate fake 24h data
   const points = 96; // 15-min intervals
