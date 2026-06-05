@@ -92,15 +92,171 @@ input[type=text]::placeholder,textarea::placeholder{color:var(--muted)}
 .modal-btn.primary{background:var(--accent);color:#000;border-color:var(--accent)}
 .modal-btn:hover{color:var(--text)}
 .modal-btn.primary:hover{background:#00ffb3}
+
+/* ---- MOBILE LAYOUT ---- */
+
+/* Sidebar toggle button - mobile only */
+.sidebar-toggle {
+  display: none;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: transparent;
+  border: 1px solid var(--border2);
+  border-radius: 4px;
+  color: var(--muted2);
+  font-family: var(--mono);
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.sidebar-toggle:hover { color: var(--accent); border-color: var(--accent); }
+
+/* Mobile sidebar overlay */
+.sidebar-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 49;
+}
+.sidebar-backdrop.open { display: block; }
+
+@media (max-width: 768px) {
+  /* Header */
+  .header { padding: 12px 16px; gap: 8px; flex-wrap: nowrap; }
+  .header-tag { font-size: 10px; padding: 3px 8px; white-space: nowrap; }
+  .sidebar-toggle { display: flex; }
+
+  /* App grid: full width, no sidebar column */
+  .app {
+    grid-template-columns: 1fr;
+    height: auto;
+    min-height: calc(100vh - 49px);
+    overflow: visible;
+  }
+
+  /* Sidebar: hidden off-screen, slides in as overlay */
+  .sidebar {
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+    width: 280px;
+    z-index: 50;
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+    border-right: 1px solid var(--border2);
+    padding-top: 8px;
+  }
+  .sidebar.open { transform: translateX(0); }
+
+  /* Main takes full width */
+  .main { overflow: visible; min-height: 0; }
+
+  /* Top input area: stack vertically */
+  .main-top {
+    padding: 14px 16px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  .context-inputs {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .input-group { width: 100%; }
+  input[type=text] { width: 100%; }
+  .gen-btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 13px;
+    align-self: stretch;
+  }
+
+  /* Message area: not fixed height */
+  .message-area {
+    padding: 16px;
+    min-height: 300px;
+    overflow: visible;
+  }
+
+  /* Stats row: 2x2 on very small screens */
+  .stats-row { flex-wrap: wrap; }
+  .stat-box { min-width: 50%; }
+
+  /* Message cards */
+  .msg-card-header { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .msg-card-actions { flex-wrap: wrap; gap: 6px; }
+
+  /* Tips bar: vertical stack */
+  .tips-bar {
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px 16px;
+    overflow: visible;
+  }
+  .tip { white-space: normal; }
+
+  /* Modal: full width on mobile */
+  .modal {
+    width: calc(100vw - 32px);
+    max-width: 360px;
+    margin: 0 16px;
+  }
+
+  /* Persona + channel selection state indicator in header */
+  .mobile-state {
+    display: flex;
+    gap: 6px;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted2);
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 8px 16px;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg2);
+  }
+  .mobile-state-item {
+    padding: 3px 8px;
+    border: 1px solid var(--border2);
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .mobile-state-item.set {
+    border-color: rgba(0,229,160,0.4);
+    color: var(--accent);
+    background: rgba(0,229,160,0.07);
+  }
+}
+
+@media (max-width: 400px) {
+  .header-tag { display: none; }
+  .logo { font-size: 14px; }
+  .stat-box { min-width: 50%; }
+  .msg-header { flex-direction: column; gap: 4px; }
+}
+
 </style>
 </head>
 <body>
 
+<div class="sidebar-backdrop" id="sidebarBackdrop" onclick="closeSidebar()"></div>
 <div class="header">
   <div class="logo">infer<span>reach</span> <span style="color:var(--muted);font-weight:400;font-size:13px;margin-left:8px">/ outreach engine</span></div>
+  <button class="sidebar-toggle" onclick="toggleSidebar()" id="sidebarToggle">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 2h12M1 7h12M1 12h12" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+    Settings
+  </button>
   <div class="header-tag">AI-powered · inferreach.com</div>
 </div>
 
+<div class="mobile-state" id="mobileState">
+  <span style="color:var(--muted)">config:</span>
+  <span class="mobile-state-item set" id="mobilePersonaTag">🚀 SaaS Founder</span>
+  <span class="mobile-state-item set" id="mobileChannelTag">💼 LinkedIn DM</span>
+</div>
 <div class="app">
   <div class="sidebar">
     <div class="sidebar-section">
@@ -201,11 +357,7 @@ const channels = [
 ];
 let selectedPersona = 'saas';
 let selectedChannel = 'linkedin';
-let contacts = [
-  { name: 'James K.', company: 'Pocketbase', status: 'sent' },
-  { name: 'Sarah M.', company: 'Reflio', status: 'replied' },
-  { name: 'Tom W.', company: 'Lemon Squeezy', status: 'pending' },
-];
+let contacts = [];
 
 function renderPersonas() {
   document.getElementById('personaBtns').innerHTML = personas.map(p => `
@@ -339,6 +491,29 @@ function markSent(name,company){
   renderTracker();
 }
 renderPersonas();renderChannels();renderTracker();
+
+function toggleSidebar() {
+  document.getElementById('sidebarToggle') && document.querySelector('.sidebar').classList.toggle('open');
+  document.getElementById('sidebarBackdrop').classList.toggle('open');
+}
+function closeSidebar() {
+  document.querySelector('.sidebar').classList.remove('open');
+  document.getElementById('sidebarBackdrop').classList.remove('open');
+}
+function updateMobileState() {
+  const p = personas.find(p => p.id === selectedPersona);
+  const ch = channels.find(c => c.id === selectedChannel);
+  const pt = document.getElementById('mobilePersonaTag');
+  const ct = document.getElementById('mobileChannelTag');
+  if (pt && p) pt.textContent = p.icon + ' ' + p.label;
+  if (ct && ch) ct.textContent = ch.label;
+}
+
+// Close sidebar after picking persona/channel on mobile
+const _sp = selectPersona, _sc = selectChannel;
+selectPersona = function(id) { _sp(id); updateMobileState(); if(window.innerWidth<=768) closeSidebar(); }
+selectChannel = function(id) { _sc(id); updateMobileState(); if(window.innerWidth<=768) closeSidebar(); }
+
 </script>
 </body>
 </html>
