@@ -28,7 +28,6 @@ input,textarea,select{font-family:inherit}
 ::-webkit-scrollbar-track{background:var(--bg1)}
 ::-webkit-scrollbar-thumb{background:var(--bg3);border-radius:2px}
 
-/* ── ANIMATIONS ── */
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 @keyframes spin{to{transform:rotate(360deg)}}
@@ -37,9 +36,6 @@ input,textarea,select{font-family:inherit}
 @keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 @keyframes count-up{from{opacity:0}to{opacity:1}}
 
-/* ════════════════════════════════════
-   LOGIN SCREEN
-════════════════════════════════════ */
 #loginScreen {
   position:fixed;inset:0;z-index:1000;
   background:var(--bg);
@@ -64,24 +60,15 @@ input,textarea,select{font-family:inherit}
 .login-title{font-family:var(--display);font-size:1.9rem;font-weight:800;margin-bottom:8px;line-height:1.2}
 .login-sub{font-size:.875rem;color:var(--text2);margin-bottom:36px}
 
-.field{display:flex;flex-direction:column;gap:6px;margin-bottom:16px}
-.field label{font-family:var(--mono);font-size:.68rem;color:var(--text2);text-transform:uppercase;letter-spacing:.08em}
-.field input{
-  background:var(--bg1);border:1px solid var(--border);border-radius:6px;
-  padding:11px 14px;color:var(--text);font-family:var(--mono);font-size:.85rem;
-  outline:none;transition:border-color .2s,box-shadow .2s;
-}
-.field input:focus{border-color:var(--green);box-shadow:0 0 0 3px var(--green-dim)}
-.field input::placeholder{color:var(--text3)}
-
-.login-hint{
+.psa-note{
   font-family:var(--mono);font-size:.72rem;color:var(--text3);
   margin-bottom:24px;padding:10px 14px;
-  background:rgba(16,185,129,.06);border:1px solid var(--border-bright);border-radius:6px;
+  background:rgba(96,165,250,.05);border:1px solid rgba(96,165,250,.15);border-radius:6px;
+  line-height:1.5;
 }
-.login-hint span{color:var(--green)}
+.psa-note span{color:var(--blue)}
 
-.btn-login{
+.btn-demo{
   width:100%;padding:13px;
   background:var(--green);color:#000;
   font-family:var(--mono);font-size:.88rem;font-weight:700;
@@ -89,34 +76,11 @@ input,textarea,select{font-family:inherit}
   transition:background .2s,box-shadow .2s,transform .1s;
   display:flex;align-items:center;justify-content:center;gap:8px;
 }
-.btn-login:hover{background:#0ea572;box-shadow:0 0 20px var(--green-glow);transform:translateY(-1px)}
-.btn-login:disabled{opacity:.6;cursor:not-allowed;transform:none}
+.btn-demo:hover{background:#0ea572;box-shadow:0 0 20px var(--green-glow);transform:translateY(-1px)}
 
-.login-error{
-  display:none;margin-top:12px;padding:10px 14px;
-  background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.25);
-  border-radius:6px;font-family:var(--mono);font-size:.75rem;color:var(--red);
-}
-.login-error.show{display:block}
-
-.login-divider{display:flex;align-items:center;gap:12px;margin:20px 0;color:var(--text3);font-size:.75rem}
-.login-divider::before,.login-divider::after{content:'';flex:1;height:1px;background:var(--border)}
-
-.btn-demo{
-  width:100%;padding:11px;
-  background:transparent;border:1px solid var(--border);border-radius:6px;
-  color:var(--text2);font-family:var(--mono);font-size:.82rem;
-  transition:all .2s;
-}
-.btn-demo:hover{border-color:var(--green);color:var(--green)}
-
-/* ════════════════════════════════════
-   APP SHELL
-════════════════════════════════════ */
 #app{display:none}
 #app.visible{display:flex;flex-direction:column;min-height:100vh}
 
-/* Top nav */
 .app-nav{
   position:fixed;top:0;left:0;right:0;height:var(--nav);z-index:200;
   background:rgba(13,17,23,.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
@@ -153,10 +117,8 @@ input,textarea,select{font-family:inherit}
 .btn-logout{padding:6px 12px;background:transparent;border:1px solid var(--border);border-radius:6px;font-family:var(--mono);font-size:.72rem;color:var(--text3);transition:all .2s}
 .btn-logout:hover{border-color:var(--red);color:var(--red)}
 
-/* Layout */
 .app-body{display:flex;padding-top:var(--nav);min-height:100vh}
 
-/* Sidebar */
 .sidebar{
   width:var(--sidebar);position:fixed;top:var(--nav);bottom:0;left:0;
   background:var(--bg1);border-right:1px solid var(--border);
@@ -180,10 +142,8 @@ input,textarea,select{font-family:inherit}
 .sidebar-user-info{font-family:var(--mono);font-size:.72rem;color:var(--text3)}
 .sidebar-user-info strong{color:var(--text2);display:block}
 
-/* Main content */
 .main{margin-left:var(--sidebar);flex:1;padding:28px;min-width:0}
 
-/* ── PAGE SECTIONS ── */
 .page{display:none;animation:fadeUp .35s ease both}
 .page.active{display:block}
 
@@ -191,7 +151,6 @@ input,textarea,select{font-family:inherit}
 .page-title{font-family:var(--display);font-size:1.4rem;font-weight:700;margin-bottom:4px}
 .page-sub{font-size:.85rem;color:var(--text2)}
 
-/* ── KPI CARDS ── */
 .kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
 .kpi{background:var(--bg1);border:1px solid var(--border);border-radius:8px;padding:18px;transition:border-color .2s}
 .kpi:hover{border-color:var(--border-bright)}
@@ -201,7 +160,6 @@ input,textarea,select{font-family:inherit}
 .kpi-delta{font-family:var(--mono);font-size:.7rem}
 .up{color:var(--green)} .down{color:var(--red)} .neutral{color:var(--text3)}
 
-/* ── CHART ── */
 .chart-card{background:var(--bg1);border:1px solid var(--border);border-radius:8px;padding:20px;margin-bottom:20px}
 .chart-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
 .chart-title{font-family:var(--mono);font-size:.8rem;color:var(--text2)}
@@ -211,7 +169,6 @@ input,textarea,select{font-family:inherit}
 .ctab.active{background:var(--green-dim);color:var(--green)}
 #throughputChart{width:100%;height:140px;display:block}
 
-/* ── PIPELINE TABLE ── */
 .table-card{background:var(--bg1);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:20px}
 .table-head{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid var(--border)}
 .table-title{font-family:var(--mono);font-size:.78rem;color:var(--text2)}
@@ -231,7 +188,6 @@ input,textarea,select{font-family:inherit}
 .warn{background:rgba(251,191,36,.1);color:var(--yellow)}
 .fail{background:rgba(248,113,113,.1);color:var(--red)}
 
-/* ── AI ASSISTANT ── */
 .ai-card{background:var(--bg1);border:1px solid var(--border);border-radius:8px;overflow:hidden}
 .ai-header{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
 .ai-badge{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:.72rem;color:var(--purple)}
@@ -273,7 +229,6 @@ input,textarea,select{font-family:inherit}
 }
 .suggestion:hover{border-color:var(--purple);color:var(--purple)}
 
-/* ── ALERTS PAGE ── */
 .alert-item{
   background:var(--bg1);border:1px solid var(--border);border-radius:8px;
   padding:16px 18px;margin-bottom:10px;display:flex;align-items:flex-start;gap:14px;
@@ -290,7 +245,6 @@ input,textarea,select{font-family:inherit}
 .alert-meta{font-family:var(--mono);font-size:.68rem;color:var(--text3)}
 .alert-badge{padding:2px 8px;border-radius:3px;font-family:var(--mono);font-size:.62rem;font-weight:700;flex-shrink:0;align-self:flex-start;margin-top:2px}
 
-/* ── SOURCES PAGE ── */
 .sources-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .source-card{
   background:var(--bg1);border:1px solid var(--border);border-radius:8px;padding:20px;
@@ -304,7 +258,6 @@ input,textarea,select{font-family:inherit}
 .source-vol{font-family:var(--mono);font-size:.72rem;color:var(--text2)}
 .source-status{display:flex;align-items:center;gap:5px;font-family:var(--mono);font-size:.68rem}
 
-/* ── SETTINGS PAGE ── */
 .settings-section{background:var(--bg1);border:1px solid var(--border);border-radius:8px;padding:24px;margin-bottom:16px}
 .settings-title{font-family:var(--mono);font-size:.8rem;color:var(--green);text-transform:uppercase;letter-spacing:.08em;margin-bottom:16px}
 .setting-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--border)}
@@ -318,50 +271,34 @@ input,textarea,select{font-family:inherit}
 .setting-input{background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:6px 10px;color:var(--text);font-family:var(--mono);font-size:.78rem;outline:none;width:200px}
 .setting-input:focus{border-color:var(--green)}
 
-/* ── ACTIVITY TICKER ── */
 .ticker-bar{background:var(--bg1);border-bottom:1px solid var(--border);overflow:hidden;height:32px;display:flex;align-items:center}
 .ticker-inner{display:flex;gap:40px;white-space:nowrap;animation:ticker 30s linear infinite;padding:0 20px}
 .ticker-event{font-family:var(--mono);font-size:.68rem;color:var(--text3);display:flex;align-items:center;gap:8px;flex-shrink:0}
 .ticker-event .dot{width:5px;height:5px;border-radius:50%}
 
-/* ── GRID HELPERS ── */
 .two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
 </style>
 </head>
 <body>
 
-<!-- ════ LOGIN ════ -->
+<!-- LOGIN -->
 <div id="loginScreen">
   <div class="login-wrap">
     <div class="login-logo"><span class="lb">[</span>inferreach<span class="lb">]</span><span class="cursor">_</span></div>
     <h1 class="login-title">Pipeline<br/>Control Center</h1>
-    <p class="login-sub">Sign in to manage your data infrastructure.</p>
+    <p class="login-sub">Data pipeline infrastructure for startups.</p>
 
-    <div class="field">
-      <label>Email</label>
-      <input type="email" id="loginEmail" placeholder="you@company.com" autocomplete="email"/>
-    </div>
-    <div class="field">
-      <label>Password</label>
-      <input type="password" id="loginPass" placeholder="••••••••" autocomplete="current-password"/>
+    <div class="psa-note">
+      <span>PSA:</span> This is a simple concept dashboard, not a final product. Just an idea in progress.
     </div>
 
-    <div class="login-hint">Demo: use any email + password <span>inferreach</span></div>
-
-    <button class="btn-login" id="loginBtn" onclick="doLogin()">
-      <span id="loginBtnText">Sign In</span>
-    </button>
-    <div class="login-error" id="loginError">Incorrect credentials. Password is <strong>inferreach</strong>.</div>
-
-    <div class="login-divider">or</div>
     <button class="btn-demo" onclick="demoLogin()">Continue with Demo Account</button>
   </div>
 </div>
 
-<!-- ════ APP ════ -->
+<!-- APP -->
 <div id="app">
-  <!-- Nav -->
   <nav class="app-nav">
     <div class="app-nav-logo"><span class="lb">[</span>inferreach<span class="lb">]</span></div>
     <div class="app-nav-center">
@@ -371,15 +308,14 @@ input,textarea,select{font-family:inherit}
     <div class="app-nav-right">
       <div class="nav-status"><span class="nav-dot"></span>All systems operational</div>
       <div class="nav-user">
-        <div class="nav-avatar" id="navAvatar">JD</div>
-        <span id="navUserName">user</span>
+        <div class="nav-avatar" id="navAvatar">DU</div>
+        <span id="navUserName">Demo User</span>
       </div>
       <button class="btn-logout" onclick="doLogout()">Logout</button>
     </div>
   </nav>
 
   <div class="app-body">
-    <!-- Sidebar -->
     <aside class="sidebar">
       <div class="sidebar-section">
         <div class="sidebar-label">Overview</div>
@@ -417,15 +353,13 @@ input,textarea,select{font-family:inherit}
       </div>
       <div class="sidebar-footer">
         <div class="sidebar-user-info">
-          <strong id="sidebarUserName">user@inferreach.com</strong>
+          <strong id="sidebarUserName">demo@inferreach.com</strong>
           Free Plan · 40 pipelines
         </div>
       </div>
     </aside>
 
-    <!-- Main -->
     <main class="main">
-      <!-- Activity ticker -->
       <div class="ticker-bar">
         <div class="ticker-inner" id="ticker">
           <span class="ticker-event"><span class="dot" style="background:var(--green)"></span>ecommerce_orders_to_warehouse — 840K rec/min — OK</span>
@@ -434,27 +368,24 @@ input,textarea,select{font-family:inherit}
           <span class="ticker-event"><span class="dot" style="background:var(--green)"></span>ml_feature_pipeline_refresh — 320K rec/min — OK</span>
           <span class="ticker-event"><span class="dot" style="background:var(--red)"></span>ALERT: Schema drift detected on raw.orders — 14 min ago</span>
           <span class="ticker-event"><span class="dot" style="background:var(--green)"></span>dbt run completed — staging.orders — 2m 14s</span>
-          <!-- duplicate for loop -->
           <span class="ticker-event"><span class="dot" style="background:var(--green)"></span>ecommerce_orders_to_warehouse — 840K rec/min — OK</span>
           <span class="ticker-event"><span class="dot" style="background:var(--yellow)"></span>crm_daily_transform_job — RETRY #2</span>
           <span class="ticker-event"><span class="dot" style="background:var(--green)"></span>events_kafka_stream_processor — 2.1M rec/min — OK</span>
         </div>
       </div>
 
-      <!-- ── DASHBOARD PAGE ── -->
+      <!-- DASHBOARD -->
       <div class="page active" id="page-dashboard">
         <div class="page-header" style="margin-top:16px">
           <div class="page-title">Overview</div>
           <div class="page-sub">Live view of your data infrastructure · <span style="color:var(--green);font-family:var(--mono);font-size:.78rem" id="liveTime"></span></div>
         </div>
-
         <div class="kpi-grid">
           <div class="kpi"><div class="kpi-label">Throughput</div><div class="kpi-val g">2.4M <span style="font-size:.8rem;opacity:.6">rec/min</span></div><div class="kpi-delta up">↑ 8.2% vs yesterday</div></div>
           <div class="kpi"><div class="kpi-label">Pipeline Health</div><div class="kpi-val g">98.7<span style="font-size:.9rem">%</span></div><div class="kpi-delta up">↑ 0.3%</div></div>
           <div class="kpi"><div class="kpi-label">Kafka Lag</div><div class="kpi-val y">142 <span style="font-size:.8rem;opacity:.6">ms</span></div><div class="kpi-delta neutral">→ stable</div></div>
           <div class="kpi"><div class="kpi-label">Failed DAGs</div><div class="kpi-val r">3 <span style="font-size:.75rem;opacity:.6">of 412</span></div><div class="kpi-delta down">↓ needs attention</div></div>
         </div>
-
         <div class="chart-card">
           <div class="chart-header">
             <span class="chart-title">Pipeline Throughput — last 24h</span>
@@ -467,7 +398,6 @@ input,textarea,select{font-family:inherit}
           </div>
           <canvas id="throughputChart"></canvas>
         </div>
-
         <div class="two-col">
           <div class="table-card">
             <div class="table-head"><span class="table-title">Active Pipelines</span><span class="table-count">412 running</span></div>
@@ -504,7 +434,7 @@ input,textarea,select{font-family:inherit}
         </div>
       </div>
 
-      <!-- ── PIPELINES PAGE ── -->
+      <!-- PIPELINES -->
       <div class="page" id="page-pipelines">
         <div class="page-header" style="margin-top:16px">
           <div class="page-title">Pipelines</div>
@@ -523,7 +453,7 @@ input,textarea,select{font-family:inherit}
         </div>
       </div>
 
-      <!-- ── SOURCES PAGE ── -->
+      <!-- SOURCES -->
       <div class="page" id="page-sources">
         <div class="page-header" style="margin-top:16px">
           <div class="page-title">Data Sources</div>
@@ -539,7 +469,7 @@ input,textarea,select{font-family:inherit}
         </div>
       </div>
 
-      <!-- ── ALERTS PAGE ── -->
+      <!-- ALERTS -->
       <div class="page" id="page-alerts">
         <div class="page-header" style="margin-top:16px">
           <div class="page-title">Alerts</div>
@@ -574,7 +504,7 @@ input,textarea,select{font-family:inherit}
         </div>
       </div>
 
-      <!-- ── AI ASSISTANT PAGE ── -->
+      <!-- AI ASSISTANT -->
       <div class="page" id="page-ai">
         <div class="page-header" style="margin-top:16px">
           <div class="page-title">AI Assistant</div>
@@ -604,7 +534,7 @@ input,textarea,select{font-family:inherit}
         </div>
       </div>
 
-      <!-- ── SETTINGS PAGE ── -->
+      <!-- SETTINGS -->
       <div class="page" id="page-settings">
         <div class="page-header" style="margin-top:16px">
           <div class="page-title">Settings</div>
@@ -625,7 +555,7 @@ input,textarea,select{font-family:inherit}
         </div>
         <div class="settings-section">
           <div class="settings-title">Account</div>
-          <div class="setting-row"><div><div class="setting-label">Email</div></div><input class="setting-input" id="settingsEmail" type="email"/></div>
+          <div class="setting-row"><div><div class="setting-label">Email</div></div><input class="setting-input" id="settingsEmail" value="demo@inferreach.com" type="email"/></div>
           <div class="setting-row"><div><div class="setting-label">Plan</div><div class="setting-desc">InferReach Scale — up to 100M records/day</div></div><span style="font-family:var(--mono);font-size:.75rem;color:var(--green)">SCALE</span></div>
         </div>
       </div>
@@ -635,55 +565,23 @@ input,textarea,select{font-family:inherit}
 </div>
 
 <script>
-// ════ AUTH ════
 const DEMO = {email:'demo@inferreach.com', name:'Demo User', initials:'DU'};
-
-function doLogin() {
-  const email = document.getElementById('loginEmail').value.trim();
-  const pass = document.getElementById('loginPass').value;
-  const err = document.getElementById('loginError');
-  const btn = document.getElementById('loginBtn');
-  if (!email || !pass) { err.classList.add('show'); err.textContent = 'Please enter email and password.'; return; }
-  if (pass !== 'inferreach') { err.classList.add('show'); return; }
-  err.classList.remove('show');
-  btn.disabled = true;
-  document.getElementById('loginBtnText').textContent = 'Signing in…';
-  const initials = email.split('@')[0].slice(0,2).toUpperCase();
-  setTimeout(() => login({email, name: email.split('@')[0], initials}), 800);
-}
 
 function demoLogin() { login(DEMO); }
 
 function login(user) {
-  localStorage.setItem('ir_user', JSON.stringify(user));
   document.getElementById('navAvatar').textContent = user.initials;
   document.getElementById('navUserName').textContent = user.name;
   document.getElementById('sidebarUserName').textContent = user.email;
-  document.getElementById('settingsEmail').value = user.email;
   const ls = document.getElementById('loginScreen');
   ls.classList.add('out');
   setTimeout(() => { ls.style.display='none'; document.getElementById('app').classList.add('visible'); initApp(); }, 500);
 }
 
-function doLogout() {
-  localStorage.removeItem('ir_user');
-  location.reload();
-}
+function doLogout() { location.reload(); }
 
-// Check existing session
-window.addEventListener('DOMContentLoaded', () => {
-  const saved = localStorage.getItem('ir_user');
-  if (saved) { try { login(JSON.parse(saved)); } catch(e) { localStorage.removeItem('ir_user'); } }
-});
+function initApp() { drawChart(); startLiveClock(); }
 
-// ════ APP INIT ════
-function initApp() {
-  drawChart();
-  startLiveClock();
-  document.getElementById('loginBtn') && (document.getElementById('loginBtn').disabled = false);
-}
-
-// ════ NAVIGATION ════
 function showPage(id, el) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
@@ -692,7 +590,6 @@ function showPage(id, el) {
   if (id === 'dashboard') { setTimeout(drawChart, 100); }
 }
 
-// ════ LIVE CLOCK ════
 function startLiveClock() {
   const el = document.getElementById('liveTime');
   if (!el) return;
@@ -703,7 +600,6 @@ function startLiveClock() {
   tick(); setInterval(tick, 1000);
 }
 
-// ════ CHART ════
 function drawChart() {
   const canvas = document.getElementById('throughputChart');
   if (!canvas) return;
@@ -730,7 +626,6 @@ function drawChart() {
     const max = Math.max(...data)*1.1, min = 0;
     const pad = {t:10,r:10,b:28,l:48};
     const cW = W-pad.l-pad.r, cH = H-pad.t-pad.b;
-    // grid
     for(let i=0;i<=4;i++){
       const y=pad.t+cH-(cH*i/4);
       ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(pad.l+cW,y);
@@ -738,7 +633,6 @@ function drawChart() {
       ctx.font=`9px 'IBM Plex Mono',monospace`;ctx.fillStyle='#5a7a8a';ctx.textAlign='right';
       ctx.fillText(Math.round(max*i/4/1000)+'K',pad.l-4,y+3);
     }
-    // area
     ctx.beginPath();
     data.forEach((v,i)=>{
       const x=pad.l+(i/(pts-1))*cW, y=pad.t+cH-((v-min)/(max-min))*cH;
@@ -748,17 +642,14 @@ function drawChart() {
     const g=ctx.createLinearGradient(0,pad.t,0,pad.t+cH);
     g.addColorStop(0,'rgba(16,185,129,0.2)');g.addColorStop(1,'rgba(16,185,129,0.01)');
     ctx.fillStyle=g;ctx.fill();
-    // line
     ctx.beginPath();
     data.forEach((v,i)=>{
       const x=pad.l+(i/(pts-1))*cW,y=pad.t+cH-((v-min)/(max-min))*cH;
       i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
     });
     ctx.strokeStyle='#10b981';ctx.lineWidth=1.5;ctx.shadowColor='#10b981';ctx.shadowBlur=4;ctx.stroke();ctx.shadowBlur=0;
-    // spike dot
     const sx=pad.l+(52/(pts-1))*cW,sy=pad.t+cH-((data[52]-min)/(max-min))*cH;
     ctx.beginPath();ctx.arc(sx,sy,4,0,Math.PI*2);ctx.fillStyle='#f97316';ctx.shadowColor='#f97316';ctx.shadowBlur=8;ctx.fill();ctx.shadowBlur=0;
-    // time labels
     ['00:00','06:00','12:00','18:00','24:00'].forEach((l,i)=>{
       const x=pad.l+(i/4)*cW;
       ctx.font=`9px 'IBM Plex Mono',monospace`;ctx.fillStyle='#5a7a8a';ctx.textAlign='center';
@@ -769,7 +660,6 @@ function drawChart() {
   window.addEventListener('resize',()=>requestAnimationFrame(resize));
 }
 
-// ════ AI ════
 const PIPELINE_CONTEXT = `
 You are InferReach AI, an embedded AI assistant inside the InferReach data engineering platform.
 Current pipeline status:
@@ -787,12 +677,7 @@ async function callAI(messages) {
   const res = await fetch('https://api.anthropic.com/v1/messages', {
     method:'POST',
     headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({
-      model:'claude-sonnet-4-20250514',
-      max_tokens:1000,
-      system: PIPELINE_CONTEXT,
-      messages
-    })
+    body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:PIPELINE_CONTEXT,messages})
   });
   const data = await res.json();
   return data.content?.[0]?.text || 'Sorry, I could not get a response.';
@@ -821,10 +706,7 @@ async function sendAI() {
   btn.disabled = false;
 }
 
-function askAI(el, q) {
-  document.getElementById('dashAiInput').value = q;
-  sendAI();
-}
+function askAI(el, q) { document.getElementById('dashAiInput').value = q; sendAI(); }
 
 let pageHistory = [];
 async function sendPageAI() {
@@ -849,21 +731,13 @@ async function sendPageAI() {
   btn.disabled = false;
 }
 
-function askPageAI(el, q) {
-  document.getElementById('pageAiInput').value = q;
-  sendPageAI();
-}
+function askPageAI(el, q) { document.getElementById('pageAiInput').value = q; sendPageAI(); }
 
 function appendMsg(containerId, role, text) {
   const c = document.getElementById(containerId);
   const div = document.createElement('div');
   div.className = 'msg';
-  div.innerHTML = `
-    <div class="msg-avatar ${role}">${role==='ai'?'IR':'You'}</div>
-    <div class="msg-body">
-      <div class="msg-sender">${role==='ai'?'InferReach AI':'You'}</div>
-      <div class="msg-text">${formatMsg(text)}</div>
-    </div>`;
+  div.innerHTML = `<div class="msg-avatar ${role}">${role==='ai'?'IR':'You'}</div><div class="msg-body"><div class="msg-sender">${role==='ai'?'InferReach AI':'You'}</div><div class="msg-text">${formatMsg(text)}</div></div>`;
   c.appendChild(div);
   c.scrollTop = c.scrollHeight;
 }
@@ -878,10 +752,7 @@ function appendTyping(containerId) {
   return id;
 }
 
-function removeTyping(id) {
-  const el = document.getElementById(id);
-  if (el) el.remove();
-}
+function removeTyping(id) { const el = document.getElementById(id); if (el) el.remove(); }
 
 function formatMsg(text) {
   return text
@@ -893,4 +764,3 @@ function formatMsg(text) {
 </script>
 </body>
 </html>
-HTMLEOF
