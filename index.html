@@ -17,15 +17,9 @@
   <meta name="theme-color" content="#080b0f"/>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNiIgZmlsbD0iIzA4MGIwZiIvPgogIDx0ZXh0IHg9IjIiIHk9IjIzIiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjIwIiBmb250LXdlaWdodD0iNzAwIiBmaWxsPSIjMDBkOTdlIj5baV08L3RleHQ+Cjwvc3ZnPg=="/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNiIgZmlsbD0iIzA4MGIwZiIvPgogIDx0ZXh0IHg9IjIiIHk9IjIzIiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjIwIiBmb250LXdlaWdodD0iNzAwIiBmaWxsPSIjMDBkOTdlIj5baV08L3RleHQ+Cjwvc3ZnPg=="/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet"/>
   <style>
-/* ================================================
-   INFERREACH.COM — DATA ENGINEERING STARTUP
-   Theme: Dark Industrial / Terminal Data Aesthetic
-   ================================================ */
-
 :root {
   --bg: #0d1117;
   --bg-1: #111827;
@@ -33,7 +27,6 @@
   --bg-3: #161f2c;
   --border: rgba(16,185,129,0.18);
   --border-dim: rgba(148,180,200,0.12);
-
   --green: #10b981;
   --green-dim: rgba(0, 255, 136, 0.12);
   --green-glow: rgba(0, 255, 136, 0.25);
@@ -41,192 +34,58 @@
   --blue: #00b4d8;
   --orange: #ff6b35;
   --red: #ff4757;
-
   --text-primary: #f0f6ff;
   --text-secondary: #9db4c8;
   --text-dim: #5a7a8a;
-
   --font-mono: 'IBM Plex Mono', monospace;
   --font-sans: 'IBM Plex Sans', sans-serif;
   --font-display: 'Syne', sans-serif;
-
   --nav-h: 64px;
   --max-w: 1280px;
   --radius: 4px;
 }
 
-/* ---- RESET & BASE ---- */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 a, button { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
-
 html { scroll-behavior: smooth; }
-
-body {
-  background: var(--bg);
-  color: var(--text-primary);
-  font-family: var(--font-sans);
-  font-size: 16px;
-  line-height: 1.6;
-  overflow-x: hidden;
-}
-
-/* ---- NOISE OVERLAY ---- */
+body { background: var(--bg); color: var(--text-primary); font-family: var(--font-sans); font-size: 16px; line-height: 1.6; overflow-x: hidden; }
 .noise-overlay { display:none }
-
 .scanlines { display:none }
 
-/* ---- ANIMATIONS ---- */
 @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
- 100% { transform: translateX(-50%); } }
 @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.9); } }
 @keyframes fadeInUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes glow-pulse { 0%, 100% { box-shadow: 0 0 8px var(--green-glow); } 50% { box-shadow: 0 0 20px var(--green-glow), 0 0 40px rgba(0,255,136,0.1); } }
 @keyframes line-grow { from { height: 0; } to { height: 100%; } }
-
 .blink { animation: blink 1.1s step-end infinite; }
 
-/* ---- NAVIGATION ---- */
 .nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 900;
   height: var(--nav-h);
-  padding-left: env(safe-area-inset-left, 0);
-  padding-right: env(safe-area-inset-right, 0);
   background: rgba(8, 11, 15, 0.85);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border-dim);
 }
-
-.nav-inner {
-  max-width: var(--max-w);
-  margin: 0 auto;
-  padding: 0 32px;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  gap: 40px;
-}
-
-.nav-logo {
-  text-decoration: none;
-  font-family: var(--font-mono);
-  font-weight: 600;
-  font-size: 1.1rem;
-  color: var(--text-primary);
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  white-space: nowrap;
-}
-
+.nav-inner { max-width: var(--max-w); margin: 0 auto; padding: 0 32px; height: 100%; display: flex; align-items: center; gap: 40px; }
+.nav-logo { text-decoration: none; font-family: var(--font-mono); font-weight: 600; font-size: 1.1rem; color: var(--text-primary); display: flex; align-items: center; gap: 2px; white-space: nowrap; }
 .logo-bracket { color: var(--green); }
 .logo-dot { color: var(--green); margin-left: 2px; }
-
-.nav-links {
-  list-style: none;
-  display: flex;
-  gap: 32px;
-  margin-left: auto;
-}
-
-.nav-links a {
-  text-decoration: none;
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  color: var(--text-secondary);
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  transition: color 0.2s;
-}
-
+.nav-links { list-style: none; display: flex; gap: 32px; margin-left: auto; }
+.nav-links a { text-decoration: none; font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-secondary); letter-spacing: 0.05em; text-transform: uppercase; transition: color 0.2s; }
 .nav-links a:hover { color: var(--green); }
+.nav-cta { display: flex; align-items: center; gap: 12px; margin-left: 24px; }
+.status-indicator { width: 8px; height: 8px; border-radius: 50%; background: var(--green); animation: pulse 2s ease-in-out infinite; }
 
-.nav-cta {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-left: 24px;
-}
-
-.status-indicator {
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  background: var(--green);
-  animation: pulse 2s ease-in-out infinite;
-}
-
-/* ---- BUTTONS ---- */
-.btn-primary {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 20px;
-  background: var(--green);
-  color: #000;
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
-  font-weight: 600;
-  text-decoration: none;
-  border-radius: var(--radius);
-  border: none;
-  cursor: pointer;
-  transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
-}
-
-.btn-primary:hover {
-  background: #00ffaa;
-  box-shadow: 0 0 24px var(--green-glow);
-  transform: translateY(-1px);
-}
-
-.btn-ghost {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 20px;
-  background: transparent;
-  color: var(--text-secondary);
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
-  text-decoration: none;
-  border-radius: var(--radius);
-  border: 1px solid var(--border-dim);
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.btn-ghost:hover {
-  color: var(--text-primary);
-  border-color: var(--border);
-}
-
-.btn-outline {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  width: 100%;
-  padding: 12px 20px;
-  background: transparent;
-  color: var(--green);
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
-  font-weight: 600;
-  text-decoration: none;
-  border-radius: var(--radius);
-  border: 1px solid var(--green);
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.btn-outline:hover {
-  background: var(--green-dim);
-}
-
+.btn-primary { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; background: var(--green); color: #000; font-family: var(--font-mono); font-size: 0.85rem; font-weight: 600; text-decoration: none; border-radius: var(--radius); border: none; cursor: pointer; transition: background 0.2s, box-shadow 0.2s, transform 0.1s; }
+.btn-primary:hover { background: #00ffaa; box-shadow: 0 0 24px var(--green-glow); transform: translateY(-1px); }
+.btn-ghost { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; background: transparent; color: var(--text-secondary); font-family: var(--font-mono); font-size: 0.85rem; text-decoration: none; border-radius: var(--radius); border: 1px solid var(--border-dim); cursor: pointer; transition: all 0.2s; }
+.btn-ghost:hover { color: var(--text-primary); border-color: var(--border); }
+.btn-outline { display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 12px 20px; background: transparent; color: var(--green); font-family: var(--font-mono); font-size: 0.85rem; font-weight: 600; text-decoration: none; border-radius: var(--radius); border: 1px solid var(--green); cursor: pointer; transition: all 0.2s; }
+.btn-outline:hover { background: var(--green-dim); }
 .btn-large { padding: 14px 28px; font-size: 0.9rem; }
 .btn-full { width: 100%; justify-content: center; }
 
-/* ---- HERO ---- */
 .hero {
   position: relative;
   min-height: 100vh;
@@ -241,814 +100,140 @@ body {
   gap: 40px;
   overflow: hidden;
 }
-
-.hero-grid-bg {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(99,179,237,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(99,179,237,0.03) 1px, transparent 1px);
-  background-size: 48px 48px;
-  mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black 40%, transparent 100%);
-  pointer-events: none;
-}
-
-.hero-terminal-bar {
-  grid-column: 1 / -1;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 48px;
-  padding: 10px 16px;
-  background: rgba(0,255,136,0.04);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  width: fit-content;
-}
-
+.hero-grid-bg { position: absolute; inset: 0; background-image: linear-gradient(rgba(99,179,237,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(99,179,237,0.03) 1px, transparent 1px); background-size: 48px 48px; mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black 40%, transparent 100%); pointer-events: none; }
+.hero-terminal-bar { grid-column: 1 / -1; display: flex; align-items: center; gap: 8px; margin-top: 48px; padding: 10px 16px; background: rgba(0,255,136,0.04); border: 1px solid var(--border); border-radius: var(--radius); font-family: var(--font-mono); font-size: 0.8rem; width: fit-content; }
 .terminal-prompt { color: var(--green); }
 .terminal-cmd { color: var(--text-secondary); }
-
-.hero-content {
-  grid-column: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 48px 0;
-  animation: fadeInUp 0.8s ease both;
-}
-
-.hero-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 14px;
-  background: rgba(0, 255, 136, 0.06);
-  border: 1px solid var(--border);
-  border-radius: 100px;
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: var(--green);
-  width: fit-content;
-  margin-bottom: 28px;
-}
-
-.badge-dot {
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: var(--green);
-  animation: pulse 2s ease-in-out infinite;
-}
-
-.hero-title {
-  font-family: var(--font-display);
-  font-size: clamp(2.4rem, 5vw, 4rem);
-  font-weight: 800;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-  margin-bottom: 24px;
-}
-
+.hero-content { grid-column: 1; display: flex; flex-direction: column; justify-content: center; padding: 48px 0; animation: fadeInUp 0.8s ease both; }
+.hero-badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; background: rgba(0, 255, 136, 0.06); border: 1px solid var(--border); border-radius: 100px; font-family: var(--font-mono); font-size: 0.75rem; color: var(--green); width: fit-content; margin-bottom: 28px; }
+.badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse 2s ease-in-out infinite; }
+.hero-title { font-family: var(--font-display); font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 24px; }
 .title-line { display: block; }
-.accent-line {
-  color: var(--green);
-  text-shadow: 0 0 30px rgba(0,213,126,0.15);
-}
+.accent-line { color: var(--green); text-shadow: 0 0 30px rgba(0,213,126,0.15); }
+.hero-sub { font-size: 1.1rem; color: var(--text-secondary); max-width: 560px; margin-bottom: 40px; line-height: 1.7; }
+.hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
 
-.hero-sub {
-  font-size: 1.1rem;
-  color: var(--text-secondary);
-  max-width: 560px;
-  margin-bottom: 40px;
-  line-height: 1.7;
-}
-
-.hero-actions {
-  display: flex;
-  gap: 16px;
-  margin-bottom: 56px;
-  flex-wrap: wrap;
-}
-
-.hero-stats {
-  display: flex;
-  align-items: center;
-  gap: 0;
-  flex-wrap: wrap;
-}
-
-.stat {
-  display: flex;
-  flex-direction: column;
-  padding: 0 28px;
-}
-
-.stat:first-child { padding-left: 0; }
-
-.stat-num {
-  font-family: var(--font-mono);
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: var(--text-primary);
-  line-height: 1;
-}
-
-.stat-unit {
-  font-family: var(--font-mono);
-  font-size: 1.1rem;
-  color: var(--green);
-}
-
-.stat-label {
-  font-size: 0.75rem;
-  color: var(--text-dim);
-  font-family: var(--font-mono);
-  margin-top: 4px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.stat-divider {
-  width: 1px;
-  height: 40px;
-  background: var(--border-dim);
-}
-
-/* ---- PIPELINE VIZ ---- */
-.pipeline-viz {
-  grid-column: 2;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 48px 0;
-  animation: fadeInUp 0.8s 0.2s ease both;
-  opacity: 0;
-  animation-fill-mode: both;
-}
-
-.pipeline-label {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  color: var(--text-dim);
-  margin-bottom: 12px;
-  letter-spacing: 0.08em;
-}
-
-#pipelineCanvas {
-  width: 100%;
-  height: 360px;
-  border: 1px solid var(--border-dim);
-  border-radius: var(--radius);
-  background: var(--bg-1);
-}
-
-.pipeline-legend {
-  display: flex;
-  gap: 16px;
-  margin-top: 10px;
-  flex-wrap: wrap;
-}
-
-.leg-item {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  color: var(--text-dim);
-}
-
-.leg-dot {
-  width: 8px; height: 8px;
-  border-radius: 50%;
-}
-
+.pipeline-viz { grid-column: 2; display: flex; flex-direction: column; justify-content: center; padding: 48px 0; animation: fadeInUp 0.8s 0.2s ease both; opacity: 0; animation-fill-mode: both; }
+.pipeline-label { font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-dim); margin-bottom: 12px; letter-spacing: 0.08em; }
+#pipelineCanvas { width: 100%; height: 360px; border: 1px solid var(--border-dim); border-radius: var(--radius); background: var(--bg-1); }
+.pipeline-legend { display: flex; gap: 16px; margin-top: 10px; flex-wrap: wrap; }
+.leg-item { display: flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-dim); }
+.leg-dot { width: 8px; height: 8px; border-radius: 50%; }
 .leg-dot.green { background: var(--green); }
 .leg-dot.yellow { background: var(--yellow); }
 .leg-dot.blue { background: var(--blue); }
 .leg-dot.orange { background: var(--orange); }
 
+.section-header { text-align: center; margin-bottom: 64px; }
+.section-tag { font-family: var(--font-mono); font-size: 0.75rem; color: var(--green); letter-spacing: 0.12em; margin-bottom: 12px; text-transform: uppercase; }
+.section-title { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 16px; }
+.section-sub { font-size: 1rem; color: var(--text-secondary); max-width: 560px; margin: 0 auto; }
 
-
-/* ---- SECTION HEADERS ---- */
-.section-header {
-  text-align: center;
-  margin-bottom: 64px;
-}
-
-.section-tag {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: var(--green);
-  letter-spacing: 0.12em;
-  margin-bottom: 12px;
-  text-transform: uppercase;
-}
-
-.section-title {
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  margin-bottom: 16px;
-}
-
-.section-sub {
-  font-size: 1rem;
-  color: var(--text-secondary);
-  max-width: 560px;
-  margin: 0 auto;
-}
-
-/* ---- SERVICES ---- */
-.services {
-  max-width: var(--max-w);
-  margin: 0 auto;
-  padding: 120px 32px;
-}
-
-.services-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1px;
-  background: var(--border-dim);
-  border: 1px solid var(--border-dim);
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-.service-card {
-  background: var(--bg-1);
-  padding: 36px 32px;
-  transition: background 0.2s;
-  position: relative;
-}
-
+.services { max-width: var(--max-w); margin: 0 auto; padding: 120px 32px; }
+.services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border-dim); border: 1px solid var(--border-dim); border-radius: 8px; overflow: hidden; }
+.service-card { background: var(--bg-1); padding: 36px 32px; transition: background 0.2s; position: relative; }
 .service-card:hover { background: var(--bg-2); }
+.card-accent { background: rgba(99,179,237,0.03); border-right: none; }
+.card-icon { color: var(--green); margin-bottom: 16px; opacity: 0.8; }
+.card-tag { font-family: var(--font-mono); font-size: 0.68rem; color: var(--green); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px; }
+.service-card h3 { font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; margin-bottom: 12px; line-height: 1.3; }
+.service-card p { font-size: 0.875rem; color: var(--text-secondary); line-height: 1.65; margin-bottom: 20px; }
+.card-specs { list-style: none; margin-bottom: 24px; }
+.card-specs li { display: flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-dim); padding: 4px 0; border-bottom: 1px solid var(--border-dim); }
+.card-specs li span::before { content: '→ '; color: var(--green); opacity: 0.6; }
+.card-metric { margin-top: auto; display: flex; align-items: baseline; gap: 8px; }
+.metric-val { font-family: var(--font-mono); font-size: 1.4rem; font-weight: 700; color: var(--green); }
+.metric-label { font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-dim); }
 
-.card-accent {
-  background: rgba(99,179,237,0.03);
-  border-right: none;
-}
-
-.card-icon {
-  color: var(--green);
-  margin-bottom: 16px;
-  opacity: 0.8;
-}
-
-.card-tag {
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  color: var(--green);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  margin-bottom: 10px;
-}
-
-.service-card h3 {
-  font-family: var(--font-display);
-  font-size: 1.15rem;
-  font-weight: 700;
-  margin-bottom: 12px;
-  line-height: 1.3;
-}
-
-.service-card p {
-  font-size: 0.875rem;
-  color: var(--text-secondary);
-  line-height: 1.65;
-  margin-bottom: 20px;
-}
-
-.card-specs {
-  list-style: none;
-  margin-bottom: 24px;
-}
-
-.card-specs li {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: var(--text-dim);
-  padding: 4px 0;
-  border-bottom: 1px solid var(--border-dim);
-}
-
-.card-specs li span::before {
-  content: '→ ';
-  color: var(--green);
-  opacity: 0.6;
-}
-
-.card-metric {
-  margin-top: auto;
-  display: flex;
-  align-items: baseline;
-  gap: 8px;
-}
-
-.metric-val {
-  font-family: var(--font-mono);
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: var(--green);
-}
-
-.metric-label {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  color: var(--text-dim);
-}
-
-/* ---- PLATFORM / DASHBOARD ---- */
-.platform {
-  background: var(--bg-1);
-  padding: 120px 0;
-  border-top: 1px solid var(--border-dim);
-  border-bottom: 1px solid var(--border-dim);
-}
-
-.platform-inner {
-  max-width: var(--max-w);
-  margin: 0 auto;
-  padding: 0 32px;
-}
-
-.dashboard-mockup {
-  border: 1px solid var(--border-dim);
-  border-radius: 8px;
-  overflow: hidden;
-  background: var(--bg);
-}
-
-.dash-header {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 12px 20px;
-  background: var(--bg-2);
-  border-bottom: 1px solid var(--border-dim);
-}
-
+.platform { background: var(--bg-1); padding: 120px 0; border-top: 1px solid var(--border-dim); border-bottom: 1px solid var(--border-dim); }
+.platform-inner { max-width: var(--max-w); margin: 0 auto; padding: 0 32px; }
+.dashboard-mockup { border: 1px solid var(--border-dim); border-radius: 8px; overflow: hidden; background: var(--bg); }
+.dash-header { display: flex; align-items: center; gap: 16px; padding: 12px 20px; background: var(--bg-2); border-bottom: 1px solid var(--border-dim); }
 .dash-dots { display: flex; gap: 6px; }
-.dd {
-  width: 11px; height: 11px;
-  border-radius: 50%;
-}
+.dd { width: 11px; height: 11px; border-radius: 50%; }
 .dd.red { background: #ff5f56; }
 .dd.yellow { background: #ffbd2e; }
 .dd.green { background: #27c93f; }
-
-.dash-title {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: var(--text-dim);
-  flex: 1;
-  text-align: center;
-}
-
-.dash-status {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  color: var(--green);
-}
-
-.status-dot {
-  width: 7px; height: 7px;
-  border-radius: 50%;
-}
-
+.dash-title { font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-dim); flex: 1; text-align: center; }
+.dash-status { display: flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 0.72rem; color: var(--green); }
+.status-dot { width: 7px; height: 7px; border-radius: 50%; }
 .status-dot.green { background: var(--green); animation: pulse 2s ease-in-out infinite; }
-
-.dash-body {
-  display: grid;
-  grid-template-columns: 180px 1fr;
-  min-height: 480px;
-}
-.dash-sidebar.hidden-mobile { display: none; }
-.dash-body:has(.dash-sidebar[style*="display: none"]) { grid-template-columns: 1fr; }
-
-.dash-sidebar {
-  background: var(--bg-1);
-  border-right: 1px solid var(--border-dim);
-  padding: 16px 0;
-}
-
-.sidebar-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 16px;
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  color: var(--text-dim);
-  cursor: pointer;
-  transition: all 0.15s;
-}
-
-.sidebar-item:hover, .sidebar-item.active {
-  background: rgba(0,255,136,0.06);
-  color: var(--text-primary);
-}
-
+.dash-body { display: grid; grid-template-columns: 180px 1fr; min-height: 480px; }
+.dash-sidebar { background: var(--bg-1); border-right: 1px solid var(--border-dim); padding: 16px 0; }
+.sidebar-item { display: flex; align-items: center; gap: 10px; padding: 10px 16px; font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-dim); cursor: pointer; transition: all 0.15s; }
+.sidebar-item:hover, .sidebar-item.active { background: rgba(0,255,136,0.06); color: var(--text-primary); }
 .sidebar-item.active { color: var(--green); border-right: 2px solid var(--green); }
 .sidebar-item.warn { color: var(--yellow); }
-
-.sidebar-sep {
-  height: 1px;
-  background: var(--border-dim);
-  margin: 8px 0;
-}
-
-.badge-count {
-  background: var(--orange);
-  color: #fff;
-  font-size: 0.65rem;
-  padding: 1px 6px;
-  border-radius: 100px;
-}
-
-.dash-main {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.kpi-row {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
-  min-width: 0;
-}
-
-.kpi-card {
-  background: var(--bg-1);
-  border: 1px solid var(--border-dim);
-  border-radius: 4px;
-  padding: 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.kpi-label {
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  color: var(--text-dim);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-}
-
-.kpi-val {
-  font-family: var(--font-mono);
-  font-size: 1.3rem;
-  font-weight: 700;
-}
-
+.sidebar-sep { height: 1px; background: var(--border-dim); margin: 8px 0; }
+.badge-count { background: var(--orange); color: #fff; font-size: 0.65rem; padding: 1px 6px; border-radius: 100px; }
+.dash-main { padding: 20px; display: flex; flex-direction: column; gap: 20px; }
+.kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; min-width: 0; }
+.kpi-card { background: var(--bg-1); border: 1px solid var(--border-dim); border-radius: 4px; padding: 14px; display: flex; flex-direction: column; gap: 4px; }
+.kpi-label { font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+.kpi-val { font-family: var(--font-mono); font-size: 1.3rem; font-weight: 700; }
 .kpi-val.green { color: var(--green); }
 .kpi-val.yellow { color: var(--yellow); }
 .kpi-val.red { color: var(--red); }
 .kpi-unit { font-size: 0.7rem; font-weight: 400; opacity: 0.7; }
-
-.kpi-delta {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-}
+.kpi-delta { font-family: var(--font-mono); font-size: 0.7rem; }
 .kpi-delta.up { color: var(--green); }
 .kpi-delta.down { color: var(--red); }
 .kpi-delta.neutral { color: var(--text-dim); }
-
-.chart-area {
-  background: var(--bg-1);
-  border: 1px solid var(--border-dim);
-  border-radius: 4px;
-  padding: 16px;
-  min-height: 160px;
-  overflow: hidden;
-}
-
-.chart-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 16px;
-}
-
-.chart-title {
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  color: var(--text-secondary);
-}
-
-.chart-controls {
-  display: flex;
-  gap: 2px;
-}
-
-.cc {
-  padding: 4px 10px;
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  color: var(--text-dim);
-  cursor: pointer;
-  border-radius: 2px;
-  transition: all 0.15s;
-}
-
-.cc:hover, .cc.active {
-  background: var(--green-dim);
-  color: var(--green);
-}
-
-.pipeline-list {
-  background: var(--bg-1);
-  border: 1px solid var(--border-dim);
-  border-radius: 4px;
-}
-
-.pl-header {
-  display: flex;
-  justify-content: space-between;
-  padding: 12px 16px;
-  border-bottom: 1px solid var(--border-dim);
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: var(--text-secondary);
-}
-
+.chart-area { background: var(--bg-1); border: 1px solid var(--border-dim); border-radius: 4px; padding: 16px; min-height: 160px; overflow: hidden; }
+.chart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.chart-title { font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-secondary); }
+.chart-controls { display: flex; gap: 2px; }
+.cc { padding: 4px 10px; font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-dim); cursor: pointer; border-radius: 2px; transition: all 0.15s; }
+.cc:hover, .cc.active { background: var(--green-dim); color: var(--green); }
+.pipeline-list { background: var(--bg-1); border: 1px solid var(--border-dim); border-radius: 4px; }
+.pl-header { display: flex; justify-content: space-between; padding: 12px 16px; border-bottom: 1px solid var(--border-dim); font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-secondary); }
 .pl-count { color: var(--green); }
-
-.pl-item {
-  display: grid;
-  grid-template-columns: 14px 1fr auto auto auto;
-  align-items: center;
-  gap: 12px;
-  padding: 10px 16px;
-  border-bottom: 1px solid var(--border-dim);
-  transition: background 0.15s;
-  cursor: pointer;
-}
-
+.pl-item { display: grid; grid-template-columns: 14px 1fr auto auto auto; align-items: center; gap: 12px; padding: 10px 16px; border-bottom: 1px solid var(--border-dim); transition: background 0.15s; cursor: pointer; }
 .pl-item:hover { background: rgba(255,255,255,0.02); }
 .pl-item:last-child { border-bottom: none; }
-
-.pl-status {
-  width: 8px; height: 8px;
-  border-radius: 50%;
-}
-
+.pl-status { width: 8px; height: 8px; border-radius: 50%; }
 .pl-status.running { background: var(--green); animation: pulse 2s ease-in-out infinite; }
 .pl-status.warn { background: var(--yellow); }
-
-.pl-name {
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  color: var(--text-secondary);
-}
-
-.pl-rate, .pl-lag {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  color: var(--text-dim);
-}
-
-.pl-badge {
-  padding: 2px 8px;
-  border-radius: 2px;
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-}
-
+.pl-name { font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-secondary); }
+.pl-rate, .pl-lag { font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-dim); }
+.pl-badge { padding: 2px 8px; border-radius: 2px; font-family: var(--font-mono); font-size: 0.65rem; font-weight: 600; letter-spacing: 0.06em; }
 .pl-badge.ok { background: rgba(0,255,136,0.12); color: var(--green); }
 .pl-badge.warn { background: rgba(255,209,102,0.12); color: var(--yellow); }
 
-/* ---- STACK ---- */
-.stack {
-  max-width: var(--max-w);
-  margin: 0 auto;
-  padding: 120px 32px;
-}
+.stack { max-width: var(--max-w); margin: 0 auto; padding: 120px 32px; }
+.stack-layers { display: flex; flex-direction: column; align-items: center; gap: 0; }
+.stack-layer { width: 100%; display: flex; align-items: center; gap: 24px; padding: 24px 32px; background: var(--bg-1); border: 1px solid var(--border-dim); border-radius: 6px; }
+.layer-label { font-family: var(--font-mono); font-size: 0.7rem; font-weight: 600; color: var(--green); letter-spacing: 0.12em; text-transform: uppercase; min-width: 100px; }
+.layer-items { display: flex; flex-wrap: wrap; gap: 8px; flex: 1; }
+.layer-arrow { color: var(--border); padding: 4px 0; }
+.stack-chip { padding: 6px 14px; background: var(--bg-2); border: 1px solid var(--border-dim); border-radius: 100px; font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-secondary); transition: all 0.2s; }
+.stack-chip:hover, .stack-chip.active { border-color: var(--green); color: var(--green); background: var(--green-dim); }
 
-.stack-layers {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0;
-}
+.process { background: var(--bg-1); padding: 120px 32px; border-top: 1px solid var(--border-dim); }
+.process-steps { max-width: var(--max-w); margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; position: relative; }
+.process-step { padding: 0 40px 0 0; position: relative; }
+.step-num { font-family: var(--font-mono); font-size: 3rem; font-weight: 700; color: var(--border-dim); line-height: 1; margin-bottom: 16px; }
+.step-line { position: absolute; top: 24px; right: 0; width: 1px; height: 60%; background: var(--border-dim); }
+.step-content h3 { font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; }
+.step-content p { font-size: 0.875rem; color: var(--text-secondary); line-height: 1.65; margin-bottom: 16px; }
+.step-tag { display: inline-block; padding: 4px 12px; background: var(--green-dim); border: 1px solid var(--border); border-radius: 2px; font-family: var(--font-mono); font-size: 0.72rem; color: var(--green); }
 
-.stack-layer {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 24px;
-  padding: 24px 32px;
-  background: var(--bg-1);
-  border: 1px solid var(--border-dim);
-  border-radius: 6px;
-}
-
-.layer-label {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  font-weight: 600;
-  color: var(--green);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  min-width: 100px;
-}
-
-.layer-items {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  flex: 1;
-}
-
-.layer-arrow {
-  color: var(--border);
-  padding: 4px 0;
-}
-
-.stack-chip {
-  padding: 6px 14px;
-  background: var(--bg-2);
-  border: 1px solid var(--border-dim);
-  border-radius: 100px;
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: var(--text-secondary);
-  transition: all 0.2s;
-}
-
-.stack-chip:hover, .stack-chip.active {
-  border-color: var(--green);
-  color: var(--green);
-  background: var(--green-dim);
-}
-
-/* ---- PROCESS ---- */
-.process {
-  background: var(--bg-1);
-  padding: 120px 32px;
-  border-top: 1px solid var(--border-dim);
-}
-
-.process-steps {
-  max-width: var(--max-w);
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0;
-  position: relative;
-}
-
-.process-step {
-  padding: 0 40px 0 0;
-  position: relative;
-}
-
-.step-num {
-  font-family: var(--font-mono);
-  font-size: 3rem;
-  font-weight: 700;
-  color: var(--border-dim);
-  line-height: 1;
-  margin-bottom: 16px;
-}
-
-.step-line {
-  position: absolute;
-  top: 24px;
-  right: 0;
-  width: 1px;
-  height: 60%;
-  background: var(--border-dim);
-}
-
-.step-content h3 {
-  font-family: var(--font-display);
-  font-size: 1.1rem;
-  font-weight: 700;
-  margin-bottom: 10px;
-}
-
-.step-content p {
-  font-size: 0.875rem;
-  color: var(--text-secondary);
-  line-height: 1.65;
-  margin-bottom: 16px;
-}
-
-.step-tag {
-  display: inline-block;
-  padding: 4px 12px;
-  background: var(--green-dim);
-  border: 1px solid var(--border);
-  border-radius: 2px;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  color: var(--green);
-}
-
-/* ---- FOOTER ---- */
-.footer {
-  background: var(--bg-1);
-  border-top: 1px solid var(--border-dim);
-  padding: 64px 32px 0;
-  padding-bottom: env(safe-area-inset-bottom, 0);
-}
-.footer-inner {
-  max-width: var(--max-w);
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 48px;
-  padding-bottom: 48px;
-}
-.footer-brand {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  max-width: 260px;
-}
-.footer-tagline {
-  font-size: 0.875rem;
-  color: var(--text-secondary);
-  margin-top: 4px;
-}
-.footer-location {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: var(--text-dim);
-}
-.footer-email {
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  color: var(--green);
-  text-decoration: none;
-  opacity: 0.8;
-  transition: opacity 0.2s;
-}
+.footer { background: var(--bg-1); border-top: 1px solid var(--border-dim); padding: 64px 32px 0; }
+.footer-inner { max-width: var(--max-w); margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-start; gap: 48px; padding-bottom: 48px; }
+.footer-brand { display: flex; flex-direction: column; gap: 10px; max-width: 260px; }
+.footer-tagline { font-size: 0.875rem; color: var(--text-secondary); margin-top: 4px; }
+.footer-location { font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-dim); }
+.footer-email { font-family: var(--font-mono); font-size: 0.78rem; color: var(--green); text-decoration: none; opacity: 0.8; transition: opacity 0.2s; }
 .footer-email:hover { opacity: 1; }
-.footer-nav {
-  display: flex;
-  gap: 48px;
-}
-.footer-col {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-.fc-head {
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  color: var(--green);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  margin-bottom: 6px;
-}
-.footer-col a {
-  text-decoration: none;
-  font-size: 0.82rem;
-  color: var(--text-dim);
-  transition: color 0.2s;
-}
+.footer-nav { display: flex; gap: 48px; }
+.footer-col { display: flex; flex-direction: column; gap: 10px; }
+.fc-head { font-family: var(--font-mono); font-size: 0.68rem; color: var(--green); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 6px; }
+.footer-col a { text-decoration: none; font-size: 0.82rem; color: var(--text-dim); transition: color 0.2s; }
 .footer-col a:hover { color: var(--text-primary); }
-.footer-bottom {
-  border-top: 1px solid var(--border-dim);
-  padding: 18px 0;
-  max-width: var(--max-w);
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-.footer-copy {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  color: var(--text-dim);
-}
-.terminal-line {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  color: var(--text-dim);
-}
+.footer-bottom { border-top: 1px solid var(--border-dim); padding: 18px 0; max-width: var(--max-w); margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+.footer-copy { font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-dim); }
+.terminal-line { font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-dim); }
 
-/* ---- RESPONSIVE ---- */
 @media (max-width: 1100px) {
   .hero { grid-template-columns: 1fr; padding: 16px 24px; }
   .pipeline-viz { display: none; }
@@ -1060,28 +245,17 @@ body {
 
 @media (max-width: 768px) {
   :root { --nav-h: 56px; }
-
-  /* Nav */
   .nav-links { display: none; }
   .nav-inner { padding: 0 16px; }
   .nav-cta .status-indicator { display: none; }
-
-  /* Hero */
   .hero { padding: 12px 16px; gap: 24px; }
   .hero-terminal-bar { font-size: 0.7rem; padding: 8px 12px; overflow: hidden; }
   .hero-title { font-size: 2rem; }
   .hero-sub { font-size: 0.9rem; }
   .hero-actions { flex-direction: column; }
   .hero-actions a { width: 100%; justify-content: center; text-align: center; }
-  .hero-stats { gap: 0; flex-wrap: wrap; }
-  .stat { padding: 12px 16px; }
-  .stat-divider { display: none; }
-
-  /* Services */
   .services { padding: 64px 16px; }
   .services-grid { grid-template-columns: 1fr; }
-
-  /* Platform dashboard */
   .platform { padding: 64px 0; }
   .platform-inner { padding: 0 16px; }
   .dash-sidebar { display: none; }
@@ -1089,174 +263,72 @@ body {
   .kpi-row { grid-template-columns: repeat(2, 1fr); }
   .pl-item { grid-template-columns: 14px 1fr auto; }
   .pl-rate, .pl-lag { display: none; }
-
-  /* Dataflow */
-  .dataflow { padding: 64px 16px; }
-  .dataflow-metrics { grid-template-columns: repeat(2, 1fr); }
-  .dfm-item:nth-child(2) { border-right: none; }
-  #dataflowCanvas { height: 200px; max-width: 100%; }
-
-  /* Stack */
   .stack { padding: 64px 16px; }
   .stack-layer { padding: 16px; flex-direction: column; align-items: flex-start; gap: 10px; }
   .layer-label { min-width: unset; }
-
-  /* Process */
   .process { padding: 64px 16px; }
   .process-steps { grid-template-columns: 1fr; gap: 32px; }
   .step-line { display: none; }
   .step-num { font-size: 2rem; }
-
-  /* Footer */
   .footer { padding: 48px 16px 0; }
   .footer-inner { flex-direction: column; gap: 32px; }
   .footer-brand { max-width: 100%; }
   .footer-nav { gap: 32px; }
   .footer-bottom { flex-direction: column; align-items: flex-start; gap: 6px; }
   .terminal-line { display: none; }
-
-  /* Section headers */
   .section-header { margin-bottom: 40px; }
   .section-title { font-size: 1.8rem; }
-
-  /* Buttons */
   .btn-large { padding: 12px 20px; font-size: 0.85rem; }
-
-  /* Dashboard mockup */
   .dashboard-mockup { overflow-x: auto; }
 }
 
 @media (max-width: 420px) {
   .hero-title { font-size: 1.75rem; }
-  .hero-stats { justify-content: flex-start; }
-  .stat { padding: 10px 12px; }
   .kpi-row { grid-template-columns: 1fr 1fr; gap: 8px; }
-  .dataflow-metrics { grid-template-columns: 1fr 1fr; }
   .footer-nav { flex-direction: column; gap: 24px; }
 }
 
-
-/* ---- LOADER ---- */
-#loader {
-  position: fixed; inset: 0; z-index: 9999;
-  background: #080b0f;
-  display: flex; align-items: center; justify-content: center;
-  transition: opacity 0.5s ease;
-  overflow: hidden;
-}
+#loader { position: fixed; inset: 0; z-index: 9999; background: #080b0f; display: flex; align-items: center; justify-content: center; transition: opacity 0.5s ease; overflow: hidden; }
 #loader.hidden { opacity: 0; pointer-events: none; }
-.loader-inner {
-  display: flex; flex-direction: column; align-items: center;
-  gap: 32px; width: 100%; max-width: 320px; padding: 0 24px;
-}
-.loader-logo {
-  font-family: var(--font-mono); font-size: 1.3rem; font-weight: 700;
-  color: var(--green); letter-spacing: 0.08em;
-}
-.loader-pipeline {
-  display: flex; align-items: center; justify-content: center;
-  gap: 0; width: 100%;
-}
-.lp-node {
-  width: 52px; height: 52px; border-radius: 8px; flex-shrink: 0;
-  border: 1px solid rgba(0,217,126,0.15);
-  background: #0d1117;
-  display: flex; align-items: center; justify-content: center;
-  font-family: var(--font-mono); font-size: 0.62rem; font-weight: 700;
-  color: #334455;
-  transition: border-color 0.4s, color 0.4s, box-shadow 0.4s;
-}
-.lp-node.active {
-  border-color: var(--green); color: var(--green);
-  box-shadow: 0 0 12px rgba(0,217,126,0.15);
-}
-.lp-track {
-  flex: 1; height: 1px; background: rgba(255,255,255,0.05);
-  position: relative; overflow: visible; max-width: 48px;
-}
-.lp-particle {
-  position: absolute; top: -3px; left: -6px;
-  width: 7px; height: 7px; border-radius: 50%;
-  background: var(--green); box-shadow: 0 0 6px rgba(0,217,126,0.5);
-  opacity: 0;
-}
-.loader-status {
-  font-family: var(--font-mono); font-size: 0.72rem;
-  color: #445566; letter-spacing: 0.04em;
-  min-height: 1.2em; text-align: center;
-}
+.loader-inner { display: flex; flex-direction: column; align-items: center; gap: 32px; width: 100%; max-width: 320px; padding: 0 24px; }
+.loader-logo { font-family: var(--font-mono); font-size: 1.3rem; font-weight: 700; color: var(--green); letter-spacing: 0.08em; }
+.loader-pipeline { display: flex; align-items: center; justify-content: center; gap: 0; width: 100%; }
+.lp-node { width: 52px; height: 52px; border-radius: 8px; flex-shrink: 0; border: 1px solid rgba(0,217,126,0.15); background: #0d1117; display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-size: 0.62rem; font-weight: 700; color: #334455; transition: border-color 0.4s, color 0.4s, box-shadow 0.4s; }
+.lp-node.active { border-color: var(--green); color: var(--green); box-shadow: 0 0 12px rgba(0,217,126,0.15); }
+.lp-track { flex: 1; height: 1px; background: rgba(255,255,255,0.05); position: relative; overflow: visible; max-width: 48px; }
+.lp-particle { position: absolute; top: -3px; left: -6px; width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 6px rgba(0,217,126,0.5); opacity: 0; }
+.loader-status { font-family: var(--font-mono); font-size: 0.72rem; color: #445566; letter-spacing: 0.04em; min-height: 1.2em; text-align: center; }
 
-
-/* ---- LIGHT MODE ---- */
 body.light {
-  --bg: #f8fafc;
-  --bg-1: #f1f5f9;
-  --bg-2: #e8eef5;
-  --bg-3: #dde5ee;
-  --border: rgba(16,185,129,0.25);
-  --border-dim: rgba(0,0,0,0.09);
-  --green: #059669;
-  --green-dim: rgba(5,150,105,0.1);
-  --green-glow: rgba(5,150,105,0.2);
-  --text-primary: #0f172a;
-  --text-secondary: #475569;
-  --text-dim: #94a3b8;
-  --yellow: #d97706;
-  --blue: #0284c7;
-  --orange: #ea580c;
-  --red: #dc2626;
+  --bg: #f8fafc; --bg-1: #f1f5f9; --bg-2: #e8eef5; --bg-3: #dde5ee;
+  --border: rgba(16,185,129,0.25); --border-dim: rgba(0,0,0,0.09);
+  --green: #059669; --green-dim: rgba(5,150,105,0.1); --green-glow: rgba(5,150,105,0.2);
+  --text-primary: #0f172a; --text-secondary: #475569; --text-dim: #94a3b8;
+  --yellow: #d97706; --blue: #0284c7; --orange: #ea580c; --red: #dc2626;
 }
-body.light .nav {
-  background: rgba(248,250,252,0.88);
-  border-bottom-color: rgba(0,0,0,0.08);
-}
-body.light .hero-grid-bg {
-  background-image:
-    linear-gradient(rgba(16,185,129,0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(16,185,129,0.05) 1px, transparent 1px);
-}
+body.light .nav { background: rgba(248,250,252,0.88); border-bottom-color: rgba(0,0,0,0.08); }
+body.light .hero-grid-bg { background-image: linear-gradient(rgba(16,185,129,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(16,185,129,0.05) 1px, transparent 1px); }
 body.light #pipelineCanvas { background: #f1f5f9; }
 body.light .dashboard-mockup { box-shadow: 0 4px 24px rgba(0,0,0,0.08); }
 body.light .service-card { background: #f8fafc; }
 body.light .service-card:hover { background: #f1f5f9; }
-body.light .kpi-card,
-body.light .chart-area,
-body.light .pipeline-list { background: #f8fafc; }
+body.light .kpi-card, body.light .chart-area, body.light .pipeline-list { background: #f8fafc; }
 body.light .pl-item:hover { background: rgba(0,0,0,0.02); }
 body.light .stack-chip { background: #f1f5f9; }
 body.light .stack-layer { background: #f8fafc; }
 body.light .process { background: #f1f5f9; }
-body.light .about { background: #f1f5f9; }
 body.light .footer { background: #f1f5f9; }
-body.light .team-card { background: #f1f5f9; }
-body.light .contact-form-wrap { background: #f8fafc; }
-body.light .form-group input,
-body.light .form-group select,
-body.light .form-group textarea { background: #ffffff; color: #0f172a; }
-body.light .pricing-card { background: #f8fafc; }
 
-/* ---- THEME TOGGLE ---- */
-.theme-toggle {
-  width: 36px; height: 36px;
-  border-radius: 8px;
-  border: 1px solid var(--border-dim);
-  background: transparent;
-  cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  color: var(--text-secondary);
-  transition: all 0.2s;
-  flex-shrink: 0;
-}
+.theme-toggle { width: 36px; height: 36px; border-radius: 8px; border: 1px solid var(--border-dim); background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--text-secondary); transition: all 0.2s; flex-shrink: 0; }
 .theme-toggle:hover { border-color: var(--green); color: var(--green); }
 .theme-toggle .icon-moon { display: block; }
 .theme-toggle .icon-sun { display: none; }
 body.light .theme-toggle .icon-moon { display: none; }
 body.light .theme-toggle .icon-sun { display: block; }
-
 </style>
 </head>
 <body>
-<!-- LOADER -->
+
 <div id="loader">
   <div class="loader-inner">
     <div class="loader-logo">[inferreach]</div>
@@ -1271,580 +343,240 @@ body.light .theme-toggle .icon-sun { display: block; }
   </div>
 </div>
 
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <span class="logo-bracket">[</span><span class="logo-text">inferreach</span><span class="logo-bracket">]</span><span class="logo-dot blink">_</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#pipelines">Pipelines</a></li>
+      <li><a href="#platform">Platform</a></li>
+      <li><a href="#stack">Stack</a></li>
+    </ul>
+    <div class="nav-cta">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="1.5"/><path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </button>
+      <span class="status-indicator"></span>
+      <a href="mailto:hello@inferreach.com" class="btn-primary">Start Pipeline</a>
+    </div>
+  </div>
+</nav>
 
-  <!-- NAV -->
-  <nav class="nav">
-    <div class="nav-inner">
-      <a href="#" class="nav-logo">
-        <span class="logo-bracket">[</span>
-        <span class="logo-text">inferreach</span>
-        <span class="logo-bracket">]</span>
-        <span class="logo-dot blink">_</span>
+<section class="hero" id="home">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-terminal-bar">
+    <span class="terminal-prompt">inferreach@prod:~$</span>
+    <span class="terminal-cmd" id="typewriter"></span>
+    <span class="cursor blink">█</span>
+  </div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      <span>Data engineering for companies that move fast</span>
+    </div>
+    <h1 class="hero-title">
+      <span class="title-line">We Build the</span>
+      <span class="title-line accent-line">Data Arteries</span>
+      <span class="title-line">of Modern Business</span>
+    </h1>
+    <p class="hero-sub">
+      End-to-end data engineering — from raw source chaos to warehouse-ready,
+      insight-primed pipelines. Kafka, Spark, dbt, Airflow. We speak the language
+      of your data infrastructure.
+    </p>
+    <div class="hero-actions">
+      <a href="mailto:hello@inferreach.com" class="btn-primary btn-large">
+        <span>Deploy Your Pipeline</span>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
-      <ul class="nav-links">
-        <li><a href="#pipelines">Pipelines</a></li>
-        <li><a href="#platform">Platform</a></li>
-        <li><a href="#stack">Stack</a></li>
-      </ul>
-      <div class="nav-cta">
-        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="1.5"/><path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-        </button>
-        <span class="status-indicator"></span>
-        <a href="mailto:hello@inferreach.com" class="btn-primary">Start Pipeline</a>
-      </div>
+      <a href="#platform" class="btn-ghost btn-large"><span>Explore Platform</span></a>
     </div>
-  </nav>
+  </div>
 
-  <!-- HERO -->
-  <section class="hero" id="home">
-    <div class="hero-grid-bg"></div>
-
-    <div class="hero-terminal-bar">
-      <span class="terminal-prompt">inferreach@prod:~$</span>
-      <span class="terminal-cmd" id="typewriter"></span>
-      <span class="cursor blink">█</span>
+  <div class="pipeline-viz">
+    <div class="pipeline-label">// live.pipeline.flow</div>
+    <canvas id="pipelineCanvas"></canvas>
+    <div class="pipeline-legend">
+      <span class="leg-item"><span class="leg-dot green"></span>ingestion</span>
+      <span class="leg-item"><span class="leg-dot yellow"></span>transform</span>
+      <span class="leg-item"><span class="leg-dot blue"></span>load</span>
+      <span class="leg-item"><span class="leg-dot orange"></span>alert</span>
     </div>
+  </div>
+</section>
 
-    <div class="hero-content">
-      <div class="hero-badge">
-        <span class="badge-dot"></span>
-        <span>Data engineering for companies that move fast</span>
-      </div>
-
-      <h1 class="hero-title">
-        <span class="title-line">We Build the</span>
-        <span class="title-line accent-line">Data Arteries</span>
-        <span class="title-line">of Modern Business</span>
-      </h1>
-
-      <p class="hero-sub">
-        End-to-end data engineering — from raw source chaos to warehouse-ready, 
-        insight-primed pipelines. Kafka, Spark, dbt, Airflow. We speak the language 
-        of your data infrastructure.
-      </p>
-
-      <div class="hero-actions">
-        <a href="mailto:hello@inferreach.com" class="btn-primary btn-large">
-          <span>Deploy Your Pipeline</span>
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
-        <a href="#platform" class="btn-ghost btn-large">
-          <span>Explore Platform</span>
-        </a>
-      </div>
-
-      <div class="hero-stats">
-        <div class="stat">
-          <span class="stat-num" data-target="200">0</span><span class="stat-unit">M+</span>
-          <span class="stat-label">Records/day</span>
-        </div>
-        <div class="stat-divider"></div>
-        <div class="stat">
-          <span class="stat-num" data-target="99">0</span><span class="stat-unit">.97%</span>
-          <span class="stat-label">Uptime SLA</span>
-        </div>
-        <div class="stat-divider"></div>
-        <div class="stat">
-          <span class="stat-num" data-target="40">0</span><span class="stat-unit">+</span>
-          <span class="stat-label">Enterprise Clients</span>
-        </div>
-        <div class="stat-divider"></div>
-        <div class="stat">
-          <span class="stat-num" data-target="12">0</span><span class="stat-unit">ms</span>
-          <span class="stat-label">P99 Latency</span>
-        </div>
-      </div>
+<section class="services" id="pipelines">
+  <div class="section-header">
+    <div class="section-tag">// 01.SERVICES</div>
+    <h2 class="section-title">What We Build</h2>
+    <p class="section-sub">Every data problem is an architecture problem. We solve both.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card card-accent">
+      <div class="card-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M4 8h24M4 8v16h24V8M4 8l12 8 12-8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+      <div class="card-tag">ingestion</div>
+      <h3>Real-Time Data Ingestion</h3>
+      <p>Kafka-powered event streaming, CDC pipelines, webhook collectors, and batch ingestion at any scale. Sub-second latency from source to sink.</p>
+      <ul class="card-specs"><li><span>Kafka / Kinesis / Pub-Sub</span></li><li><span>CDC via Debezium</span></li><li><span>Multi-source fan-in</span></li><li><span>&lt; 50ms end-to-end</span></li></ul>
+      <div class="card-metric"><span class="metric-val">~12M</span><span class="metric-label">events/min peak</span></div>
     </div>
-
-    <!-- LIVE PIPELINE VISUALIZER -->
-    <div class="pipeline-viz">
-      <div class="pipeline-label">// live.pipeline.flow</div>
-      <canvas id="pipelineCanvas"></canvas>
-      <div class="pipeline-legend">
-        <span class="leg-item"><span class="leg-dot green"></span>ingestion</span>
-        <span class="leg-item"><span class="leg-dot yellow"></span>transform</span>
-        <span class="leg-item"><span class="leg-dot blue"></span>load</span>
-        <span class="leg-item"><span class="leg-dot orange"></span>alert</span>
-      </div>
+    <div class="service-card">
+      <div class="card-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="4" y="4" width="10" height="10" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="18" y="4" width="10" height="10" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="4" y="18" width="10" height="10" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="18" y="18" width="10" height="10" rx="1" stroke="currentColor" stroke-width="1.5"/><path d="M9 14v4M23 14v4M14 9h4M14 23h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+      <div class="card-tag">transform</div>
+      <h3>Data Transformation Layers</h3>
+      <p>dbt-powered modular SQL transformations, Spark jobs for heavy ETL, and streaming transforms with Flink. Clean data contracts every step.</p>
+      <ul class="card-specs"><li><span>dbt Core + Cloud</span></li><li><span>PySpark / Scala Spark</span></li><li><span>Apache Flink</span></li><li><span>Data lineage tracking</span></li></ul>
+      <div class="card-metric"><span class="metric-val">99.4%</span><span class="metric-label">transform success rate</span></div>
     </div>
-  </section>
+    <div class="service-card">
+      <div class="card-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><ellipse cx="16" cy="9" rx="10" ry="4" stroke="currentColor" stroke-width="1.5"/><path d="M6 9v7c0 2.21 4.48 4 10 4s10-1.79 10-4V9" stroke="currentColor" stroke-width="1.5"/><path d="M6 16v7c0 2.21 4.48 4 10 4s10-1.79 10-4v-7" stroke="currentColor" stroke-width="1.5"/></svg></div>
+      <div class="card-tag">warehouse</div>
+      <h3>Cloud Data Warehousing</h3>
+      <p>Snowflake, BigQuery, and Redshift architecture, optimization, and cost engineering. We turn runaway compute bills into efficient, predictable spend.</p>
+      <ul class="card-specs"><li><span>Snowflake / BigQuery / Redshift</span></li><li><span>Lakehouse on Delta / Iceberg</span></li><li><span>Query optimization</span></li><li><span>Cost governance</span></li></ul>
+      <div class="card-metric"><span class="metric-val">60%</span><span class="metric-label">avg compute reduction</span></div>
+    </div>
+    <div class="service-card">
+      <div class="card-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="10" stroke="currentColor" stroke-width="1.5"/><path d="M16 8v8l5 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+      <div class="card-tag">orchestration</div>
+      <h3>Pipeline Orchestration</h3>
+      <p>Airflow DAGs that actually work. Prefect flows, Dagster assets. We build orchestration that handles failures gracefully and alerts that make sense.</p>
+      <ul class="card-specs"><li><span>Apache Airflow 2.x</span></li><li><span>Prefect / Dagster</span></li><li><span>SLA monitoring</span></li><li><span>Smart retry strategies</span></li></ul>
+      <div class="card-metric"><span class="metric-val">1,000+</span><span class="metric-label">DAGs in production</span></div>
+    </div>
+    <div class="service-card">
+      <div class="card-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M4 24l8-8 6 6 4-8 6 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="card-tag">observability</div>
+      <h3>Data Quality & Observability</h3>
+      <p>Great Expectations checks, Monte Carlo integration, custom anomaly detection. Know when your data breaks before your stakeholders do.</p>
+      <ul class="card-specs"><li><span>Great Expectations</span></li><li><span>Monte Carlo / Soda</span></li><li><span>Schema evolution alerts</span></li><li><span>Freshness SLAs</span></li></ul>
+      <div class="card-metric"><span class="metric-val">&lt; 2min</span><span class="metric-label">anomaly detection</span></div>
+    </div>
+    <div class="service-card">
+      <div class="card-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M8 28V16M14 28V10M20 28V4M26 28V13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+      <div class="card-tag">ml-infra</div>
+      <h3>ML & Feature Pipelines</h3>
+      <p>Feature stores, training data pipelines, model serving infra. Bridge the gap between data engineering and machine learning.</p>
+      <ul class="card-specs"><li><span>Feast / Tecton feature stores</span></li><li><span>MLflow / Kubeflow</span></li><li><span>Point-in-time correct joins</span></li><li><span>Batch + streaming features</span></li></ul>
+      <div class="card-metric"><span class="metric-val">500+</span><span class="metric-label">features in production</span></div>
+    </div>
+  </div>
+</section>
 
-
-  <!-- SERVICES / PIPELINES -->
-  <section class="services" id="pipelines">
+<section class="platform" id="platform">
+  <div class="platform-inner">
     <div class="section-header">
-      <div class="section-tag">// 01.SERVICES</div>
-      <h2 class="section-title">What We Build</h2>
-      <p class="section-sub">Every data problem is an architecture problem. We solve both.</p>
+      <div class="section-tag">// 02.PLATFORM</div>
+      <h2 class="section-title">The InferReach Platform</h2>
+      <p class="section-sub">One control plane for your entire data stack. Monitor, manage, debug.</p>
     </div>
-
-    <div class="services-grid">
-
-      <div class="service-card card-accent">
-        <div class="card-icon">
-          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-            <path d="M4 8h24M4 8v16h24V8M4 8l12 8 12-8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>
-        </div>
-        <div class="card-tag">ingestion</div>
-        <h3>Real-Time Data Ingestion</h3>
-        <p>Kafka-powered event streaming, CDC pipelines, webhook collectors, and batch ingestion at any scale. Sub-second latency from source to sink.</p>
-        <ul class="card-specs">
-          <li><span>Kafka / Kinesis / Pub-Sub</span></li>
-          <li><span>CDC via Debezium</span></li>
-          <li><span>Multi-source fan-in</span></li>
-          <li><span>&lt; 50ms end-to-end</span></li>
-        </ul>
-        <div class="card-metric">
-          <span class="metric-val">~12M</span>
-          <span class="metric-label">events/min peak</span>
-        </div>
+    <div class="dashboard-mockup">
+      <div class="dash-header">
+        <div class="dash-dots"><span class="dd red"></span><span class="dd yellow"></span><span class="dd green"></span></div>
+        <span class="dash-title">inferreach.io / dashboard / production</span>
+        <div class="dash-status"><span class="status-dot green"></span> All systems nominal</div>
       </div>
-
-      <div class="service-card">
-        <div class="card-icon">
-          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-            <rect x="4" y="4" width="10" height="10" rx="1" stroke="currentColor" stroke-width="1.5"/>
-            <rect x="18" y="4" width="10" height="10" rx="1" stroke="currentColor" stroke-width="1.5"/>
-            <rect x="4" y="18" width="10" height="10" rx="1" stroke="currentColor" stroke-width="1.5"/>
-            <rect x="18" y="18" width="10" height="10" rx="1" stroke="currentColor" stroke-width="1.5"/>
-            <path d="M9 14v4M23 14v4M14 9h4M14 23h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>
+      <div class="dash-body" id="dashBody">
+        <div class="dash-sidebar">
+          <div class="sidebar-item active"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.2"/><rect x="9" y="1" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.2"/><rect x="1" y="9" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.2"/><rect x="9" y="9" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.2"/></svg><span>Overview</span></div>
+          <div class="sidebar-item"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 8h12M2 8l4-4M2 8l4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg><span>Pipelines</span></div>
+          <div class="sidebar-item"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.2"/><path d="M8 4v4l3 2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg><span>Schedules</span></div>
+          <div class="sidebar-item"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 12l4-8 3 6 2-4 3 6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Metrics</span></div>
+          <div class="sidebar-item"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1v14M1 8h14" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg><span>Sources</span></div>
+          <div class="sidebar-sep"></div>
+          <div class="sidebar-item warn"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2L14 14H2L8 2z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><path d="M8 7v3M8 11.5v.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg><span>Alerts <span class="badge-count">3</span></span></div>
         </div>
-        <div class="card-tag">transform</div>
-        <h3>Data Transformation Layers</h3>
-        <p>dbt-powered modular SQL transformations, Spark jobs for heavy ETL, and streaming transforms with Flink. Clean data contracts every step.</p>
-        <ul class="card-specs">
-          <li><span>dbt Core + Cloud</span></li>
-          <li><span>PySpark / Scala Spark</span></li>
-          <li><span>Apache Flink</span></li>
-          <li><span>Data lineage tracking</span></li>
-        </ul>
-        <div class="card-metric">
-          <span class="metric-val">99.4%</span>
-          <span class="metric-label">transform success rate</span>
-        </div>
-      </div>
-
-      <div class="service-card">
-        <div class="card-icon">
-          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-            <ellipse cx="16" cy="9" rx="10" ry="4" stroke="currentColor" stroke-width="1.5"/>
-            <path d="M6 9v7c0 2.21 4.48 4 10 4s10-1.79 10-4V9" stroke="currentColor" stroke-width="1.5"/>
-            <path d="M6 16v7c0 2.21 4.48 4 10 4s10-1.79 10-4v-7" stroke="currentColor" stroke-width="1.5"/>
-          </svg>
-        </div>
-        <div class="card-tag">warehouse</div>
-        <h3>Cloud Data Warehousing</h3>
-        <p>Snowflake, BigQuery, and Redshift architecture, optimization, and cost engineering. We turn runaway compute bills into efficient, predictable spend.</p>
-        <ul class="card-specs">
-          <li><span>Snowflake / BigQuery / Redshift</span></li>
-          <li><span>Lakehouse on Delta / Iceberg</span></li>
-          <li><span>Query optimization</span></li>
-          <li><span>Cost governance</span></li>
-        </ul>
-        <div class="card-metric">
-          <span class="metric-val">60%</span>
-          <span class="metric-label">avg compute reduction</span>
-        </div>
-      </div>
-
-      <div class="service-card">
-        <div class="card-icon">
-          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-            <circle cx="16" cy="16" r="10" stroke="currentColor" stroke-width="1.5"/>
-            <path d="M16 8v8l5 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>
-        </div>
-        <div class="card-tag">orchestration</div>
-        <h3>Pipeline Orchestration</h3>
-        <p>Airflow DAGs that actually work. Prefect flows, Dagster assets. We build orchestration that handles failures gracefully and alerts that make sense.</p>
-        <ul class="card-specs">
-          <li><span>Apache Airflow 2.x</span></li>
-          <li><span>Prefect / Dagster</span></li>
-          <li><span>SLA monitoring</span></li>
-          <li><span>Smart retry strategies</span></li>
-        </ul>
-        <div class="card-metric">
-          <span class="metric-val">1,000+</span>
-          <span class="metric-label">DAGs in production</span>
-        </div>
-      </div>
-
-      <div class="service-card">
-        <div class="card-icon">
-          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-            <path d="M4 24l8-8 6 6 4-8 6 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <div class="card-tag">observability</div>
-        <h3>Data Quality & Observability</h3>
-        <p>Great Expectations checks, Monte Carlo integration, custom anomaly detection. Know when your data breaks before your stakeholders do.</p>
-        <ul class="card-specs">
-          <li><span>Great Expectations</span></li>
-          <li><span>Monte Carlo / Soda</span></li>
-          <li><span>Schema evolution alerts</span></li>
-          <li><span>Freshness SLAs</span></li>
-        </ul>
-        <div class="card-metric">
-          <span class="metric-val">&lt; 2min</span>
-          <span class="metric-label">anomaly detection</span>
-        </div>
-      </div>
-
-      <div class="service-card">
-        <div class="card-icon">
-          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-            <path d="M8 28V16M14 28V10M20 28V4M26 28V13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>
-        </div>
-        <div class="card-tag">ml-infra</div>
-        <h3>ML & Feature Pipelines</h3>
-        <p>Feature stores, training data pipelines, model serving infra. Bridge the gap between data engineering and machine learning.</p>
-        <ul class="card-specs">
-          <li><span>Feast / Tecton feature stores</span></li>
-          <li><span>MLflow / Kubeflow</span></li>
-          <li><span>Point-in-time correct joins</span></li>
-          <li><span>Batch + streaming features</span></li>
-        </ul>
-        <div class="card-metric">
-          <span class="metric-val">500+</span>
-          <span class="metric-label">features in production</span>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- PLATFORM SECTION -->
-  <section class="platform" id="platform">
-    <div class="platform-inner">
-      <div class="section-header">
-        <div class="section-tag">// 02.PLATFORM</div>
-        <h2 class="section-title">The InferReach Platform</h2>
-        <p class="section-sub">One control plane for your entire data stack. Monitor, manage, debug.</p>
-      </div>
-
-      <div class="dashboard-mockup">
-        <div class="dash-header">
-          <div class="dash-dots">
-            <span class="dd red"></span><span class="dd yellow"></span><span class="dd green"></span>
+        <div class="dash-main">
+          <div class="kpi-row">
+            <div class="kpi-card"><span class="kpi-label">Throughput</span><span class="kpi-val green">2.4M <span class="kpi-unit">rec/min</span></span><span class="kpi-delta up">↑ 8.2%</span></div>
+            <div class="kpi-card"><span class="kpi-label">Pipeline Health</span><span class="kpi-val green">98.7<span class="kpi-unit">%</span></span><span class="kpi-delta up">↑ 0.3%</span></div>
+            <div class="kpi-card"><span class="kpi-label">Lag (Kafka)</span><span class="kpi-val yellow">142 <span class="kpi-unit">ms</span></span><span class="kpi-delta neutral">→ stable</span></div>
+            <div class="kpi-card"><span class="kpi-label">Failed DAGs</span><span class="kpi-val red">3 <span class="kpi-unit">of 412</span></span><span class="kpi-delta down">↓ needs attn</span></div>
           </div>
-          <span class="dash-title">inferreach.io / dashboard / production</span>
-          <div class="dash-status"><span class="status-dot green"></span> All systems nominal</div>
-        </div>
-
-        <div class="dash-body" id="dashBody">
-          <!-- Sidebar -->
-          <div class="dash-sidebar">
-            <div class="sidebar-item active">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.2"/><rect x="9" y="1" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.2"/><rect x="1" y="9" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.2"/><rect x="9" y="9" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.2"/></svg>
-              <span>Overview</span>
+          <div class="chart-area">
+            <div class="chart-header">
+              <span class="chart-title">Pipeline Throughput — last 24h</span>
+              <div class="chart-controls"><span class="cc active">1h</span><span class="cc">6h</span><span class="cc">24h</span><span class="cc">7d</span></div>
             </div>
-            <div class="sidebar-item">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 8h12M2 8l4-4M2 8l4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
-              <span>Pipelines</span>
-            </div>
-            <div class="sidebar-item">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.2"/><path d="M8 4v4l3 2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
-              <span>Schedules</span>
-            </div>
-            <div class="sidebar-item">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 12l4-8 3 6 2-4 3 6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              <span>Metrics</span>
-            </div>
-            <div class="sidebar-item">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1v14M1 8h14" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
-              <span>Sources</span>
-            </div>
-            <div class="sidebar-sep"></div>
-            <div class="sidebar-item warn">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2L14 14H2L8 2z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><path d="M8 7v3M8 11.5v.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
-              <span>Alerts <span class="badge-count">3</span></span>
-            </div>
+            <canvas id="throughputChart" height="120" style="width:100%;min-height:120px;display:block"></canvas>
           </div>
-
-          <!-- Main area -->
-          <div class="dash-main">
-            <!-- KPI row -->
-            <div class="kpi-row">
-              <div class="kpi-card">
-                <span class="kpi-label">Throughput</span>
-                <span class="kpi-val green">2.4M <span class="kpi-unit">rec/min</span></span>
-                <span class="kpi-delta up">↑ 8.2%</span>
-              </div>
-              <div class="kpi-card">
-                <span class="kpi-label">Pipeline Health</span>
-                <span class="kpi-val green">98.7<span class="kpi-unit">%</span></span>
-                <span class="kpi-delta up">↑ 0.3%</span>
-              </div>
-              <div class="kpi-card">
-                <span class="kpi-label">Lag (Kafka)</span>
-                <span class="kpi-val yellow">142 <span class="kpi-unit">ms</span></span>
-                <span class="kpi-delta neutral">→ stable</span>
-              </div>
-              <div class="kpi-card">
-                <span class="kpi-label">Failed DAGs</span>
-                <span class="kpi-val red">3 <span class="kpi-unit">of 412</span></span>
-                <span class="kpi-delta down">↓ needs attn</span>
-              </div>
-            </div>
-
-            <!-- Chart area -->
-            <div class="chart-area">
-              <div class="chart-header">
-                <span class="chart-title">Pipeline Throughput — last 24h</span>
-                <div class="chart-controls">
-                  <span class="cc active">1h</span>
-                  <span class="cc">6h</span>
-                  <span class="cc">24h</span>
-                  <span class="cc">7d</span>
-                </div>
-              </div>
-              <canvas id="throughputChart" height="120" style="width:100%;min-height:120px;display:block"></canvas>
-            </div>
-
-            <!-- Pipeline list -->
-            <div class="pipeline-list">
-              <div class="pl-header">
-                <span>Active Pipelines</span>
-                <span class="pl-count">412 running</span>
-              </div>
-              <div class="pl-item running">
-                <span class="pl-status running"></span>
-                <span class="pl-name">ecommerce_orders_to_warehouse</span>
-                <span class="pl-rate">840K rec/min</span>
-                <span class="pl-lag">8ms</span>
-                <span class="pl-badge ok">OK</span>
-              </div>
-              <div class="pl-item running">
-                <span class="pl-status running"></span>
-                <span class="pl-name">events_kafka_stream_processor</span>
-                <span class="pl-rate">2.1M rec/min</span>
-                <span class="pl-lag">12ms</span>
-                <span class="pl-badge ok">OK</span>
-              </div>
-              <div class="pl-item warn">
-                <span class="pl-status warn"></span>
-                <span class="pl-name">crm_daily_transform_job</span>
-                <span class="pl-rate">—</span>
-                <span class="pl-lag">—</span>
-                <span class="pl-badge warn">RETRY</span>
-              </div>
-              <div class="pl-item running">
-                <span class="pl-status running"></span>
-                <span class="pl-name">ml_feature_pipeline_refresh</span>
-                <span class="pl-rate">320K rec/min</span>
-                <span class="pl-lag">22ms</span>
-                <span class="pl-badge ok">OK</span>
-              </div>
-            </div>
+          <div class="pipeline-list">
+            <div class="pl-header"><span>Active Pipelines</span><span class="pl-count">412 running</span></div>
+            <div class="pl-item"><span class="pl-status running"></span><span class="pl-name">ecommerce_orders_to_warehouse</span><span class="pl-rate">840K rec/min</span><span class="pl-lag">8ms</span><span class="pl-badge ok">OK</span></div>
+            <div class="pl-item"><span class="pl-status running"></span><span class="pl-name">events_kafka_stream_processor</span><span class="pl-rate">2.1M rec/min</span><span class="pl-lag">12ms</span><span class="pl-badge ok">OK</span></div>
+            <div class="pl-item"><span class="pl-status warn"></span><span class="pl-name">crm_daily_transform_job</span><span class="pl-rate">—</span><span class="pl-lag">—</span><span class="pl-badge warn">RETRY</span></div>
+            <div class="pl-item"><span class="pl-status running"></span><span class="pl-name">ml_feature_pipeline_refresh</span><span class="pl-rate">320K rec/min</span><span class="pl-lag">22ms</span><span class="pl-badge ok">OK</span></div>
           </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- TECH STACK -->
-  <section class="stack" id="stack">
-    <div class="section-header">
-      <div class="section-tag">// 03.STACK</div>
-      <h2 class="section-title">The Full Stack</h2>
-      <p class="section-sub">We work with the tools your team already uses — and introduce the ones they should.</p>
+<section class="stack" id="stack">
+  <div class="section-header">
+    <div class="section-tag">// 03.STACK</div>
+    <h2 class="section-title">The Full Stack</h2>
+    <p class="section-sub">We work with the tools your team already uses — and introduce the ones they should.</p>
+  </div>
+  <div class="stack-layers">
+    <div class="stack-layer"><div class="layer-label">INGEST</div><div class="layer-items"><div class="stack-chip">Apache Kafka</div><div class="stack-chip">AWS Kinesis</div><div class="stack-chip">Pub/Sub</div><div class="stack-chip">Fivetran</div><div class="stack-chip">Airbyte</div><div class="stack-chip">Debezium</div><div class="stack-chip">Stitch</div></div></div>
+    <div class="layer-arrow"><svg width="20" height="40" viewBox="0 0 20 40"><path d="M10 0v36M4 30l6 8 6-8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+    <div class="stack-layer"><div class="layer-label">TRANSFORM</div><div class="layer-items"><div class="stack-chip active">dbt Core</div><div class="stack-chip active">Apache Spark</div><div class="stack-chip active">Apache Flink</div><div class="stack-chip">Pandas</div><div class="stack-chip">Polars</div><div class="stack-chip">duckDB</div></div></div>
+    <div class="layer-arrow"><svg width="20" height="40" viewBox="0 0 20 40"><path d="M10 0v36M4 30l6 8 6-8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+    <div class="stack-layer"><div class="layer-label">STORE</div><div class="layer-items"><div class="stack-chip active">Snowflake</div><div class="stack-chip active">BigQuery</div><div class="stack-chip">Databricks</div><div class="stack-chip">Redshift</div><div class="stack-chip">Delta Lake</div><div class="stack-chip">Apache Iceberg</div><div class="stack-chip">Hudi</div></div></div>
+    <div class="layer-arrow"><svg width="20" height="40" viewBox="0 0 20 40"><path d="M10 0v36M4 30l6 8 6-8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+    <div class="stack-layer"><div class="layer-label">ORCHESTRATE</div><div class="layer-items"><div class="stack-chip active">Apache Airflow</div><div class="stack-chip">Prefect</div><div class="stack-chip">Dagster</div><div class="stack-chip">Mage</div><div class="stack-chip">Argo Workflows</div></div></div>
+    <div class="layer-arrow"><svg width="20" height="40" viewBox="0 0 20 40"><path d="M10 0v36M4 30l6 8 6-8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+    <div class="stack-layer"><div class="layer-label">OBSERVE</div><div class="layer-items"><div class="stack-chip">Great Expectations</div><div class="stack-chip">Monte Carlo</div><div class="stack-chip">Grafana</div><div class="stack-chip">Prometheus</div><div class="stack-chip">OpenTelemetry</div><div class="stack-chip">Soda Core</div></div></div>
+    <div class="layer-arrow"><svg width="20" height="40" viewBox="0 0 20 40"><path d="M10 0v36M4 30l6 8 6-8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+    <div class="stack-layer"><div class="layer-label">INFRA</div><div class="layer-items"><div class="stack-chip">Kubernetes</div><div class="stack-chip">Terraform</div><div class="stack-chip">AWS / GCP / Azure</div><div class="stack-chip">Helm</div><div class="stack-chip">Docker</div><div class="stack-chip">GitHub Actions</div></div></div>
+  </div>
+</section>
+
+<section class="process">
+  <div class="section-header">
+    <div class="section-tag">// 04.PROCESS</div>
+    <h2 class="section-title">How We Work</h2>
+  </div>
+  <div class="process-steps">
+    <div class="process-step"><div class="step-num">01</div><div class="step-line"></div><div class="step-content"><h3>Discovery & Audit</h3><p>We map your current data landscape — sources, flows, pain points, scale requirements. Two weeks, full technical audit.</p><div class="step-tag">~2 weeks</div></div></div>
+    <div class="process-step"><div class="step-num">02</div><div class="step-line"></div><div class="step-content"><h3>Architecture Design</h3><p>A battle-tested architecture proposal with tech stack, cost projections, and migration path. No surprises.</p><div class="step-tag">~1 week</div></div></div>
+    <div class="process-step"><div class="step-num">03</div><div class="step-line"></div><div class="step-content"><h3>Build & Migrate</h3><p>Parallel build with zero-downtime migration. We run old and new simultaneously until you're confident.</p><div class="step-tag">4–16 weeks</div></div></div>
+    <div class="process-step"><div class="step-num">04</div><div class="step-content"><h3>Monitor & Scale</h3><p>Ongoing support, 24/7 alerting, quarterly reviews. Your team learns, your infrastructure grows.</p><div class="step-tag">ongoing</div></div></div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="#" class="nav-logo"><span class="logo-bracket">[</span><span class="logo-text">inferreach</span><span class="logo-bracket">]</span><span class="logo-dot blink">_</span></a>
+      <p class="footer-tagline">Data pipelines that actually work.</p>
+      <p class="footer-location">📍 Lalitpur, Nepal</p>
+      <a href="mailto:hello@inferreach.com" class="footer-email">hello@inferreach.com</a>
     </div>
-
-    <div class="stack-layers">
-      <div class="stack-layer">
-        <div class="layer-label">INGEST</div>
-        <div class="layer-items">
-          <div class="stack-chip"><span>Apache Kafka</span></div>
-          <div class="stack-chip"><span>AWS Kinesis</span></div>
-          <div class="stack-chip"><span>Pub/Sub</span></div>
-          <div class="stack-chip"><span>Fivetran</span></div>
-          <div class="stack-chip"><span>Airbyte</span></div>
-          <div class="stack-chip"><span>Debezium</span></div>
-          <div class="stack-chip"><span>Stitch</span></div>
-        </div>
+    <div class="footer-nav">
+      <div class="footer-col">
+        <span class="fc-head">Services</span>
+        <a href="#pipelines">Ingestion</a><a href="#pipelines">Transformation</a><a href="#pipelines">Warehousing</a><a href="#pipelines">ML Infra</a><a href="#pipelines">Orchestration</a>
       </div>
-
-      <div class="layer-arrow">
-        <svg width="20" height="40" viewBox="0 0 20 40"><path d="M10 0v36M4 30l6 8 6-8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-      </div>
-
-      <div class="stack-layer">
-        <div class="layer-label">TRANSFORM</div>
-        <div class="layer-items">
-          <div class="stack-chip active"><span>dbt Core</span></div>
-          <div class="stack-chip active"><span>Apache Spark</span></div>
-          <div class="stack-chip active"><span>Apache Flink</span></div>
-          <div class="stack-chip"><span>Pandas</span></div>
-          <div class="stack-chip"><span>Polars</span></div>
-          <div class="stack-chip"><span>duckDB</span></div>
-        </div>
-      </div>
-
-      <div class="layer-arrow">
-        <svg width="20" height="40" viewBox="0 0 20 40"><path d="M10 0v36M4 30l6 8 6-8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-      </div>
-
-      <div class="stack-layer">
-        <div class="layer-label">STORE</div>
-        <div class="layer-items">
-          <div class="stack-chip active"><span>Snowflake</span></div>
-          <div class="stack-chip active"><span>BigQuery</span></div>
-          <div class="stack-chip"><span>Databricks</span></div>
-          <div class="stack-chip"><span>Redshift</span></div>
-          <div class="stack-chip"><span>Delta Lake</span></div>
-          <div class="stack-chip"><span>Apache Iceberg</span></div>
-          <div class="stack-chip"><span>Hudi</span></div>
-        </div>
-      </div>
-
-      <div class="layer-arrow">
-        <svg width="20" height="40" viewBox="0 0 20 40"><path d="M10 0v36M4 30l6 8 6-8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-      </div>
-
-      <div class="stack-layer">
-        <div class="layer-label">ORCHESTRATE</div>
-        <div class="layer-items">
-          <div class="stack-chip active"><span>Apache Airflow</span></div>
-          <div class="stack-chip"><span>Prefect</span></div>
-          <div class="stack-chip"><span>Dagster</span></div>
-          <div class="stack-chip"><span>Mage</span></div>
-          <div class="stack-chip"><span>Argo Workflows</span></div>
-        </div>
-      </div>
-
-      <div class="layer-arrow">
-        <svg width="20" height="40" viewBox="0 0 20 40"><path d="M10 0v36M4 30l6 8 6-8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-      </div>
-
-      <div class="stack-layer">
-        <div class="layer-label">OBSERVE</div>
-        <div class="layer-items">
-          <div class="stack-chip"><span>Great Expectations</span></div>
-          <div class="stack-chip"><span>Monte Carlo</span></div>
-          <div class="stack-chip"><span>Grafana</span></div>
-          <div class="stack-chip"><span>Prometheus</span></div>
-          <div class="stack-chip"><span>OpenTelemetry</span></div>
-          <div class="stack-chip"><span>Soda Core</span></div>
-        </div>
-      </div>
-
-      <div class="layer-arrow">
-        <svg width="20" height="40" viewBox="0 0 20 40"><path d="M10 0v36M4 30l6 8 6-8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-      </div>
-
-      <div class="stack-layer">
-        <div class="layer-label">INFRA</div>
-        <div class="layer-items">
-          <div class="stack-chip"><span>Kubernetes</span></div>
-          <div class="stack-chip"><span>Terraform</span></div>
-          <div class="stack-chip"><span>AWS / GCP / Azure</span></div>
-          <div class="stack-chip"><span>Helm</span></div>
-          <div class="stack-chip"><span>Docker</span></div>
-          <div class="stack-chip"><span>GitHub Actions</span></div>
-        </div>
+      <div class="footer-col">
+        <span class="fc-head">Navigate</span>
+        <a href="#pipelines">What We Build</a><a href="#platform">Platform</a><a href="#stack">Tech Stack</a><a href="#process">Process</a>
       </div>
     </div>
-  </section>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2025 InferReach. All rights reserved.</span>
+    <span class="terminal-line">inferreach@prod:~$ status — all systems operational</span>
+  </div>
+</footer>
 
-  <!-- HOW IT WORKS -->
-  <section class="process">
-    <div class="section-header">
-      <div class="section-tag">// 04.PROCESS</div>
-      <h2 class="section-title">How We Work</h2>
-    </div>
-
-    <div class="process-steps">
-      <div class="process-step">
-        <div class="step-num">01</div>
-        <div class="step-line"></div>
-        <div class="step-content">
-          <h3>Discovery & Audit</h3>
-          <p>We map your current data landscape — sources, flows, pain points, scale requirements. Two weeks, full technical audit.</p>
-          <div class="step-tag">~2 weeks</div>
-        </div>
-      </div>
-
-      <div class="process-step">
-        <div class="step-num">02</div>
-        <div class="step-line"></div>
-        <div class="step-content">
-          <h3>Architecture Design</h3>
-          <p>A battle-tested architecture proposal with tech stack, cost projections, and migration path. No surprises.</p>
-          <div class="step-tag">~1 week</div>
-        </div>
-      </div>
-
-      <div class="process-step">
-        <div class="step-num">03</div>
-        <div class="step-line"></div>
-        <div class="step-content">
-          <h3>Build & Migrate</h3>
-          <p>Parallel build with zero-downtime migration. We run old and new simultaneously until you're confident.</p>
-          <div class="step-tag">4–16 weeks</div>
-        </div>
-      </div>
-
-      <div class="process-step">
-        <div class="step-num">04</div>
-        <div class="step-content">
-          <h3>Monitor & Scale</h3>
-          <p>Ongoing support, 24/7 alerting, quarterly reviews. Your team learns, your infrastructure grows.</p>
-          <div class="step-tag">ongoing</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-
-
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="footer-inner">
-      <div class="footer-brand">
-        <a href="#" class="nav-logo" style="text-decoration:none">
-          <span class="logo-bracket">[</span><span class="logo-text">inferreach</span><span class="logo-bracket">]</span><span class="logo-dot blink">_</span>
-        </a>
-        <p class="footer-tagline">Data pipelines that actually work.</p>
-        <p class="footer-location">📍 Lalitpur, Nepal</p>
-        <a href="mailto:hello@inferreach.com" class="footer-email">hello@inferreach.com</a>
-      </div>
-      <div class="footer-nav">
-        <div class="footer-col">
-          <span class="fc-head">Services</span>
-          <a href="#pipelines">Ingestion</a>
-          <a href="#pipelines">Transformation</a>
-          <a href="#pipelines">Warehousing</a>
-          <a href="#pipelines">ML Infra</a>
-          <a href="#pipelines">Orchestration</a>
-        </div>
-        <div class="footer-col">
-          <span class="fc-head">Navigate</span>
-          <a href="#pipelines">What We Build</a>
-          <a href="#platform">Platform</a>
-          <a href="#stack">Tech Stack</a>
-          <a href="#process">Process</a>
-        </div>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <span class="footer-copy">© 2025 InferReach. All rights reserved.</span>
-      <span class="terminal-line">inferreach@prod:~$ status — all systems operational</span>
-    </div>
-  </footer>
-
-  <script>
-// INFERREACH — MAIN JS
-
+<script>
 document.addEventListener('DOMContentLoaded', () => {
   initTypewriter();
-  initCounters();
   initScrollAnimations();
 });
 
@@ -1875,28 +607,6 @@ function initTypewriter() {
   tick();
 }
 
-function initCounters() {
-  const nums = document.querySelectorAll('.stat-num[data-target]');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      const el = entry.target;
-      const target = parseInt(el.dataset.target);
-      let current = 0;
-      const step = Math.ceil(target / 60);
-      const timer = setInterval(() => {
-        current = Math.min(current + step, target);
-        el.textContent = current;
-        if (current >= target) clearInterval(timer);
-      }, 20);
-      observer.unobserve(el);
-    });
-  }, { threshold: 0.5 });
-  nums.forEach(n => observer.observe(n));
-}
-
-
-// Fix dashboard grid when sidebar hidden on mobile
 function fixDashGrid() {
   const body = document.getElementById('dashBody');
   if (!body) return;
@@ -1909,7 +619,7 @@ fixDashGrid();
 window.addEventListener('resize', fixDashGrid);
 
 function initScrollAnimations() {
-  const els = document.querySelectorAll('.service-card, .team-card, .process-step, .stack-layer');
+  const els = document.querySelectorAll('.service-card, .process-step, .stack-layer');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry, i) => {
       if (entry.isIntersecting) {
@@ -1921,17 +631,12 @@ function initScrollAnimations() {
   els.forEach(el => { el.style.opacity = '0'; observer.observe(el); });
 }
 </script>
-  <script>
-// ================================================
-// INFERREACH — PIPELINE CANVAS VISUALIZER
-// ================================================
 
+<script>
 (function () {
   const canvas = document.getElementById('pipelineCanvas');
   if (!canvas) return;
-
   const ctx = canvas.getContext('2d');
-
   function resize() {
     const rect = canvas.getBoundingClientRect();
     const dpr = window.devicePixelRatio || 1;
@@ -1943,312 +648,158 @@ function initScrollAnimations() {
   }
   requestAnimationFrame(resize);
   window.addEventListener('resize', resize);
-
   const W = () => canvas.offsetWidth;
   const H = () => canvas.offsetHeight;
-
-  const COLORS = {
-    green: '#10b981',
-    yellow: '#ffd166',
-    blue: '#00b4d8',
-    orange: '#ff6b35',
-    red: '#ff4757',
-    dim: '#1a2a3a',
-    grid: 'rgba(0,255,136,0.04)',
-    text: '#445566',
-  };
-
-  // Pipeline nodes
+  const COLORS = { green: '#10b981', yellow: '#ffd166', blue: '#00b4d8', orange: '#ff6b35', red: '#ff4757', dim: '#1a2a3a', grid: 'rgba(0,255,136,0.04)', text: '#445566' };
   const getNodes = () => {
-    const w = W(), h = H();
     return [
-      // Sources
-      { id: 'db', x: 0.08, y: 0.2, label: 'Postgres', type: 'source', color: COLORS.blue },
-      { id: 'api', x: 0.08, y: 0.5, label: 'REST API', type: 'source', color: COLORS.blue },
-      { id: 'events', x: 0.08, y: 0.8, label: 'Events', type: 'source', color: COLORS.blue },
-      // Kafka
-      { id: 'kafka', x: 0.32, y: 0.5, label: 'Kafka', type: 'broker', color: COLORS.orange },
-      // Transform
-      { id: 'spark', x: 0.56, y: 0.28, label: 'Spark', type: 'transform', color: COLORS.yellow },
-      { id: 'flink', x: 0.56, y: 0.72, label: 'Flink', type: 'transform', color: COLORS.yellow },
-      // Sink
-      { id: 'snow', x: 0.82, y: 0.2, label: 'Snowflake', type: 'sink', color: COLORS.green },
-      { id: 'bq', x: 0.82, y: 0.5, label: 'BigQuery', type: 'sink', color: COLORS.green },
-      { id: 'ml', x: 0.82, y: 0.8, label: 'Feature Store', type: 'sink', color: COLORS.green },
+      { id: 'db', x: 0.08, y: 0.2, label: 'Postgres', color: COLORS.blue },
+      { id: 'api', x: 0.08, y: 0.5, label: 'REST API', color: COLORS.blue },
+      { id: 'events', x: 0.08, y: 0.8, label: 'Events', color: COLORS.blue },
+      { id: 'kafka', x: 0.32, y: 0.5, label: 'Kafka', color: COLORS.orange },
+      { id: 'spark', x: 0.56, y: 0.28, label: 'Spark', color: COLORS.yellow },
+      { id: 'flink', x: 0.56, y: 0.72, label: 'Flink', color: COLORS.yellow },
+      { id: 'snow', x: 0.82, y: 0.2, label: 'Snowflake', color: COLORS.green },
+      { id: 'bq', x: 0.82, y: 0.5, label: 'BigQuery', color: COLORS.green },
+      { id: 'ml', x: 0.82, y: 0.8, label: 'Feature Store', color: COLORS.green },
     ];
   };
-
   const EDGES = [
-    { from: 'db', to: 'kafka' },
-    { from: 'api', to: 'kafka' },
-    { from: 'events', to: 'kafka' },
-    { from: 'kafka', to: 'spark' },
-    { from: 'kafka', to: 'flink' },
-    { from: 'spark', to: 'snow' },
-    { from: 'spark', to: 'bq' },
-    { from: 'flink', to: 'bq' },
-    { from: 'flink', to: 'ml' },
+    { from: 'db', to: 'kafka' }, { from: 'api', to: 'kafka' }, { from: 'events', to: 'kafka' },
+    { from: 'kafka', to: 'spark' }, { from: 'kafka', to: 'flink' },
+    { from: 'spark', to: 'snow' }, { from: 'spark', to: 'bq' },
+    { from: 'flink', to: 'bq' }, { from: 'flink', to: 'ml' },
   ];
-
-  // Particles
   const particles = [];
-
   function spawnParticle() {
     const edge = EDGES[Math.floor(Math.random() * EDGES.length)];
-    particles.push({
-      edge,
-      t: 0,
-      speed: 0.004 + Math.random() * 0.006,
-      size: 2 + Math.random() * 2,
-      color: Math.random() > 0.6 ? COLORS.green : Math.random() > 0.5 ? COLORS.yellow : COLORS.blue,
-    });
+    particles.push({ edge, t: 0, speed: 0.004 + Math.random() * 0.006, size: 2 + Math.random() * 2, color: Math.random() > 0.6 ? COLORS.green : Math.random() > 0.5 ? COLORS.yellow : COLORS.blue });
   }
-
-  // Spawn initial particles
   for (let i = 0; i < 18; i++) {
-    const p = { edge: EDGES[Math.floor(Math.random() * EDGES.length)], t: Math.random(), speed: 0.004 + Math.random() * 0.006, size: 2 + Math.random() * 2, color: Math.random() > 0.6 ? COLORS.green : Math.random() > 0.5 ? COLORS.yellow : COLORS.blue };
-    particles.push(p);
+    particles.push({ edge: EDGES[Math.floor(Math.random() * EDGES.length)], t: Math.random(), speed: 0.004 + Math.random() * 0.006, size: 2 + Math.random() * 2, color: Math.random() > 0.6 ? COLORS.green : Math.random() > 0.5 ? COLORS.yellow : COLORS.blue });
   }
-
   let frame = 0;
-
   function draw() {
     const w = W(), h = H();
     ctx.clearRect(0, 0, w, h);
-
-    // Grid
-    ctx.strokeStyle = COLORS.grid;
-    ctx.lineWidth = 1;
-    for (let x = 0; x < w; x += 32) {
-      ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke();
-    }
-    for (let y = 0; y < h; y += 32) {
-      ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke();
-    }
-
+    ctx.strokeStyle = COLORS.grid; ctx.lineWidth = 1;
+    for (let x = 0; x < w; x += 32) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke(); }
+    for (let y = 0; y < h; y += 32) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke(); }
     const nodes = getNodes();
     const nodeMap = {};
     nodes.forEach(n => { nodeMap[n.id] = { ...n, px: n.x * w, py: n.y * h }; });
-
-    // Draw edges
     EDGES.forEach(edge => {
       const a = nodeMap[edge.from], b = nodeMap[edge.to];
       const mx = (a.px + b.px) / 2;
-      ctx.beginPath();
-      ctx.moveTo(a.px, a.py);
-      ctx.bezierCurveTo(mx, a.py, mx, b.py, b.px, b.py);
-      ctx.strokeStyle = 'rgba(0,180,100,0.12)';
-      ctx.lineWidth = 1.5;
-      ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(a.px, a.py); ctx.bezierCurveTo(mx, a.py, mx, b.py, b.px, b.py);
+      ctx.strokeStyle = 'rgba(0,180,100,0.12)'; ctx.lineWidth = 1.5; ctx.stroke();
     });
-
-    // Move & draw particles
     if (frame % 8 === 0 && particles.length < 40) spawnParticle();
-
     for (let i = particles.length - 1; i >= 0; i--) {
-      const p = particles[i];
-      p.t += p.speed;
+      const p = particles[i]; p.t += p.speed;
       if (p.t > 1) { particles.splice(i, 1); continue; }
-
       const a = nodeMap[p.edge.from], b = nodeMap[p.edge.to];
-      const mx = (a.px + b.px) / 2;
-      const t = p.t;
-      const mt = 1 - t;
-      const px = mt * mt * mt * a.px + 3 * mt * mt * t * mx + 3 * mt * t * t * mx + t * t * t * b.px;
-      const py = mt * mt * mt * a.py + 3 * mt * mt * t * a.py + 3 * mt * t * t * b.py + t * t * t * b.py;
-
-      ctx.beginPath();
-      ctx.arc(px, py, p.size, 0, Math.PI * 2);
-      ctx.fillStyle = p.color;
-      ctx.shadowColor = p.color;
-      ctx.shadowBlur = 4;
-      ctx.fill();
-      ctx.shadowBlur = 0;
+      const mx = (a.px + b.px) / 2, t = p.t, mt = 1 - t;
+      const px = mt*mt*mt*a.px + 3*mt*mt*t*mx + 3*mt*t*t*mx + t*t*t*b.px;
+      const py = mt*mt*mt*a.py + 3*mt*mt*t*a.py + 3*mt*t*t*b.py + t*t*t*b.py;
+      ctx.beginPath(); ctx.arc(px, py, p.size, 0, Math.PI * 2);
+      ctx.fillStyle = p.color; ctx.shadowColor = p.color; ctx.shadowBlur = 4; ctx.fill(); ctx.shadowBlur = 0;
     }
-
-    // Draw nodes
     nodes.forEach(n => {
       const node = nodeMap[n.id];
       const pulse = 1 + Math.sin(frame * 0.05 + n.x * 10) * 0.08;
-
-      // Node circle
-      ctx.beginPath();
-      ctx.arc(node.px, node.py, 16 * pulse, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(13,17,23,0.95)';
-      ctx.strokeStyle = n.color;
-      ctx.lineWidth = 1.5;
-      ctx.fill();
-      ctx.stroke();
-
-      // Glow
-      ctx.beginPath();
-      ctx.arc(node.px, node.py, 20 * pulse, 0, Math.PI * 2);
+      ctx.beginPath(); ctx.arc(node.px, node.py, 16 * pulse, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(13,17,23,0.95)'; ctx.strokeStyle = n.color; ctx.lineWidth = 1.5; ctx.fill(); ctx.stroke();
+      ctx.beginPath(); ctx.arc(node.px, node.py, 20 * pulse, 0, Math.PI * 2);
       const grad = ctx.createRadialGradient(node.px, node.py, 8, node.px, node.py, 24);
-      grad.addColorStop(0, n.color + '33');
-      grad.addColorStop(1, 'transparent');
-      ctx.fillStyle = grad;
-      ctx.fill();
-
-      // Label
-      ctx.font = `500 9px 'IBM Plex Mono', monospace`;
-      ctx.fillStyle = n.color;
-      ctx.textAlign = 'center';
+      grad.addColorStop(0, n.color + '33'); grad.addColorStop(1, 'transparent');
+      ctx.fillStyle = grad; ctx.fill();
+      ctx.font = `500 9px 'IBM Plex Mono', monospace`; ctx.fillStyle = n.color; ctx.textAlign = 'center';
       ctx.fillText(n.label, node.px, node.py + 30);
     });
-
-    frame++;
-    requestAnimationFrame(draw);
+    frame++; requestAnimationFrame(draw);
   }
-
   draw();
 })();
-
 </script>
-  <script>
-// ================================================
-// INFERREACH — DASHBOARD THROUGHPUT CHART
-// ================================================
 
+<script>
 (function () {
   const canvas = document.getElementById('throughputChart');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
-
   function resize() {
     const rect = canvas.getBoundingClientRect();
     const dpr = window.devicePixelRatio || 1;
     if (!rect.width) return;
-    canvas.width = rect.width * dpr;
-    canvas.height = rect.height * dpr;
-    ctx.setTransform(1,0,0,1,0,0);
-    ctx.scale(dpr, dpr);
+    canvas.width = rect.width * dpr; canvas.height = rect.height * dpr;
+    ctx.setTransform(1,0,0,1,0,0); ctx.scale(dpr, dpr);
   }
-  // Use ResizeObserver for reliable sizing, with rAF fallback
   function initChart() {
     const rect = canvas.getBoundingClientRect();
     if (rect.width > 0) { resize(); drawChart(); return; }
-    // Not visible yet — poll until it is
     let tries = 0;
-    const poll = setInterval(() => {
-      const r = canvas.getBoundingClientRect();
-      if (r.width > 0 || ++tries > 20) {
-        clearInterval(poll);
-        resize(); drawChart();
-      }
-    }, 100);
+    const poll = setInterval(() => { const r = canvas.getBoundingClientRect(); if (r.width > 0 || ++tries > 20) { clearInterval(poll); resize(); drawChart(); } }, 100);
   }
-
-  if ('ResizeObserver' in window) {
-    const ro = new ResizeObserver(() => { resize(); drawChart(); });
-    ro.observe(canvas);
-  }
+  if ('ResizeObserver' in window) { const ro = new ResizeObserver(() => { resize(); drawChart(); }); ro.observe(canvas); }
   window.addEventListener('resize', () => { resize(); drawChart(); });
-  // Defer past layout
   setTimeout(initChart, 50);
-
-  // Generate fake 24h data
-  const points = 96; // 15-min intervals
+  const points = 96;
   const data = [];
   let base = 1800000;
   for (let i = 0; i < points; i++) {
-    // Simulate daily traffic pattern
-    const hour = (i / 4);
+    const hour = i / 4;
     const daily = Math.sin((hour - 6) * Math.PI / 12) * 800000;
     const noise = (Math.random() - 0.5) * 300000;
-    const spike = (i === 52 || i === 53) ? 600000 : 0; // traffic spike
+    const spike = (i === 52 || i === 53) ? 600000 : 0;
     data.push(Math.max(200000, base + daily + noise + spike));
   }
-
   function drawChart() {
-    const w = canvas.offsetWidth;
-    const h = canvas.offsetHeight;
+    const w = canvas.offsetWidth, h = canvas.offsetHeight;
     ctx.clearRect(0, 0, w, h);
-
     const pad = { top: 10, right: 10, bottom: 24, left: 10 };
-    const chartW = w - pad.left - pad.right;
-    const chartH = h - pad.top - pad.bottom;
-
-    const maxVal = Math.max(...data) * 1.1;
-    const minVal = 0;
-
-    // Grid lines
+    const chartW = w - pad.left - pad.right, chartH = h - pad.top - pad.bottom;
+    const maxVal = Math.max(...data) * 1.1, minVal = 0;
     for (let i = 0; i <= 4; i++) {
       const y = pad.top + chartH - (chartH * i / 4);
-      ctx.beginPath();
-      ctx.moveTo(pad.left, y);
-      ctx.lineTo(pad.left + chartW, y);
-      ctx.strokeStyle = 'rgba(0,255,136,0.05)';
-      ctx.lineWidth = 1;
-      ctx.stroke();
-
+      ctx.beginPath(); ctx.moveTo(pad.left, y); ctx.lineTo(pad.left + chartW, y);
+      ctx.strokeStyle = 'rgba(0,255,136,0.05)'; ctx.lineWidth = 1; ctx.stroke();
       const val = Math.round((maxVal * i / 4) / 1000);
-      ctx.font = '9px IBM Plex Mono, monospace';
-      ctx.fillStyle = '#445566';
-      ctx.textAlign = 'right';
+      ctx.font = '9px IBM Plex Mono, monospace'; ctx.fillStyle = '#445566'; ctx.textAlign = 'right';
       ctx.fillText(val + 'K', pad.left + 36, y + 3);
     }
-
-    // Area fill
     ctx.beginPath();
     data.forEach((v, i) => {
       const x = pad.left + (i / (points - 1)) * chartW;
       const y = pad.top + chartH - ((v - minVal) / (maxVal - minVal)) * chartH;
-      if (i === 0) ctx.moveTo(x, y);
-      else ctx.lineTo(x, y);
+      if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
     });
-    ctx.lineTo(pad.left + chartW, pad.top + chartH);
-    ctx.lineTo(pad.left, pad.top + chartH);
-    ctx.closePath();
+    ctx.lineTo(pad.left + chartW, pad.top + chartH); ctx.lineTo(pad.left, pad.top + chartH); ctx.closePath();
     const areaGrad = ctx.createLinearGradient(0, pad.top, 0, pad.top + chartH);
-    areaGrad.addColorStop(0, 'rgba(0,255,136,0.18)');
-    areaGrad.addColorStop(1, 'rgba(0,255,136,0.01)');
-    ctx.fillStyle = areaGrad;
-    ctx.fill();
-
-    // Line
+    areaGrad.addColorStop(0, 'rgba(0,255,136,0.18)'); areaGrad.addColorStop(1, 'rgba(0,255,136,0.01)');
+    ctx.fillStyle = areaGrad; ctx.fill();
     ctx.beginPath();
     data.forEach((v, i) => {
       const x = pad.left + (i / (points - 1)) * chartW;
       const y = pad.top + chartH - ((v - minVal) / (maxVal - minVal)) * chartH;
-      if (i === 0) ctx.moveTo(x, y);
-      else ctx.lineTo(x, y);
+      if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
     });
-    ctx.strokeStyle = '#10b981';
-    ctx.lineWidth = 1.5;
-    ctx.shadowColor = '#10b981';
-    ctx.shadowBlur = 3;
-    ctx.stroke();
-    ctx.shadowBlur = 0;
-
-    // Spike marker
+    ctx.strokeStyle = '#10b981'; ctx.lineWidth = 1.5; ctx.shadowColor = '#10b981'; ctx.shadowBlur = 3; ctx.stroke(); ctx.shadowBlur = 0;
     const spikeIdx = 52;
     const sx = pad.left + (spikeIdx / (points - 1)) * chartW;
     const sy = pad.top + chartH - ((data[spikeIdx] - minVal) / (maxVal - minVal)) * chartH;
-    ctx.beginPath();
-    ctx.arc(sx, sy, 4, 0, Math.PI * 2);
-    ctx.fillStyle = '#ff6b35';
-    ctx.shadowColor = '#ff6b35';
-    ctx.shadowBlur = 5;
-    ctx.fill();
-    ctx.shadowBlur = 0;
-
-    // Time labels
-    const labels = ['00:00', '06:00', '12:00', '18:00', '24:00'];
-    labels.forEach((lbl, i) => {
-      const x = pad.left + (i / (labels.length - 1)) * chartW;
-      ctx.font = '9px IBM Plex Mono, monospace';
-      ctx.fillStyle = '#445566';
-      ctx.textAlign = 'center';
+    ctx.beginPath(); ctx.arc(sx, sy, 4, 0, Math.PI * 2);
+    ctx.fillStyle = '#ff6b35'; ctx.shadowColor = '#ff6b35'; ctx.shadowBlur = 5; ctx.fill(); ctx.shadowBlur = 0;
+    ['00:00','06:00','12:00','18:00','24:00'].forEach((lbl, i) => {
+      const x = pad.left + (i / 4) * chartW;
+      ctx.font = '9px IBM Plex Mono, monospace'; ctx.fillStyle = '#445566'; ctx.textAlign = 'center';
       ctx.fillText(lbl, x, h - 4);
     });
   }
-
-  window.addEventListener('resize', () => { resize(); drawChart(); });
 })();
-
 </script>
+
 <script>
-// ---- LOADER ----
 (function() {
   const loader = document.getElementById('loader');
   document.body.style.overflow = 'hidden';
@@ -2264,42 +815,24 @@ function initScrollAnimations() {
   ];
   let step = 0;
   nodes[0].classList.add('active');
-
   function animateParticle(p, cb) {
-    let pos = 0;
-    p.style.opacity = '1';
-    const run = () => {
-      pos += 3;
-      p.style.left = pos + 'px';
-      if (pos < 90) requestAnimationFrame(run);
-      else { p.style.opacity = '0'; p.style.left = '-8px'; cb && cb(); }
-    };
+    let pos = 0; p.style.opacity = '1';
+    const run = () => { pos += 3; p.style.left = pos + 'px'; if (pos < 90) requestAnimationFrame(run); else { p.style.opacity = '0'; p.style.left = '-8px'; cb && cb(); } };
     requestAnimationFrame(run);
   }
-
   function runStep() {
-    if (step >= steps.length) {
-      setTimeout(() => { loader.classList.add('hidden'); setTimeout(() => { loader.remove(); document.body.style.overflow = ''; }, 600); }, 400);
-      return;
-    }
+    if (step >= steps.length) { setTimeout(() => { loader.classList.add('hidden'); setTimeout(() => { loader.remove(); document.body.style.overflow = ''; }, 600); }, 400); return; }
     const s = steps[step];
     status.textContent = s.msg;
     if (s.node !== undefined) nodes[s.node].classList.add('active');
-    if (s.particle !== undefined) {
-      animateParticle(particles[s.particle], () => {
-        step++; setTimeout(runStep, 300);
-      });
-    } else {
-      step++; setTimeout(runStep, step === steps.length ? 200 : 500);
-    }
+    if (s.particle !== undefined) { animateParticle(particles[s.particle], () => { step++; setTimeout(runStep, 300); }); }
+    else { step++; setTimeout(runStep, step === steps.length ? 200 : 500); }
   }
   setTimeout(runStep, 300);
 })();
-
-
 </script>
+
 <script>
-// ---- THEME TOGGLE ----
 (function() {
   const btn = document.getElementById('themeToggle');
   if (!btn) return;
