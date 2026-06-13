@@ -4,3 +4,4 @@
 !.dev.vars.example
 .env*
 !.env.example
+ecommerce-pipeline/gcp-key.json
