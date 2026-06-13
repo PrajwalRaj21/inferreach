@@ -1,0 +1,4 @@
+echo kafka-python-ng==2.2.3 > requirements.txt
+echo google-cloud-bigquery >> requirements.txt
+echo faker >> requirements.txt
+echo python-dotenv >> requirements.txt
