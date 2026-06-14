@@ -44,8 +44,7 @@ SCHEMA = [
 ]
 
 def get_bq_client():
-    creds = service_account.Credentials.from_service_account_file(KEY_PATH)
-    return bigquery.Client(project=PROJECT_ID, credentials=creds)
+    return bigquery.Client(project=PROJECT_ID)
 
 def ensure_table(client):
     dataset_ref = client.dataset(DATASET)

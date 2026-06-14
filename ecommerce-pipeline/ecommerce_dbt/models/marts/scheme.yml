@@ -1,0 +1,24 @@
+version: 2
+
+models:
+  - name: stg_orders
+    description: Cleaned and standardised orders from raw ingestion
+    columns:
+      - name: order_id
+        tests:
+          - not_null
+          - unique
+      - name: total_amount
+        tests:
+          - not_null
+
+  - name: fct_orders
+    description: Final orders fact table with time dimensions
+    columns:
+      - name: order_id
+        tests:
+          - not_null
+          - unique
+
+  - name: revenue_by_channel
+    description: Daily revenue aggregated by acquisition channel

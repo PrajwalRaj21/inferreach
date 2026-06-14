@@ -1,0 +1,77 @@
+[0m18:26:38.010127 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000021351800830>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002134DF6AE90>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000021353683C50>]}
+
+
+============================== 18:26:38.015342 | 4f15f5a5-a371-427c-813a-3b62344c4664 ==============================
+[0m18:26:38.015342 [info ] [MainThread]: Running with dbt=1.11.11
+[0m18:26:38.015948 [debug] [MainThread]: running dbt with arguments {'static_parser': 'True', 'no_print': 'None', 'version_check': 'True', 'target_path': 'None', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'printer_width': '80', 'write_json': 'True', 'empty': 'None', 'log_cache_events': 'False', 'introspect': 'True', 'cache_selected_only': 'False', 'log_format': 'default', 'debug': 'False', 'fail_fast': 'False', 'partial_parse': 'True', 'send_anonymous_usage_stats': 'True', 'quiet': 'False', 'warn_error': 'None', 'profiles_dir': 'C:\\Users\\prajw\\.dbt', 'use_colors': 'True', 'indirect_selection': 'eager', 'invocation_command': 'dbt init ecommerce_dbt', 'use_experimental_parser': 'False', 'log_path': 'logs'}
+[0m18:26:38.042155 [debug] [MainThread]: Starter project path: C:\Users\prajw\AppData\Local\Programs\Python\Python313\Lib\site-packages\dbt\include\starter_project
+[0m18:26:38.062180 [info ] [MainThread]: 
+Your new dbt project "ecommerce_dbt" was created!
+
+For more information on how to configure the profiles.yml file,
+please consult the dbt documentation here:
+
+  https://docs.getdbt.com/docs/configure-your-profile
+
+One more thing:
+
+Need help? Don't hesitate to reach out to us via GitHub issues or on Slack:
+
+  https://community.getdbt.com/
+
+Happy modeling!
+
+[0m18:26:38.062705 [info ] [MainThread]: Setting up your profile.
+[0m18:27:31.229480 [error] [MainThread]: Encountered an error:
+
+[0m18:27:31.278464 [error] [MainThread]: Traceback (most recent call last):
+  File "C:\Users\prajw\AppData\Local\Programs\Python\Python313\Lib\site-packages\dbt\cli\requires.py", line 182, in wrapper
+    result, success = func(*args, **kwargs)
+                      ~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\prajw\AppData\Local\Programs\Python\Python313\Lib\site-packages\dbt\cli\requires.py", line 128, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\prajw\AppData\Local\Programs\Python\Python313\Lib\site-packages\dbt\cli\main.py", line 488, in init
+    results = task.run()
+  File "C:\Users\prajw\AppData\Local\Programs\Python\Python313\Lib\site-packages\dbt\task\init.py", line 346, in run
+    self.setup_profile(profile_name)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Users\prajw\AppData\Local\Programs\Python\Python313\Lib\site-packages\dbt\task\init.py", line 262, in setup_profile
+    self.create_profile_from_target(adapter, profile_name=profile_name)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prajw\AppData\Local\Programs\Python\Python313\Lib\site-packages\dbt\task\init.py", line 179, in create_profile_from_target
+    self.create_profile_from_profile_template(profile_template, profile_name)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prajw\AppData\Local\Programs\Python\Python313\Lib\site-packages\dbt\task\init.py", line 163, in create_profile_from_profile_template
+    target = self.generate_target_from_input(prompts, initial_target)
+  File "C:\Users\prajw\AppData\Local\Programs\Python\Python313\Lib\site-packages\dbt\task\init.py", line 116, in generate_target_from_input
+    target = self.generate_target_from_input(
+        profile_template_local[key][choice], target
+    )
+  File "C:\Users\prajw\AppData\Local\Programs\Python\Python313\Lib\site-packages\dbt\task\init.py", line 129, in generate_target_from_input
+    target[key] = click.prompt(
+                  ~~~~~~~~~~~~^
+        text, default=default, hide_input=hide_input, type=type
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\prajw\AppData\Local\Programs\Python\Python313\Lib\site-packages\click\termui.py", line 218, in prompt
+    value = prompt_func(prompt)
+  File "C:\Users\prajw\AppData\Local\Programs\Python\Python313\Lib\site-packages\click\termui.py", line 201, in prompt_func
+    raise Abort() from None
+click.exceptions.Abort
+
+[0m18:27:31.279780 [debug] [MainThread]: Command `-c init` failed at 18:27:31.279660 after 53.45 seconds
+[0m18:27:31.280113 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002136D8FD940>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002136D8C71D0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002136D813DF0>]}
+[0m18:27:31.280474 [debug] [MainThread]: Flushing usage events
+[0m18:27:32.408455 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m18:27:40.142611 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002A0F6208D70>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002A0F2C52FD0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002A0F836FC50>]}
+
+
+============================== 18:27:40.147035 | 96c83c7d-4784-452b-9c00-f758e9d7c284 ==============================
+[0m18:27:40.147035 [info ] [MainThread]: Running with dbt=1.11.11
+[0m18:27:40.147633 [debug] [MainThread]: running dbt with arguments {'version_check': 'True', 'no_print': 'None', 'static_parser': 'True', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'target_path': 'None', 'printer_width': '80', 'write_json': 'True', 'introspect': 'True', 'log_cache_events': 'False', 'empty': 'None', 'cache_selected_only': 'False', 'log_format': 'default', 'debug': 'False', 'fail_fast': 'False', 'partial_parse': 'True', 'send_anonymous_usage_stats': 'True', 'quiet': 'False', 'warn_error': 'None', 'profiles_dir': 'C:\\Users\\prajw\\.dbt', 'indirect_selection': 'eager', 'use_colors': 'True', 'invocation_command': 'dbt init ecommerce_dbt', 'use_experimental_parser': 'False', 'log_path': 'logs'}
+[0m18:27:40.165919 [info ] [MainThread]: A project called ecommerce_dbt already exists here.
+[0m18:27:40.166905 [debug] [MainThread]: Command `dbt init` succeeded at 18:27:40.166771 after 0.15 seconds
+[0m18:27:40.167261 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002A0F725FE10>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002A0F842CDD0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002A0F72DD590>]}
+[0m18:27:40.167599 [debug] [MainThread]: Flushing usage events
+[0m18:27:41.347397 [debug] [MainThread]: An error was encountered while trying to flush usage events
