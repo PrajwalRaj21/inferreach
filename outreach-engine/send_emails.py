@@ -68,10 +68,10 @@ def load_contacts(filepath):
         with open(filepath, newline='', encoding='utf-8-sig') as f:
             reader = csv.DictReader(f)
             for row in reader:
-                # Support both Apollo format and simple format
-                email  = (row.get('Email') or row.get('email') or '').strip()
+                # Support Apollo export format, simple format, and AI Ark format
+                email  = (row.get('Email Business') or row.get('Email') or row.get('email') or '').strip()
                 fname  = (row.get('First Name') or row.get('first_name') or 'there').strip()
-                status = (row.get('Email Status') or row.get('email_status') or 'verified').strip().lower()
+                status = (row.get('Business Status') or row.get('Email Status') or row.get('email_status') or 'verified').strip().lower()
 
                 # Skip unavailable emails
                 if not email or '@' not in email:
