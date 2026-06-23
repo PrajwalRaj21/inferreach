@@ -24,7 +24,7 @@ export default {
 
     // ── SERVE STATIC ASSETS for non-API routes ──
     if (!API_PATHS.some(p => path.startsWith(p))) {
-      return env.ASSETS.fetch(request);
+      return json({error: 'Not found'}, 404);
     }
 
     // ── AUTH ──
