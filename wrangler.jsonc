@@ -1,14 +1,11 @@
 {
-  "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "inferreach",
-  "compatibility_date": "2026-05-31",
-  "observability": {
-    "enabled": true
-  },
-  "assets": {
-    "directory": "."
-  },
-  "compatibility_flags": [
-    "nodejs_compat"
+  "name": "inferreach-platform",
+  "compatibility_date": "2026-05-25",
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "inferreach-db",
+      "database_id": "5012cdc8-8663-4420-a514-8ffdafd5bdfe"
+    }
   ]
 }
