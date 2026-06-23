@@ -8,8 +8,6 @@
 <title>InferReach Platform</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Syne:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
-<!-- Supabase JS SDK -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 :root{--bg:#0d1117;--bg1:#111827;--bg2:#1a2232;--bg3:#1e2a3a;--green:#10b981;--gdim:rgba(16,185,129,.1);--gglow:rgba(16,185,129,.2);--blue:#60a5fa;--yellow:#fbbf24;--orange:#f97316;--red:#f87171;--purple:#a78bfa;--border:rgba(148,180,200,.12);--borderb:rgba(16,185,129,.25);--text:#f0f6ff;--text2:#9db4c8;--text3:#5a7a8a;--mono:'IBM Plex Mono',monospace;--sans:'IBM Plex Sans',sans-serif;--display:'Syne',sans-serif;--nav:56px;--sidebar:220px}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -46,14 +44,9 @@ input,textarea{font-family:inherit}
 .btn-primary:disabled{opacity:.6;cursor:not-allowed;transform:none}
 .login-err{display:none;margin-top:10px;padding:10px 14px;background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.25);border-radius:6px;font-family:var(--mono);font-size:.75rem;color:var(--red)}
 .login-err.show{display:block}
-.login-div{display:flex;align-items:center;gap:12px;margin:18px 0;color:var(--text3);font-size:.75rem}
-.login-div::before,.login-div::after{content:'';flex:1;height:1px;background:var(--border)}
-.btn-ghost{width:100%;padding:11px;background:transparent;border:1px solid var(--border);border-radius:6px;color:var(--text2);font-family:var(--mono);font-size:.82rem;transition:all .2s}
-.btn-ghost:hover{border-color:var(--green);color:var(--green)}
 
 /* LOADING SPINNER */
 .spinner{width:18px;height:18px;border:2px solid rgba(0,0,0,.2);border-top-color:#000;border-radius:50%;animation:spin .6s linear infinite;flex-shrink:0}
-.spinner.light{border-color:rgba(255,255,255,.2);border-top-color:var(--green)}
 
 /* APP */
 #app{display:none}
@@ -186,10 +179,8 @@ input,textarea{font-family:inherit}
 .sinput{background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:6px 10px;color:var(--text);font-family:var(--mono);font-size:.76rem;outline:none;width:160px;flex-shrink:0}
 .sinput:focus{border-color:var(--green)}
 .two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-/* empty state */
 .empty{text-align:center;padding:40px 20px;font-family:var(--mono);font-size:.8rem;color:var(--text3)}
 .empty span{display:block;font-size:1.5rem;margin-bottom:8px}
-/* MOBILE */
 @media(max-width:900px){.two-col{grid-template-columns:1fr}.kpi-grid{grid-template-columns:repeat(2,1fr)}.src-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:768px){
   .nav-logo{width:auto;border-right:none;padding:0 12px}
@@ -289,7 +280,7 @@ input,textarea{font-family:inherit}
           </div>
           <div class="ai-card">
             <div class="ai-hdr"><div class="ai-badge">InferReach AI</div><span style="font-family:var(--mono);font-size:.68rem;color:var(--text3);margin-left:auto">Ask about your pipelines</span></div>
-            <div class="ai-msgs" id="dashMsgs"><div class="msg"><div class="mavatar ai">IR</div><div class="mbody"><div class="msender">InferReach AI</div><div class="mtext">Loading your pipeline context from Supabase...</div></div></div></div>
+            <div class="ai-msgs" id="dashMsgs"><div class="msg"><div class="mavatar ai">IR</div><div class="mbody"><div class="msender">InferReach AI</div><div class="mtext">Loading your pipeline context from D1...</div></div></div></div>
             <div class="ai-sugg"><span class="sugg" onclick="askAI('What pipelines need attention right now?')">What needs attention?</span><span class="sugg" onclick="askAI('How can I reduce Kafka lag?')">Reduce Kafka lag</span></div>
             <div class="ai-input-row"><textarea class="ai-input" id="dashInput" placeholder="Ask about your pipelines..." rows="1" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendAI()}"></textarea><button class="btn-send" id="dashSendBtn" onclick="sendAI()">Send</button></div>
           </div>
@@ -300,7 +291,7 @@ input,textarea{font-family:inherit}
       <div class="page" id="page-pipelines">
         <div class="page-hdr"><div class="page-title">Pipelines</div><div class="page-sub" id="pipelinesSubtitle">Loading...</div></div>
         <div class="tcard">
-          <div class="thead"><span class="ttitle">All Pipelines</span><span style="font-family:var(--mono);font-size:.7rem;color:var(--text3)">live from Supabase</span></div>
+          <div class="thead"><span class="ttitle">All Pipelines</span><span style="font-family:var(--mono);font-size:.7rem;color:var(--text3)">live from D1</span></div>
           <div id="allPipelineRows"><div class="empty"><span>⏳</span>Loading...</div></div>
         </div>
       </div>
@@ -321,7 +312,7 @@ input,textarea{font-family:inherit}
       <div class="page" id="page-ai">
         <div class="page-hdr"><div class="page-title">AI Assistant</div><div class="page-sub">Powered by Claude · Live pipeline context</div></div>
         <div class="ai-card" style="height:calc(100dvh - 190px)">
-          <div class="ai-msgs" id="pageMsgs" style="flex:1;height:auto"><div class="msg"><div class="mavatar ai">IR</div><div class="mbody"><div class="msender">InferReach AI</div><div class="mtext">I have live context from your Supabase database. Ask me to diagnose failures, optimise performance, or explain anything across your stack.</div></div></div></div>
+          <div class="ai-msgs" id="pageMsgs" style="flex:1;height:auto"><div class="msg"><div class="mavatar ai">IR</div><div class="mbody"><div class="msender">InferReach AI</div><div class="mtext">I have live context from your D1 database. Ask me to diagnose failures, optimise performance, or explain anything across your stack.</div></div></div></div>
           <div class="ai-sugg"><span class="sugg" onclick="askPageAI('What is the current status of all my pipelines?')">Pipeline status</span><span class="sugg" onclick="askPageAI('Which pipeline needs the most attention right now?')">What needs attention?</span><span class="sugg" onclick="askPageAI('How can I reduce Kafka lag?')">Reduce Kafka lag</span><span class="sugg" onclick="askPageAI('Explain schema drift and how to fix it')">Schema drift fix</span></div>
           <div class="ai-input-row"><textarea class="ai-input" id="pageInput" placeholder="Ask about your pipelines..." rows="2" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendPageAI()}"></textarea><button class="btn-send" id="pageSendBtn" onclick="sendPageAI()">Send</button></div>
         </div>
@@ -333,19 +324,15 @@ input,textarea{font-family:inherit}
         <div class="sset"><div class="sset-title">Account</div><div class="srow"><div><div class="slabel">Email</div><div class="sdesc" id="settingsEmail">—</div></div></div><div class="srow"><div><div class="slabel">Client</div><div class="sdesc" id="settingsClient">—</div></div></div><div class="srow"><div><div class="slabel">Plan</div></div><span style="font-family:var(--mono);font-size:.75rem;color:var(--green)" id="settingsPlan">—</span></div></div>
         <div class="sset"><div class="sset-title">Notifications</div><div class="srow"><div><div class="slabel">Pipeline failure alerts</div><div class="sdesc">Alert when a pipeline fails or exceeds retry threshold</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div><div class="srow"><div><div class="slabel">Schema drift detection</div><div class="sdesc">Alert when upstream schema changes are detected</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div><div class="srow"><div><div class="slabel">Daily digest email</div><div class="sdesc">Morning summary of pipeline health</div></div><div class="toggle" onclick="this.classList.toggle('on')"></div></div></div>
         <div class="sset"><div class="sset-title">Pipeline Defaults</div><div class="srow"><div><div class="slabel">Max retry attempts</div><div class="sdesc">Retries before marking a DAG failed</div></div><input class="sinput" value="3" type="number" min="1" max="10"/></div><div class="srow"><div><div class="slabel">Kafka lag threshold (ms)</div><div class="sdesc">Alert when consumer lag exceeds this</div></div><input class="sinput" value="2000" type="number"/></div></div>
-        <div class="sset" style="border-color:rgba(248,113,113,.2)"><div class="sset-title" style="color:var(--red)">Danger Zone</div><div class="srow"><div><div class="slabel">Sign out of all devices</div><div class="sdesc">Invalidates your current session immediately</div></div><button onclick="doLogout()" style="padding:6px 14px;background:rgba(248,113,113,.1);border:1px solid rgba(248,113,113,.3);border-radius:5px;color:var(--red);font-family:var(--mono);font-size:.72rem;cursor:pointer">Logout</button></div></div>
+        <div class="sset" style="border-color:rgba(248,113,113,.2)"><div class="sset-title" style="color:var(--red)">Danger Zone</div><div class="srow"><div><div class="slabel">Sign out</div><div class="sdesc">Clears your session immediately</div></div><button onclick="doLogout()" style="padding:6px 14px;background:rgba(248,113,113,.1);border:1px solid rgba(248,113,113,.3);border-radius:5px;color:var(--red);font-family:var(--mono);font-size:.72rem;cursor:pointer">Logout</button></div></div>
       </div>
     </main>
   </div>
 </div>
 
 <script>
-// ══════════════════════════════════════════════
-// SUPABASE INIT
-// ══════════════════════════════════════════════
-const SUPA_URL = 'https://bxwpjxxwumhxcbsyzacp.supabase.co';
-const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ4d3BqeHh3dW1oeGNic3l6YWNwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA5MDI5NjQsImV4cCI6MjA5NjQ3ODk2NH0.tjafaFLWgZeIaiajeOTasPWsFB-WTSuieherHhPOCKk';
-const sb = supabase.createClient(SUPA_URL, SUPA_KEY);
+// ── CONFIG ── Replace with your InferReach Worker URL
+const API = 'https://YOUR_INFERREACH_WORKER.workers.dev';
 
 let currentUser = null;
 let clientData  = null;
@@ -353,7 +340,7 @@ let pipelines   = [];
 let alerts      = [];
 
 // ══════════════════════════════════════════════
-// AUTH
+// AUTH — simple email/password via Worker
 // ══════════════════════════════════════════════
 async function doLogin() {
   const email = document.getElementById('loginEmail').value.trim();
@@ -368,14 +355,25 @@ async function doLogin() {
 
   btn.disabled = true; txt.textContent = 'Signing in…'; spin.style.display = 'block';
 
-  const { data, error } = await sb.auth.signInWithPassword({ email, password: pass });
+  try {
+    const res = await fetch(`${API}/auth/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password: pass })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Login failed');
 
-  if (error) {
+    // Store session token
+    sessionStorage.setItem('ir_token', data.token);
+    sessionStorage.setItem('ir_user', JSON.stringify(data.user));
+    sessionStorage.setItem('ir_client', JSON.stringify(data.client));
+
+    await bootApp(data.user, data.client);
+  } catch(e) {
     btn.disabled = false; txt.textContent = 'Sign In'; spin.style.display = 'none';
-    showErr(error.message === 'Invalid login credentials' ? 'Incorrect email or password.' : error.message);
-    return;
+    showErr(e.message === 'Login failed' ? 'Incorrect email or password.' : e.message);
   }
-  await bootApp(data.user);
 }
 
 function showErr(msg) {
@@ -383,58 +381,62 @@ function showErr(msg) {
   err.textContent = msg; err.classList.add('show');
 }
 
-async function doLogout() {
-  await sb.auth.signOut();
+function doLogout() {
+  sessionStorage.clear();
   location.reload();
 }
 
 // On load — check existing session
-window.addEventListener('DOMContentLoaded', async () => {
-  const { data: { session } } = await sb.auth.getSession();
-  if (session?.user) {
-    await bootApp(session.user);
+window.addEventListener('DOMContentLoaded', () => {
+  const token = sessionStorage.getItem('ir_token');
+  const user  = sessionStorage.getItem('ir_user');
+  const client = sessionStorage.getItem('ir_client');
+  if (token && user) {
+    bootApp(JSON.parse(user), client ? JSON.parse(client) : null);
   }
 });
 
 // ══════════════════════════════════════════════
+// API helper — attaches token
+// ══════════════════════════════════════════════
+async function api(path, opts = {}) {
+  const token = sessionStorage.getItem('ir_token');
+  const res = await fetch(`${API}${path}`, {
+    ...opts,
+    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}`, ...(opts.headers || {}) }
+  });
+  if (!res.ok) throw new Error(await res.text());
+  return res.json();
+}
+
+// ══════════════════════════════════════════════
 // BOOT APP
 // ══════════════════════════════════════════════
-async function bootApp(user) {
+async function bootApp(user, client) {
   currentUser = user;
+  clientData  = client;
 
-  // Fade out login
   const ls = document.getElementById('loginScreen');
   ls.classList.add('out');
   setTimeout(() => { ls.style.display = 'none'; document.getElementById('app').classList.add('visible'); }, 500);
 
-  // Set nav user info
-  const initials = user.email.split('@')[0].slice(0,2).toUpperCase();
-  document.getElementById('navAvatar').textContent = initials;
-  document.getElementById('navName').textContent   = user.email.split('@')[0];
-  document.getElementById('settingsEmail').textContent = user.email;
+  const initials = (user.email || user.full_name || 'US').slice(0,2).toUpperCase();
+  document.getElementById('navAvatar').textContent    = initials;
+  document.getElementById('navName').textContent      = (user.email || '').split('@')[0];
+  document.getElementById('sbEmail').textContent      = user.email || '—';
+  document.getElementById('sbPlan').textContent       = clientData ? clientData.plan.toUpperCase() + ' plan' : '—';
+  document.getElementById('settingsEmail').textContent = user.email || '—';
+  document.getElementById('settingsClient').textContent = clientData?.name || '—';
+  document.getElementById('settingsPlan').textContent   = clientData?.plan?.toUpperCase() || '—';
 
-  // Load client data
-  await loadClientData(user);
   await loadAllData();
   startClock();
   drawChart([]);
-  startRealtime();
-}
-
-async function loadClientData(user) {
-  // Get profile + client in one query
-  const { data: profile } = await sb.from('profiles').select('*, clients(*)').eq('id', user.id).single();
-  if (profile?.clients) {
-    clientData = profile.clients;
-    document.getElementById('sbEmail').textContent   = user.email;
-    document.getElementById('sbPlan').textContent    = clientData.plan.toUpperCase() + ' plan';
-    document.getElementById('settingsClient').textContent = clientData.name;
-    document.getElementById('settingsPlan').textContent   = clientData.plan.toUpperCase();
-  }
+  startPolling();
 }
 
 // ══════════════════════════════════════════════
-// LOAD DATA FROM SUPABASE
+// LOAD DATA FROM D1 VIA WORKER
 // ══════════════════════════════════════════════
 async function loadAllData() {
   await Promise.all([loadPipelines(), loadAlerts()]);
@@ -446,25 +448,43 @@ async function loadAllData() {
 }
 
 async function loadPipelines() {
-  const { data, error } = await sb.from('pipelines').select('*').order('status', {ascending: true});
-  if (!error && data) pipelines = data;
+  try {
+    const data = await api('/pipelines');
+    pipelines = data;
+  } catch(e) { console.error('pipelines:', e); }
 }
 
 async function loadAlerts() {
-  const { data, error } = await sb.from('alerts').select('*').eq('is_resolved', false).order('created_at', {ascending: false});
-  if (!error && data) alerts = data;
+  try {
+    const data = await api('/alerts');
+    alerts = data.filter(a => !a.is_resolved);
+  } catch(e) { console.error('alerts:', e); }
+}
+
+// ══════════════════════════════════════════════
+// POLLING (replaces Supabase realtime)
+// ══════════════════════════════════════════════
+function startPolling() {
+  setInterval(async () => {
+    await loadPipelines();
+    renderDashboard();
+    renderAllPipelines();
+    renderSources();
+    updateTicker();
+    drawChart(pipelines);
+  }, 10000); // every 10s
 }
 
 // ══════════════════════════════════════════════
 // RENDER
 // ══════════════════════════════════════════════
 function renderDashboard() {
-  const total   = pipelines.length;
-  const ok      = pipelines.filter(p => p.status === 'ok').length;
-  const failed  = pipelines.filter(p => p.status === 'failed').length;
+  const total     = pipelines.length;
+  const ok        = pipelines.filter(p => p.status === 'ok').length;
+  const failed    = pipelines.filter(p => p.status === 'failed').length;
   const throughput = pipelines.reduce((s, p) => s + (p.throughput || 0), 0);
-  const avgLag  = pipelines.length ? Math.round(pipelines.reduce((s,p)=>s+(p.lag_ms||0),0)/pipelines.length) : 0;
-  const health  = total ? Math.round((ok/total)*100*10)/10 : 0;
+  const avgLag    = total ? Math.round(pipelines.reduce((s,p)=>s+(p.lag_ms||0),0)/total) : 0;
+  const health    = total ? Math.round((ok/total)*100*10)/10 : 0;
 
   document.getElementById('kpiThroughput').innerHTML = fmt_throughput(throughput) + ' <span style="font-size:.75rem;opacity:.6">rec/min</span>';
   document.getElementById('kpiHealth').innerHTML     = health + '<span style="font-size:.85rem">%</span>';
@@ -475,17 +495,14 @@ function renderDashboard() {
   document.getElementById('kpiThroughputSub').textContent = 'across ' + total + ' pipelines';
   document.getElementById('pipelineCount').textContent = ok + ' running';
 
-  // Alert badge
   const badge = document.getElementById('alertBadge');
   if (alerts.length > 0) { badge.textContent = alerts.length; badge.style.display = ''; }
   else { badge.style.display = 'none'; }
 
-  // Pipeline rows (dashboard — top 5)
   const rows = document.getElementById('pipelineRows');
   if (!pipelines.length) { rows.innerHTML = '<div class="empty"><span>📭</span>No pipelines yet. Deploy the agent to start monitoring.</div>'; return; }
   rows.innerHTML = pipelines.slice(0,5).map(p => plRow(p)).join('');
 
-  // Update AI context
   updateAIContext();
 }
 
@@ -505,7 +522,6 @@ function plRow(p, showAll = false) {
   const label = (p.status||'unknown').toUpperCase();
   const rate  = p.throughput > 0 ? fmt_throughput(p.throughput)+'/min' : '—';
   const lag   = p.lag_ms > 0 ? p.lag_ms+'ms' : '—';
-  const cols  = showAll ? '10px 1fr 100px 60px 60px' : '10px 1fr 100px 60px 60px';
   return `<div class="pl-row"><div class="pldot ${dot}"></div><div class="plname">${esc(p.name)}</div><div class="plrate">${rate}</div><div class="pllag">${lag}</div><div class="plbadge ${badge}">${label}</div></div>`;
 }
 
@@ -534,24 +550,22 @@ function renderAlerts() {
 function renderSources() {
   const grid = document.getElementById('sourcesGrid');
   const sub  = document.getElementById('sourcesSubtitle');
-  // Derive sources from pipeline source_types
   const types = {};
   pipelines.forEach(p => { if (!types[p.source_type]) types[p.source_type] = []; types[p.source_type].push(p); });
   if (!Object.keys(types).length) {
     grid.innerHTML = '<div class="empty" style="grid-column:1/-1"><span>📭</span>No sources detected yet.</div>';
     return;
   }
-  const icons = {kafka:'⚡', airflow:'🌊', dbt:'🔷', custom:'🔌', postgres:'🐘', s3:'☁️'};
+  const icons  = {kafka:'⚡', airflow:'🌊', dbt:'🔷', custom:'🔌', postgres:'🐘', s3:'☁️'};
   const labels = {kafka:'Event Stream', airflow:'Orchestration', dbt:'Transformation', custom:'Custom', postgres:'RDBMS', s3:'Object Storage'};
-  const cards = Object.entries(types).map(([type, pls]) => {
+  grid.innerHTML = Object.entries(types).map(([type, pls]) => {
     const total_tp = pls.reduce((s,p)=>s+(p.throughput||0), 0);
-    const allOk = pls.every(p=>p.status==='ok');
-    const anyFail = pls.some(p=>p.status==='failed');
+    const allOk    = pls.every(p=>p.status==='ok');
+    const anyFail  = pls.some(p=>p.status==='failed');
     const statusLabel = anyFail ? 'degraded' : allOk ? 'connected' : 'warning';
     const dotClass = anyFail ? 'r' : allOk ? 'g' : 'y';
     return `<div class="src-card"><div class="src-icon" style="background:var(--gdim)">${icons[type]||'🔌'}</div><div class="src-name">${type.charAt(0).toUpperCase()+type.slice(1)}</div><div class="src-type">${labels[type]||'Custom'} · ${pls.length} pipeline${pls.length>1?'s':''}</div><div class="src-meta"><span class="src-vol">${fmt_throughput(total_tp)} rec/min</span><span class="src-status"><span class="pldot ${dotClass}" style="width:6px;height:6px"></span>${statusLabel}</span></div></div>`;
-  });
-  grid.innerHTML = cards.join('');
+  }).join('');
   sub.textContent = Object.keys(types).length + ' source types connected';
 }
 
@@ -563,31 +577,7 @@ function updateTicker() {
     const rate = p.throughput > 0 ? fmt_throughput(p.throughput) + ' rec/min' : '—';
     return `<span class="ticker-ev"><span class="tdot" style="background:${col}"></span>${esc(p.name)} — ${rate} — ${(p.status||'unknown').toUpperCase()}</span>`;
   });
-  // Duplicate for seamless loop
   inner.innerHTML = [...events, ...events].join('');
-}
-
-// ══════════════════════════════════════════════
-// REALTIME SUBSCRIPTIONS
-// ══════════════════════════════════════════════
-function startRealtime() {
-  sb.channel('platform')
-    .on('postgres_changes', { event: '*', schema: 'public', table: 'pipelines' }, async () => {
-      await loadPipelines();
-      renderDashboard();
-      renderAllPipelines();
-      renderSources();
-      updateTicker();
-      drawChart(pipelines);
-    })
-    .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'alerts' }, async () => {
-      await loadAlerts();
-      renderAlerts();
-      const badge = document.getElementById('alertBadge');
-      badge.textContent = alerts.length;
-      badge.style.display = alerts.length ? '' : 'none';
-    })
-    .subscribe();
 }
 
 // ══════════════════════════════════════════════
@@ -622,7 +612,6 @@ function drawChart(pls) {
     const W = canvas.offsetWidth, H = canvas.offsetHeight;
     if (!W || !H) return;
     ctx.clearRect(0,0,W,H);
-    // Generate simulated data based on real throughput
     const totalTp = pls.reduce ? pls.reduce((s,p)=>s+(p.throughput||0),0) : 2000000;
     const pts = 96;
     const data = Array.from({length:pts},(_,i)=>{
@@ -670,7 +659,7 @@ function updateAIContext() {
   ).join('\n');
   const alertContext = alerts.map(a => `- [${a.severity.toUpperCase()}] ${a.title}: ${a.detail||''}`).join('\n');
   aiSystemPrompt = `You are InferReach AI, an embedded assistant inside the InferReach data engineering platform.
-LIVE PIPELINE DATA (from Supabase, updated in real-time):
+LIVE PIPELINE DATA (from D1, updated every 10s):
 ${pipelineContext || 'No pipelines connected yet.'}
 ACTIVE ALERTS:
 ${alertContext || 'No active alerts.'}
@@ -683,7 +672,7 @@ async function callAI(messages) {
   const res = await fetch('https://api.anthropic.com/v1/messages', {
     method:'POST',
     headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:600,system:aiSystemPrompt,messages})
+    body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:600,system:aiSystemPrompt,messages})
   });
   const d = await res.json();
   return d.content?.[0]?.text || 'Could not get a response.';

@@ -52,7 +52,7 @@ def send(to_email, first_name):
         r = requests.post('https://api.resend.com/emails',
             headers={'Authorization': f'Bearer {RESEND_API_KEY}', 'Content-Type': 'application/json'},
             json={'from': FROM_EMAIL, 'to': [to_email],
-                  'subject': 'quick question about your data stack',
+                  'subject': f'{first_name.strip().capitalize()}, quick question about your data stack',
                   'text': get_body(first_name), 'html': get_html(first_name)},
             timeout=10)
         r.raise_for_status()
@@ -68,7 +68,7 @@ def load_contacts(filepath):
         with open(filepath, newline='', encoding='utf-8-sig') as f:
             reader = csv.DictReader(f)
             for row in reader:
-                # Support Apollo export format, simple format, and AI Ark format
+                # Support both Apollo format and simple format
                 email  = (row.get('Email Business') or row.get('Email') or row.get('email') or '').strip()
                 fname  = (row.get('First Name') or row.get('first_name') or 'there').strip()
                 status = (row.get('Business Status') or row.get('Email Status') or row.get('email_status') or 'verified').strip().lower()
@@ -76,7 +76,7 @@ def load_contacts(filepath):
                 # Skip unavailable emails
                 if not email or '@' not in email:
                     continue
-                if status == 'unavailable':
+                if 'unavailable' in status.lower() or 'invalid' in status.lower():
                     log.info(f'Skipping {email} — unavailable')
                     continue
                 contacts.append({'email': email, 'first_name': fname})
