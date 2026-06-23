@@ -1,0 +1,3 @@
+node_modules
+groq-proxy/node_modules
+**/node_modules
