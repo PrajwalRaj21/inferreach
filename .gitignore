@@ -6,3 +6,4 @@
 !.env.example
 ecommerce-pipeline/gcp-key.json
 ecommerce-pipeline/gcp-key.json
+*.csv
