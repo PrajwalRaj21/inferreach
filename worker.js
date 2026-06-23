@@ -13,6 +13,8 @@ function getToken(request) {
   return auth.replace('Bearer ', '').trim();
 }
 
+const API_PATHS = ['/auth', '/pipelines', '/alerts', '/metrics'];
+
 export default {
   async fetch(request, env) {
     if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers: CORS });
@@ -20,24 +22,22 @@ export default {
     const url = new URL(request.url);
     const path = url.pathname;
 
+    // ── SERVE STATIC ASSETS for non-API routes ──
+    if (!API_PATHS.some(p => path.startsWith(p))) {
+      return env.ASSETS.fetch(request);
+    }
+
     // ── AUTH ──
     if (path === '/auth/login' && request.method === 'POST') {
       const { email, password } = await request.json();
-      const profile = await env.DB.prepare(
-        'SELECT profiles.*, clients.name as client_name, clients.plan FROM profiles JOIN clients ON profiles.client_id = clients.id WHERE profiles.id = (SELECT id FROM profiles WHERE id IN (SELECT id FROM profiles LIMIT 1))'
-      ).first();
 
-      // Simple: check email+password against profiles table
-      // For now use a hardcoded check — replace with hashed password later
-      const user = await env.DB.prepare(
-        'SELECT p.*, c.name as client_name, c.plan, c.id as client_id FROM profiles p JOIN clients c ON p.client_id = c.id WHERE p.id = ?'
-      ).bind(email).first();
-
-      // Minimal auth: match email stored as profile id or use clients table
       const client = await env.DB.prepare('SELECT * FROM clients WHERE email = ?').bind(email).first();
       if (!client) return json({ error: 'Invalid credentials' }, 401);
 
-      // Token = base64(email:timestamp) — simple, replace with JWT if needed
+      if (client.password_hash && client.password_hash !== password) {
+        return json({ error: 'Invalid credentials' }, 401);
+      }
+
       const token = btoa(`${email}:${Date.now()}`);
       return json({ token, user: { email, full_name: client.name }, client });
     }
