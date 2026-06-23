@@ -1,5 +1,5 @@
 {
-  "name": "inferreach-platform",
+  "name": "inferreach",
   "compatibility_date": "2026-05-25",
   "main": "api.js",
   "d1_databases": [
