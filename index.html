@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -130,35 +131,18 @@ body { background: var(--bg); color: var(--text-primary); font-family: var(--fon
 .section-sub { font-size: 1rem; color: var(--text-secondary); max-width: 560px; margin: 0 auto; }
 
 .services { max-width: var(--max-w); margin: 0 auto; padding: 120px 32px; }
-.pricing { max-width: var(--max-w); margin: 0 auto; padding: 120px 32px; }
 
-.pricing-sub { text-align: center; color: var(--text-secondary); font-size: .9rem; max-width:560px; margin: 0 auto 52px; }
-.pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 1000px; margin: 0 auto; }
-.pricing-card { background: var(--bg-1); border: 1px solid var(--border-dim); border-radius: 8px; padding: 32px 28px; position: relative; transition: border-color .2s, transform .2s; }
-.pricing-card:hover { border-color: var(--border); transform: translateY(-2px); }
-.pricing-card.featured { border-color: var(--green); background: rgba(16,185,129,.03); }
-.pricing-tag { font-family: var(--font-mono); font-size: .66rem; color: var(--green); text-transform: uppercase; letter-spacing: .12em; margin-bottom: 10px; }
-.pricing-name { font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; margin-bottom: 8px; color: var(--text-primary); }
-.pricing-desc { font-size: .82rem; color: var(--text-secondary); margin-bottom: 24px; line-height: 1.6; }
-.pricing-price { display: flex; align-items: baseline; gap: 4px; margin-bottom: 4px; }
-.pricing-amount { font-family: var(--font-mono); font-size: 2.2rem; font-weight: 700; color: var(--text-primary); }
-.pricing-period { font-family: var(--font-mono); font-size: .78rem; color: var(--text-secondary); }
-.pricing-note { font-family: var(--font-mono); font-size: .7rem; color: var(--text-dim); margin-bottom: 24px; }
-.pricing-features { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 32px; }
-.pricing-features li { font-size: .83rem; color: var(--text-secondary); display: flex; align-items: flex-start; gap: 10px; line-height: 1.5; }
-.pricing-features li::before { content: '→'; color: var(--green); font-family: var(--font-mono); font-size: .75rem; flex-shrink: 0; margin-top: 2px; }
-.pricing-cta { display: block; width: 100%; padding: 12px; text-align: center; border-radius: 5px; font-family: var(--font-mono); font-size: .82rem; font-weight: 600; cursor: pointer; transition: all .2s; text-decoration: none; }
-.pricing-cta.primary { background: var(--green); color: #000; }
-.pricing-cta.primary:hover { background: #00ffaa; box-shadow: 0 0 20px var(--green-glow); }
-.pricing-cta.ghost { background: transparent; border: 1px solid var(--border-dim); color: var(--text-secondary); }
-.pricing-cta.ghost:hover { border-color: var(--green); color: var(--green); }
-.pricing-badge { position: absolute; top: -13px; left: 50%; transform: translateX(-50%); background: var(--green); color: #000; font-family: var(--font-mono); font-size: .65rem; font-weight: 700; padding: 3px 14px; border-radius: 100px; white-space: nowrap; letter-spacing: .04em; }
-.pricing-tools { padding: 48px 0 0; max-width: 1000px; margin: 0 auto; }
-.pricing-tools-title { font-family: var(--font-mono); font-size: .72rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: .08em; text-align: center; margin-bottom: 20px; }
-.tools-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
-.btn-product { display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; border: 1px solid var(--border-dim); border-radius: 5px; font-family: var(--font-mono); font-size: .72rem; color: var(--text-secondary); transition: all .2s; text-decoration: none; }
-.btn-product:hover { border-color: var(--green); color: var(--green); }
-@media (max-width: 900px) { .pricing-grid { grid-template-columns: 1fr; max-width: 420px; } }
+/* AUDIT CTA SECTION */
+.audit-cta { background: var(--bg-1); border-top: 1px solid var(--border-dim); border-bottom: 1px solid var(--border-dim); padding: 100px 32px; }
+.audit-cta-inner { max-width: 680px; margin: 0 auto; text-align: center; }
+.audit-cta-tag { font-family: var(--font-mono); font-size: 0.75rem; color: var(--green); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 20px; }
+.audit-cta-title { font-family: var(--font-display); font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 20px; line-height: 1.15; }
+.audit-cta-sub { font-size: 1rem; color: var(--text-secondary); margin-bottom: 40px; line-height: 1.7; max-width: 520px; margin-left: auto; margin-right: auto; }
+.audit-cta-sub strong { color: var(--text-primary); font-weight: 600; }
+.audit-features { display: flex; justify-content: center; gap: 32px; flex-wrap: wrap; margin-bottom: 40px; }
+.audit-feature { display: flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-secondary); }
+.audit-feature::before { content: '→'; color: var(--green); }
+.audit-note { font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-dim); margin-top: 16px; }
 
 .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border-dim); border: 1px solid var(--border-dim); border-radius: 8px; overflow: hidden; }
 .service-card { background: var(--bg-1); padding: 36px 32px; transition: background 0.2s; position: relative; }
@@ -171,9 +155,6 @@ body { background: var(--bg); color: var(--text-primary); font-family: var(--fon
 .card-specs { list-style: none; margin-bottom: 24px; }
 .card-specs li { display: flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-dim); padding: 4px 0; border-bottom: 1px solid var(--border-dim); }
 .card-specs li span::before { content: '→ '; color: var(--green); opacity: 0.6; }
-.card-metric { margin-top: auto; display: flex; align-items: baseline; gap: 8px; }
-.metric-val { font-family: var(--font-mono); font-size: 1.4rem; font-weight: 700; color: var(--green); }
-.metric-label { font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-dim); }
 
 .platform { background: var(--bg-1); padding: 120px 0; border-top: 1px solid var(--border-dim); border-bottom: 1px solid var(--border-dim); }
 .platform-inner { max-width: var(--max-w); margin: 0 auto; padding: 0 32px; }
@@ -310,6 +291,8 @@ body { background: var(--bg); color: var(--text-primary); font-family: var(--fon
   .section-title { font-size: 1.8rem; }
   .btn-large { padding: 12px 20px; font-size: 0.85rem; }
   .dashboard-mockup { overflow-x: auto; }
+  .audit-cta { padding: 64px 16px; }
+  .audit-features { flex-direction: column; align-items: center; gap: 14px; }
 }
 
 @media (max-width: 420px) {
@@ -348,6 +331,7 @@ body.light .stack-chip { background: #f1f5f9; }
 body.light .stack-layer { background: #f8fafc; }
 body.light .process { background: #f1f5f9; }
 body.light .footer { background: #f1f5f9; }
+body.light .audit-cta { background: #f1f5f9; }
 
 .theme-toggle { width: 36px; height: 36px; border-radius: 8px; border: 1px solid var(--border-dim); background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--text-secondary); transition: all 0.2s; flex-shrink: 0; }
 .theme-toggle:hover { border-color: var(--green); color: var(--green); }
@@ -379,9 +363,10 @@ body.light .theme-toggle .icon-sun { display: block; }
       <span class="logo-bracket">[</span><span class="logo-text">inferreach</span><span class="logo-bracket">]</span><span class="logo-dot blink">_</span>
     </a>
     <ul class="nav-links">
-      <li><a href="#pipelines">Pipelines</a></li>
+      <li><a href="#pipelines">Services</a></li>
       <li><a href="#platform">Platform</a></li>
       <li><a href="#stack">Stack</a></li>
+      <li><a href="#audit">Free Audit</a></li>
     </ul>
     <div class="nav-cta">
       <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
@@ -389,7 +374,7 @@ body.light .theme-toggle .icon-sun { display: block; }
         <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="1.5"/><path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
       </button>
       <span class="status-indicator"></span>
-      <a href="https://cal.com/inferreach/30min" target="_blank" rel="noopener" class="btn-primary">Start Pipeline</a>
+      <a href="https://cal.com/inferreach/30min" target="_blank" rel="noopener" class="btn-primary">Book Free Audit</a>
     </div>
   </div>
 </nav>
@@ -418,7 +403,7 @@ body.light .theme-toggle .icon-sun { display: block; }
     </p>
     <div class="hero-actions">
       <a href="https://cal.com/inferreach/30min" target="_blank" rel="noopener" class="btn-primary btn-large">
-        <span>Deploy Your Pipeline</span>
+        <span>Book a Free Data Audit</span>
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
       <a href="#platform" class="btn-ghost btn-large"><span>Explore Platform</span></a>
@@ -449,8 +434,7 @@ body.light .theme-toggle .icon-sun { display: block; }
       <div class="card-tag">ingestion</div>
       <h3>Real-Time Data Ingestion</h3>
       <p>Kafka-powered event streaming, CDC pipelines, webhook collectors, and batch ingestion at any scale. Sub-second latency from source to sink.</p>
-      <ul class="card-specs"><li><span>Kafka / Kinesis / Pub-Sub</span></li><li><span>CDC via Debezium</span></li><li><span>Multi-source fan-in</span></li><li><span>&lt; 50ms end-to-end</span></li></ul>
-      <div class="card-metric"><span class="metric-val">~12M</span><span class="metric-label">events/min peak</span></div>
+      <ul class="card-specs"><li><span>Kafka / Kinesis / Pub-Sub</span></li><li><span>CDC via Debezium</span></li><li><span>Multi-source fan-in</span></li><li><span>Low-latency end-to-end</span></li></ul>
     </div>
     <div class="service-card">
       <div class="card-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="4" y="4" width="10" height="10" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="18" y="4" width="10" height="10" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="4" y="18" width="10" height="10" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="18" y="18" width="10" height="10" rx="1" stroke="currentColor" stroke-width="1.5"/><path d="M9 14v4M23 14v4M14 9h4M14 23h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
@@ -458,7 +442,6 @@ body.light .theme-toggle .icon-sun { display: block; }
       <h3>Data Transformation Layers</h3>
       <p>dbt-powered modular SQL transformations, Spark jobs for heavy ETL, and streaming transforms with Flink. Clean data contracts every step.</p>
       <ul class="card-specs"><li><span>dbt Core + Cloud</span></li><li><span>PySpark / Scala Spark</span></li><li><span>Apache Flink</span></li><li><span>Data lineage tracking</span></li></ul>
-      <div class="card-metric"><span class="metric-val">99.4%</span><span class="metric-label">transform success rate</span></div>
     </div>
     <div class="service-card">
       <div class="card-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><ellipse cx="16" cy="9" rx="10" ry="4" stroke="currentColor" stroke-width="1.5"/><path d="M6 9v7c0 2.21 4.48 4 10 4s10-1.79 10-4V9" stroke="currentColor" stroke-width="1.5"/><path d="M6 16v7c0 2.21 4.48 4 10 4s10-1.79 10-4v-7" stroke="currentColor" stroke-width="1.5"/></svg></div>
@@ -466,7 +449,6 @@ body.light .theme-toggle .icon-sun { display: block; }
       <h3>Cloud Data Warehousing</h3>
       <p>Snowflake, BigQuery, and Redshift architecture, optimization, and cost engineering. We turn runaway compute bills into efficient, predictable spend.</p>
       <ul class="card-specs"><li><span>Snowflake / BigQuery / Redshift</span></li><li><span>Lakehouse on Delta / Iceberg</span></li><li><span>Query optimization</span></li><li><span>Cost governance</span></li></ul>
-      <div class="card-metric"><span class="metric-val">60%</span><span class="metric-label">avg compute reduction</span></div>
     </div>
     <div class="service-card">
       <div class="card-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="10" stroke="currentColor" stroke-width="1.5"/><path d="M16 8v8l5 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
@@ -474,7 +456,6 @@ body.light .theme-toggle .icon-sun { display: block; }
       <h3>Pipeline Orchestration</h3>
       <p>Airflow DAGs that actually work. Prefect flows, Dagster assets. We build orchestration that handles failures gracefully and alerts that make sense.</p>
       <ul class="card-specs"><li><span>Apache Airflow 2.x</span></li><li><span>Prefect / Dagster</span></li><li><span>SLA monitoring</span></li><li><span>Smart retry strategies</span></li></ul>
-      <div class="card-metric"><span class="metric-val">1,000+</span><span class="metric-label">DAGs in production</span></div>
     </div>
     <div class="service-card">
       <div class="card-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M4 24l8-8 6 6 4-8 6 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
@@ -482,7 +463,6 @@ body.light .theme-toggle .icon-sun { display: block; }
       <h3>Data Quality & Observability</h3>
       <p>Great Expectations checks, Monte Carlo integration, custom anomaly detection. Know when your data breaks before your stakeholders do.</p>
       <ul class="card-specs"><li><span>Great Expectations</span></li><li><span>Monte Carlo / Soda</span></li><li><span>Schema evolution alerts</span></li><li><span>Freshness SLAs</span></li></ul>
-      <div class="card-metric"><span class="metric-val">&lt; 2min</span><span class="metric-label">anomaly detection</span></div>
     </div>
     <div class="service-card">
       <div class="card-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M8 28V16M14 28V10M20 28V4M26 28V13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
@@ -490,7 +470,6 @@ body.light .theme-toggle .icon-sun { display: block; }
       <h3>ML & Feature Pipelines</h3>
       <p>Feature stores, training data pipelines, model serving infra. Bridge the gap between data engineering and machine learning.</p>
       <ul class="card-specs"><li><span>Feast / Tecton feature stores</span></li><li><span>MLflow / Kubeflow</span></li><li><span>Point-in-time correct joins</span></li><li><span>Batch + streaming features</span></li></ul>
-      <div class="card-metric"><span class="metric-val">500+</span><span class="metric-label">features in production</span></div>
     </div>
   </div>
 </section>
@@ -579,82 +558,28 @@ body.light .theme-toggle .icon-sun { display: block; }
   </div>
 </section>
 
-
-<!-- PRICING -->
-<section class="pricing" id="pricing">
-  <div style="max-width:1000px;margin:0 auto;padding:0 32px">
-    <div class="section-header">
-      <div class="section-tag">// 04.PRICING</div>
-      <h2 class="section-title">Simple, Transparent Pricing</h2>
-      <p class="pricing-sub">No surprise bills. No hidden fees. Cancel anytime.</p>
+<!-- AUDIT CTA — replaces pricing -->
+<section class="audit-cta" id="audit">
+  <div class="audit-cta-inner">
+    <div class="audit-cta-tag">// 05.GET STARTED</div>
+    <h2 class="audit-cta-title">Not sure where your data stack stands?<br><span style="color:var(--green)">Let's find out together.</span></h2>
+    <p class="audit-cta-sub">
+      Book a <strong>free 20-minute data audit</strong> and we'll walk through your current setup, identify what's costing you time or money, and outline what a clean, scalable stack would look like for your team. No sales pitch — just a technical conversation.
+    </p>
+    <div class="audit-features">
+      <span class="audit-feature">Review your current stack</span>
+      <span class="audit-feature">Identify pipeline bottlenecks</span>
+      <span class="audit-feature">Get a concrete action plan</span>
     </div>
-    <div class="pricing-grid">
-      <div class="pricing-card">
-        <div class="pricing-tag">Starter</div>
-        <div class="pricing-name">Pipeline Starter</div>
-        <div class="pricing-desc">For early-stage startups that need reliable data pipelines up and running fast.</div>
-        <div class="pricing-price"><span class="pricing-amount">$499</span><span class="pricing-period">/month</span></div>
-        <div class="pricing-note">One-time setup fee: $299</div>
-        <ul class="pricing-features">
-          <li>Up to 5 managed pipelines</li>
-          <li>Kafka or Airflow orchestration</li>
-          <li>Basic dbt transformation layer</li>
-          <li>BigQuery or Snowflake warehouse setup</li>
-          <li>Email alerts on failures</li>
-          <li>Platform dashboard access</li>
-          <li>Monthly health report</li>
-        </ul>
-        <a href="https://cal.com/inferreach/30min" target="_blank" rel="noopener" class="pricing-cta ghost">Get Started</a>
-      </div>
-      <div class="pricing-card featured">
-        <div class="pricing-badge">Most Popular</div>
-        <div class="pricing-tag">Growth</div>
-        <div class="pricing-name">Data Growth</div>
-        <div class="pricing-desc">For growing companies that need a full data stack and real observability.</div>
-        <div class="pricing-price"><span class="pricing-amount">$1,200</span><span class="pricing-period">/month</span></div>
-        <div class="pricing-note">One-time setup fee: $599</div>
-        <ul class="pricing-features">
-          <li>Up to 20 managed pipelines</li>
-          <li>Full Kafka + Airflow + dbt stack</li>
-          <li>Schema drift detection and alerts</li>
-          <li>Real-time throughput monitoring</li>
-          <li>Dedicated platform dashboard</li>
-          <li>Slack and email alerting</li>
-          <li>Weekly performance reviews</li>
-          <li>Priority support</li>
-        </ul>
-        <a href="https://cal.com/inferreach/30min" target="_blank" rel="noopener" class="pricing-cta primary">Get Started</a>
-      </div>
-      <div class="pricing-card">
-        <div class="pricing-tag">Scale</div>
-        <div class="pricing-name">Full Scale</div>
-        <div class="pricing-desc">For companies that need a dedicated data engineering partner with full ownership.</div>
-        <div class="pricing-price"><span class="pricing-amount">$2,500</span><span class="pricing-period">/month</span></div>
-        <div class="pricing-note">Custom setup, scoped per project</div>
-        <ul class="pricing-features">
-          <li>Unlimited pipelines</li>
-          <li>End-to-end data architecture design</li>
-          <li>ML feature pipelines and infra</li>
-          <li>Multi-cloud support</li>
-          <li>Custom SLAs and SLOs</li>
-          <li>Dedicated Slack channel</li>
-          <li>24/7 critical alert response</li>
-          <li>Quarterly architecture reviews</li>
-        </ul>
-        <a href="https://cal.com/inferreach/30min" target="_blank" rel="noopener" class="pricing-cta ghost">Talk to Us</a>
-      </div>
-    </div>
-    <div class="pricing-tools" style="margin-top:48px">
-      <div class="pricing-tools-title">Also available free</div>
-      <div class="tools-row">
-        <a href="/outreach" class="btn-product">AI Outreach Generator <span style="font-size:.6rem;opacity:.6;margin-left:4px">FREE</span></a>
-        <a href="/demo-platform" class="btn-product">Pipeline Demo Platform <span style="font-size:.6rem;opacity:.6;margin-left:4px">PREVIEW</span></a>
-      </div>
-    </div>
+    <a href="https://cal.com/inferreach/30min" target="_blank" rel="noopener" class="btn-primary btn-large">
+      <span>Book Your Free Audit</span>
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <p class="audit-note">Engagements are scoped based on your stack and goals — we'll figure out what makes sense on the call.</p>
   </div>
 </section>
 
-  <footer class="footer">
+<footer class="footer">
   <div class="footer-inner">
     <div class="footer-brand">
       <a href="#" class="nav-logo"><span class="logo-bracket">[</span><span class="logo-text">inferreach</span><span class="logo-bracket">]</span><span class="logo-dot blink">_</span></a>
@@ -669,12 +594,12 @@ body.light .theme-toggle .icon-sun { display: block; }
       </div>
       <div class="footer-col">
         <span class="fc-head">Navigate</span>
-        <a href="#pipelines">What We Build</a><a href="#platform">Platform</a><a href="#stack">Tech Stack</a><a href="#process">Process</a>
+        <a href="#pipelines">What We Build</a><a href="#platform">Platform</a><a href="#stack">Tech Stack</a><a href="#process">Process</a><a href="#audit">Free Audit</a>
       </div>
     </div>
   </div>
   <div class="footer-bottom">
-    <span class="footer-copy">© 2025 InferReach. All rights reserved.</span>
+    <span class="footer-copy">© 2026 InferReach. All rights reserved.</span>
     <span class="terminal-line">inferreach@prod:~$ status — all systems operational</span>
   </div>
 </footer>
