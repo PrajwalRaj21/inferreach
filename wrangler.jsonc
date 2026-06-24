@@ -1,12 +1,8 @@
 {
-  "name": "inferreach-platform",
+  "name": "inferreach",
   "compatibility_date": "2026-05-25",
-  "main": "api.js",
-  "d1_databases": [
-    {
-      "binding": "DB",
-      "database_name": "inferreach-db",
-      "database_id": "5012cdc8-8663-4420-a514-8ffdafd5bdfe"
-    }
-  ]
+  "assets": {
+    "directory": ".",
+    "exclude": ["node_modules", "agent", "ecommerce-pipeline", "groq-proxy", "outreach-engine", ".wrangler"]
+  }
 }
